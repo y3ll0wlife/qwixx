@@ -1,0 +1,127 @@
+#redRow{
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    
+}
+#red2{
+    background-color: #FFBFC2;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red3{
+    background-color: #FFBFC2;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red4{
+    background-color: #FFBFC2;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red5{
+    background-color: #FFBFC2;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red6{
+    background-color: #FFBFC2;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red7{
+    background-color: #FFBFC2;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red8{
+    background-color: #FFBFC2;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red9{
+    background-color: #FFBFC2;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red10{
+    background-color: #FFBFC2;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red11{
+    background-color: #FFBFC2;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red12{
+    background-color: #FFBFC2;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#redLock{
+    background-color: #FFBFC2;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+
+#red2:hover{
+    background-color: red;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red3:hover{
+    background-color: red;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red4:hover{
+    background-color: red;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red5:hover{
+    background-color: red;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red6:hover{
+    background-color: red;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red7:hover{
+    background-color: red;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red8:hover{
+    background-color: red;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red9:hover{
+    background-color: red;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red10:hover{
+    background-color: red;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red11:hover{
+    background-color: red;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#red12:hover{
+    background-color: red;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+#redLock:hover{
+    background-color: red;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}

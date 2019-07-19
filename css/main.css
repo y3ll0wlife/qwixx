@@ -1,0 +1,14 @@
+*{
+    background-color: #E2E1E6;
+}
+
+#score{
+    text-align: center;
+}
+
+#reset{
+    margin-left: 47%;
+    font-size: 35px;
+    padding: 10px 10px 10px 10px;
+    border: 5px solid black;
+}

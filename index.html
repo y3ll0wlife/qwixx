@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/main.js"></script>
+
+    <link rel="stylesheet" href="/css/red.css">
+    <link rel="stylesheet" href="/css/yellow.css">
+    <link rel="stylesheet" href="/css/green.css">
+    <link rel="stylesheet" href="/css/blue.css">
+
+    <link rel="stylesheet" href="/css/penalties.css">
+
+
+    <title>Qwixx board</title>
+</head>
+<body>
+    <div id="redRow">
+        <div id="red2" onclick="keepRed2();score()">2</div>
+        <div id="red3" onclick="keepRed3();score()">3</div>
+        <div id="red4" onclick="keepRed4();score()">4</div>
+        <div id="red5" onclick="keepRed5();score()">5</div>
+        <div id="red6" onclick="keepRed6();score()">6</div>
+        <div id="red7" onclick="keepRed7();score()">7</div>
+        <div id="red8" onclick="keepRed8();score()">8</div>
+        <div id="red9" onclick="keepRed9();score()">9</div>
+        <div id="red10" onclick="keepRed10();score()">10</div>
+        <div id="red11" onclick="keepRed11();score()">11</div>
+        <div id="red12" onclick="keepRed12();score()">12</div>
+
+        <div id="redLock" onclick="keepRedLock();score()">LOCK</div>
+    </div>
+
+    <div id="yellowRow">
+        <div id="yellow2" onclick="keepyellow2();score()">2</div>
+        <div id="yellow3" onclick="keepyellow3();score()">3</div>
+        <div id="yellow4" onclick="keepyellow4();score()">4</div>
+        <div id="yellow5" onclick="keepyellow5();score()">5</div>
+        <div id="yellow6" onclick="keepyellow6();score()">6</div>
+        <div id="yellow7" onclick="keepyellow7();score()">7</div>
+        <div id="yellow8" onclick="keepyellow8();score()">8</div>
+        <div id="yellow9" onclick="keepyellow9();score()">9</div>
+        <div id="yellow10" onclick="keepyellow10();score()">10</div>
+        <div id="yellow11" onclick="keepyellow11();score()">11</div>
+        <div id="yellow12" onclick="keepyellow12();score()">12</div>
+
+        <div id="yellowLock" onclick="keepyellowLock();score()">LOCK</div>
+    </div>
+
+    <div id="greenRow">
+        <div id="green2" onclick="keepgreen2();score()">2</div>
+        <div id="green3" onclick="keepgreen3();score()">3</div>
+        <div id="green4" onclick="keepgreen4();score()">4</div>
+        <div id="green5" onclick="keepgreen5();score()">5</div>
+        <div id="green6" onclick="keepgreen6();score()">6</div>
+        <div id="green7" onclick="keepgreen7();score()">7</div>
+        <div id="green8" onclick="keepgreen8();score()">8</div>
+        <div id="green9" onclick="keepgreen9();score()">9</div>
+        <div id="green10" onclick="keepgreen10();score()">10</div>
+        <div id="green11" onclick="keepgreen11();score()">11</div>
+        <div id="green12" onclick="keepgreen12();score()">12</div>
+
+        <div id="greenLock" onclick="keepgreenLock();score()">LOCK</div>
+    </div>
+
+    <div id="blueRow">
+        <div id="blue2" onclick="keepblue2();score()">2</div>
+        <div id="blue3" onclick="keepblue3();score()">3</div>
+        <div id="blue4" onclick="keepblue4();score()">4</div>
+        <div id="blue5" onclick="keepblue5();score()">5</div>
+        <div id="blue6" onclick="keepblue6();score()">6</div>
+        <div id="blue7" onclick="keepblue7();score()">7</div>
+        <div id="blue8" onclick="keepblue8();score()">8</div>
+        <div id="blue9" onclick="keepblue9();score()">9</div>
+        <div id="blue10" onclick="keepblue10();score()">10</div>
+        <div id="blue11" onclick="keepblue11();score()">11</div>
+        <div id="blue12" onclick="keepblue12();score()">12</div>
+
+        <div id="blueLock" onclick="keepblueLock();score()">LOCK</div>
+    </div>
+
+    <div id="penaltiRow">
+        <div id="pen1" onclick="penaltie1();score()">X</div>
+        <div id="pen2" onclick="penaltie2();score()">X</div>
+        <div id="pen3" onclick="penaltie3();score()">X</div>
+        <div id="pen4" onclick="penaltie4();score()">X</div>
+
+    </div>
+
+    <h1 id="score">Are you starting today?</h1>
+    <button id="reset" onclick="reset()">Reset</button>
+</body>
+</html>
