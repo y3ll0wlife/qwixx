@@ -3,6 +3,7 @@
 </p>
 
 <h3 align="center">A scorecard for the board game Qwixx</h6>
+<h3 align="center">Website: https://y3ll0wlife.github.io/Qwixx/</h6>
 
 ## Author
 👤 **y3ll0w**
