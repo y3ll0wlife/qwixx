@@ -1,126 +1,36 @@
-#yellowRow{
-    display: flex;
-    justify-content: center;
-    font-size: 40px;
+@media (min-width:320px) { /* Phones */
+    #yellowRow{
+        display: flex;
+        justify-content: center;
+        font-size: 30px;
+        
+    }
+    
+    #yellow2, #yellow3, #yellow4, #yellow5, #yellow6, #yellow7, #yellow8, #yellow9, #yellow10, #yellow11, #yellow12, #yellowLock{
+        background-color: #FEECC8;
+        margin-right: 10px;
+        padding: 5px 10px 5px 10px;
+    }
     
 }
-#yellow2{
-    background-color: #FEECC8;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow3{
-    background-color: #FEECC8;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow4{
-    background-color: #FEECC8;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow5{
-    background-color: #FEECC8;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow6{
-    background-color: #FEECC8;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow7{
-    background-color: #FEECC8;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow8{
-    background-color: #FEECC8;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow9{
-    background-color: #FEECC8;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow10{
-    background-color: #FEECC8;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow11{
-    background-color: #FEECC8;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow12{
-    background-color: #FEECC8;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellowLock{
-    background-color: #FEECC8;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
+@media (min-width:1000px) { /* Desktop */
+    #yellowRow{
+        display: flex;
+        justify-content: center;
+        font-size: 40px;
+        
+    }
+    
+    #yellow2, #yellow3, #yellow4, #yellow5, #yellow6, #yellow7, #yellow8, #yellow9, #yellow10, #yellow11, #yellow12, #yellowLock{
+        background-color: #FEECC8;
+        margin-right: 10px;
+        padding: 10px 20px 10px 20px;
+    }
 }
 
-#yellow2:hover{
-    background-color: yellow;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow3:hover{
-    background-color: yellow;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow4:hover{
-    background-color: yellow;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow5:hover{
-    background-color: yellow;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow6:hover{
-    background-color: yellow;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow7:hover{
-    background-color: yellow;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow8:hover{
-    background-color: yellow;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow9:hover{
-    background-color: yellow;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow10:hover{
-    background-color: yellow;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow11:hover{
-    background-color: yellow;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellow12:hover{
-    background-color: yellow;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#yellowLock:hover{
+
+
+#yellow2:hover, #yellow3:hover, #yellow4:hover, #yellow5:hover, #yellow6:hover, #yellow7:hover, #yellow8:hover, #yellow9:hover, #yellow10:hover, #yellow11:hover, #yellow12:hover, #yellowLock:hover{
     background-color: yellow;
     margin-right: 10px;
     padding: 10px 20px 10px 20px;

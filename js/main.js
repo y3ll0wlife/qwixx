@@ -113,7 +113,6 @@ function penaltie1(){
     total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
     document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
 }
-
 function penaltie2(){
     if (document.getElementById("pen2").style.background == "red none repeat scroll 0% 0%") {
         document.getElementById("pen2").style.background = "#E2E1E6";

@@ -4,21 +4,7 @@
     font-size: 30px;
 }
 
-#pen1{
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-    background-color: #E2E1E6;
-}
-
-#pen2{
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#pen3{
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#pen4{
+#pen1, #pen2, #pen3, #pen4{
     margin-right: 10px;
     padding: 10px 20px 10px 20px;
 }

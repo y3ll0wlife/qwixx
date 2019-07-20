@@ -1,126 +1,36 @@
-#greenRow{
-    display: flex;
-    justify-content: center;
-    font-size: 40px;
+@media (min-width:320px) { /* Phones */
+    #greenRow{
+        display: flex;
+        justify-content: center;
+        font-size: 30px;
+        
+    }
+    
+    #green2, #green3, #green4, #green5, #green6, #green7, #green8, #green9, #green10, #green11, #green12, #greenLock{
+        background-color: #C3EBD0;
+        margin-right: 10px;
+        padding: 5px 10px 5px 10px;
+    }
     
 }
-#green2{
-    background-color: #C3EBD0;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green3{
-    background-color: #C3EBD0;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green4{
-    background-color: #C3EBD0;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green5{
-    background-color: #C3EBD0;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green6{
-    background-color: #C3EBD0;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green7{
-    background-color: #C3EBD0;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green8{
-    background-color: #C3EBD0;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green9{
-    background-color: #C3EBD0;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green10{
-    background-color: #C3EBD0;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green11{
-    background-color: #C3EBD0;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green12{
-    background-color: #C3EBD0;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#greenLock{
-    background-color: #C3EBD0;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
+@media (min-width:1000px) { /* Desktop */
+    #greenRow{
+        display: flex;
+        justify-content: center;
+        font-size: 40px;
+        
+    }
+    
+    #green2, #green3, #green4, #green5, #green6, #green7, #green8, #green9, #green10, #green11, #green12, #greenLock{
+        background-color: #C3EBD0;
+        margin-right: 10px;
+        padding: 10px 20px 10px 20px;
+    }
 }
 
-#green2:hover{
-    background-color: green;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green3:hover{
-    background-color: green;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green4:hover{
-    background-color: green;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green5:hover{
-    background-color: green;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green6:hover{
-    background-color: green;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green7:hover{
-    background-color: green;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green8:hover{
-    background-color: green;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green9:hover{
-    background-color: green;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green10:hover{
-    background-color: green;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green11:hover{
-    background-color: green;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#green12:hover{
-    background-color: green;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#greenLock:hover{
+
+
+#green2:hover, #green3:hover, #green4:hover, #green5:hover, #green6:hover, #green7:hover, #green8:hover, #green9:hover, #green10:hover, #green11:hover, #green12:hover, #greenLock:hover{
     background-color: green;
     margin-right: 10px;
     padding: 10px 20px 10px 20px;

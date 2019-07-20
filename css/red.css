@@ -1,126 +1,36 @@
-#redRow{
-    display: flex;
-    justify-content: center;
-    font-size: 40px;
+@media (min-width:320px) { /* Phones */
+    #redRow{
+        display: flex;
+        justify-content: center;
+        font-size: 30px;
+        
+    }
+    
+    #red2, #red3, #red4, #red5, #red6, #red7, #red8, #red9, #red10, #red11, #red12, #redLock{
+        background-color: #FFBFC2;
+        margin-right: 10px;
+        padding: 5px 10px 5px 10px;
+    }
     
 }
-#red2{
-    background-color: #FFBFC2;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red3{
-    background-color: #FFBFC2;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red4{
-    background-color: #FFBFC2;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red5{
-    background-color: #FFBFC2;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red6{
-    background-color: #FFBFC2;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red7{
-    background-color: #FFBFC2;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red8{
-    background-color: #FFBFC2;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red9{
-    background-color: #FFBFC2;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red10{
-    background-color: #FFBFC2;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red11{
-    background-color: #FFBFC2;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red12{
-    background-color: #FFBFC2;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#redLock{
-    background-color: #FFBFC2;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
+@media (min-width:1000px) { /* Desktop */
+    #redRow{
+        display: flex;
+        justify-content: center;
+        font-size: 40px;
+        
+    }
+    
+    #red2, #red3, #red4, #red5, #red6, #red7, #red8, #red9, #red10, #red11, #red12, #redLock{
+        background-color: #FFBFC2;
+        margin-right: 10px;
+        padding: 10px 20px 10px 20px;
+    }
 }
 
-#red2:hover{
-    background-color: red;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red3:hover{
-    background-color: red;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red4:hover{
-    background-color: red;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red5:hover{
-    background-color: red;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red6:hover{
-    background-color: red;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red7:hover{
-    background-color: red;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red8:hover{
-    background-color: red;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red9:hover{
-    background-color: red;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red10:hover{
-    background-color: red;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red11:hover{
-    background-color: red;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#red12:hover{
-    background-color: red;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
-#redLock:hover{
+
+
+#red2:hover, #red3:hover, #red4:hover, #red5:hover, #red6:hover, #red7:hover, #red8:hover, #red9:hover, #red10:hover, #red11:hover, #red12:hover, #redLock:hover{
     background-color: red;
     margin-right: 10px;
     padding: 10px 20px 10px 20px;
