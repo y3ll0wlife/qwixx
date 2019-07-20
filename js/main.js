@@ -346,7 +346,7 @@ function keepRed4() {
 function keepRed5() {
     if (red5Active == true) {
         document.getElementById("red5").style.background = "#FFBFC2";
-        yellow4Active = false
+        red5Active = false
         amtOfRed--;
     } else {
         document.getElementById("red5").style.background = "red";
