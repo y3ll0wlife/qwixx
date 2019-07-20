@@ -61,6 +61,11 @@ var blue11Active = false
 var blue12Active = false
 var blueLockActive = false
 
+var pen1Active = false
+var pen2Active = false
+var pen3Active = false
+var pen4Active = false
+
 var total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
 
 // Reset
@@ -142,57 +147,62 @@ function reset() {
     amtOfgreen = 0;
     amtOfblue = 0;
 
-     red2Active = false
- red3Active = false
- red4Active = false
- red5Active = false
- red6Active = false
- red7Active = false
- red8Active = false
- red9Active = false
- red10Active = false
- red11Active = false
- red12Active = false
- redLockActive = false
+    red2Active = false
+    red3Active = false
+    red4Active = false
+    red5Active = false
+    red6Active = false
+    red7Active = false
+    red8Active = false
+    red9Active = false
+    red10Active = false
+    red11Active = false
+    red12Active = false
+    redLockActive = false
 
- yellow2Active = false
- yellow3Active = false
- yellow4Active = false
- yellow5Active = false
- yellow6Active = false
- yellow7Active = false
- yellow8Active = false
- yellow9Active = false
- yellow10Active = false
- yellow11Active = false
- yellow12Active = false
- yellowLockActive = false
+    yellow2Active = false
+    yellow3Active = false
+    yellow4Active = false
+    yellow5Active = false
+    yellow6Active = false
+    yellow7Active = false
+    yellow8Active = false
+    yellow9Active = false
+    yellow10Active = false
+    yellow11Active = false
+    yellow12Active = false
+    yellowLockActive = false
 
- green2Active = false
- green3Active = false
- green4Active = false
- green5Active = false
- green6Active = false
- green7Active = false
- green8Active = false
- green9Active = false
- green10Active = false
- green11Active = false
- green12Active = false
- greenLockActive = false
+    green2Active = false
+    green3Active = false
+    green4Active = false
+    green5Active = false
+    green6Active = false
+    green7Active = false
+    green8Active = false
+    green9Active = false
+    green10Active = false
+    green11Active = false
+    green12Active = false
+    greenLockActive = false
 
- blue2Active = false
- blue3Active = false
- blue4Active = false
- blue5Active = false
- blue6Active = false
- blue7Active = false
- blue8Active = false
- blue9Active = false
- blue10Active = false
- blue11Active = false
- blue12Active = false
- blueLockActive = false
+    blue2Active = false
+    blue3Active = false
+    blue4Active = false
+    blue5Active = false
+    blue6Active = false
+    blue7Active = false
+    blue8Active = false
+    blue9Active = false
+    blue10Active = false
+    blue11Active = false
+    blue12Active = false
+    blueLockActive = false
+
+    pen1Active = false
+    pen2Active = false
+    pen3Active = false
+    pen4Active = false
 
     total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
 
@@ -205,11 +215,13 @@ function score() {
 
 // Penalites
 function penaltie1() {
-    if (document.getElementById("pen1").style.background == "red none repeat scroll 0% 0%") {
+    if (pen1Active == true) {
         document.getElementById("pen1").style.background = "#E2E1E6";
+        pen1Active = false
         amtOfPenalites--;
     } else {
         document.getElementById("pen1").style.background = "red";
+        pen1Active = true
         amtOfPenalites++;
     }
     total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
@@ -217,11 +229,13 @@ function penaltie1() {
 }
 
 function penaltie2() {
-    if (document.getElementById("pen2").style.background == "red none repeat scroll 0% 0%") {
+    if (pen2Active == true) {
         document.getElementById("pen2").style.background = "#E2E1E6";
+        pen2Active = false
         amtOfPenalites--;
     } else {
         document.getElementById("pen2").style.background = "red";
+        pen2Active = true
         amtOfPenalites++;
     }
 
@@ -230,11 +244,13 @@ function penaltie2() {
 }
 
 function penaltie3() {
-    if (document.getElementById("pen3").style.background == "red none repeat scroll 0% 0%") {
+    if (pen3Active == true) {
         document.getElementById("pen3").style.background = "#E2E1E6";
+        pen3Active = false
         amtOfPenalites--;
     } else {
         document.getElementById("pen3").style.background = "red";
+        pen3Active = true
         amtOfPenalites++;
     }
 
@@ -243,11 +259,13 @@ function penaltie3() {
 }
 
 function penaltie4() {
-    if (document.getElementById("pen4").style.background == "red none repeat scroll 0% 0%") {
+    if (pen4Active == true) {
         document.getElementById("pen4").style.background = "#E2E1E6";
+        pen4Active = false
         amtOfPenalites--;
     } else {
         document.getElementById("pen4").style.background = "red";
+        pen4Active = true
         amtOfPenalites++;
     }
 
@@ -693,7 +711,7 @@ function keepyellow4() {
 }
 
 function keepyellow5() {
-   if (yellow5Active == true) {
+    if (yellow5Active == true) {
         document.getElementById("yellow5").style.background = "#FEECC8";
         yellow5Active = false
         amtOfyellow--;
