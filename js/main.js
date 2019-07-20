@@ -61,7 +61,7 @@ var blue11Active = false
 var blue12Active = false
 var blueLockActive = false
 
-var total = score + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
+var total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
 
 // Reset
 function reset() {
@@ -169,7 +169,7 @@ function reset() {
  yellowLockActive = false
 
  green2Active = false
- greenActive = false
+ green3Active = false
  green4Active = false
  green5Active = false
  green6Active = false
