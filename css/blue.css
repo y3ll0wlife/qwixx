@@ -26,12 +26,11 @@
         margin-right: 10px;
         padding: 10px 20px 10px 20px;
     }
+    #blue2:hover, #blue3:hover, #blue4:hover, #blue5:hover, #blue6:hover, #blue7:hover, #blue8:hover, #blue9:hover, #blue10:hover, #blue11:hover, #blue12:hover, #blueLock:hover{
+        background-color: blue;
+        margin-right: 10px;
+        padding: 10px 20px 10px 20px;
+    }
 }
 
 
-
-#blue2:hover, #blue3:hover, #blue4:hover, #blue5:hover, #blue6:hover, #blue7:hover, #blue8:hover, #blue9:hover, #blue10:hover, #blue11:hover, #blue12:hover, #blueLock:hover{
-    background-color: blue;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}

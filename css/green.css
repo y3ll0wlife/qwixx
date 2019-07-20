@@ -26,12 +26,13 @@
         margin-right: 10px;
         padding: 10px 20px 10px 20px;
     }
+
+    #green2:hover, #green3:hover, #green4:hover, #green5:hover, #green6:hover, #green7:hover, #green8:hover, #green9:hover, #green10:hover, #green11:hover, #green12:hover, #greenLock:hover{
+        background-color: green;
+        margin-right: 10px;
+        padding: 10px 20px 10px 20px;
+    }
+    
 }
 
 
-
-#green2:hover, #green3:hover, #green4:hover, #green5:hover, #green6:hover, #green7:hover, #green8:hover, #green9:hover, #green10:hover, #green11:hover, #green12:hover, #greenLock:hover{
-    background-color: green;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}

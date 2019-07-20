@@ -26,12 +26,13 @@
         margin-right: 10px;
         padding: 10px 20px 10px 20px;
     }
+    #yellow2:hover, #yellow3:hover, #yellow4:hover, #yellow5:hover, #yellow6:hover, #yellow7:hover, #yellow8:hover, #yellow9:hover, #yellow10:hover, #yellow11:hover, #yellow12:hover, #yellowLock:hover{
+        background-color: yellow;
+        margin-right: 10px;
+        padding: 10px 20px 10px 20px;
+    }
+    
 }
 
 
 
-#yellow2:hover, #yellow3:hover, #yellow4:hover, #yellow5:hover, #yellow6:hover, #yellow7:hover, #yellow8:hover, #yellow9:hover, #yellow10:hover, #yellow11:hover, #yellow12:hover, #yellowLock:hover{
-    background-color: yellow;
-    margin-right: 10px;
-    padding: 10px 20px 10px 20px;
-}
