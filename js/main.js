@@ -9,7 +9,59 @@ var amtOfyellow = 0;
 var amtOfgreen = 0;
 var amtOfblue = 0;
 
-var total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
+var red2Active = false
+var red3Active = false
+var red4Active = false
+var red5Active = false
+var red6Active = false
+var red7Active = false
+var red8Active = false
+var red9Active = false
+var red10Active = false
+var red11Active = false
+var red12Active = false
+var redLockActive = false
+
+var yellow2Active = false
+var yellow3Active = false
+var yellow4Active = false
+var yellow5Active = false
+var yellow6Active = false
+var yellow7Active = false
+var yellow8Active = false
+var yellow9Active = false
+var yellow10Active = false
+var yellow11Active = false
+var yellow12Active = false
+var yellowLockActive = false
+
+var green2Active = false
+var green3Active = false
+var green4Active = false
+var green5Active = false
+var green6Active = false
+var green7Active = false
+var green8Active = false
+var green9Active = false
+var green10Active = false
+var green11Active = false
+var green12Active = false
+var greenLockActive = false
+
+var blue2Active = false
+var blue3Active = false
+var blue4Active = false
+var blue5Active = false
+var blue6Active = false
+var blue7Active = false
+var blue8Active = false
+var blue9Active = false
+var blue10Active = false
+var blue11Active = false
+var blue12Active = false
+var blueLockActive = false
+
+var total = score + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
 
 // Reset
 function reset() {
@@ -90,10 +142,60 @@ function reset() {
     amtOfgreen = 0;
     amtOfblue = 0;
 
+     red2Active = false
+ red3Active = false
+ red4Active = false
+ red5Active = false
+ red6Active = false
+ red7Active = false
+ red8Active = false
+ red9Active = false
+ red10Active = false
+ red11Active = false
+ red12Active = false
+ redLockActive = false
+
+ yellow2Active = false
+ yellow3Active = false
+ yellow4Active = false
+ yellow5Active = false
+ yellow6Active = false
+ yellow7Active = false
+ yellow8Active = false
+ yellow9Active = false
+ yellow10Active = false
+ yellow11Active = false
+ yellow12Active = false
+ yellowLockActive = false
+
+ green2Active = false
+ greenActive = false
+ green4Active = false
+ green5Active = false
+ green6Active = false
+ green7Active = false
+ green8Active = false
+ green9Active = false
+ green10Active = false
+ green11Active = false
+ green12Active = false
+ greenLockActive = false
+
+ blue2Active = false
+ blue3Active = false
+ blue4Active = false
+ blue5Active = false
+ blue6Active = false
+ blue7Active = false
+ blue8Active = false
+ blue9Active = false
+ blue10Active = false
+ blue11Active = false
+ blue12Active = false
+ blueLockActive = false
+
     total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
 
-
-    console.log("Restart")
 }
 
 // Score
@@ -102,7 +204,7 @@ function score() {
 }
 
 // Penalites
-function penaltie1(){
+function penaltie1() {
     if (document.getElementById("pen1").style.background == "red none repeat scroll 0% 0%") {
         document.getElementById("pen1").style.background = "#E2E1E6";
         amtOfPenalites--;
@@ -113,7 +215,8 @@ function penaltie1(){
     total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
     document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
 }
-function penaltie2(){
+
+function penaltie2() {
     if (document.getElementById("pen2").style.background == "red none repeat scroll 0% 0%") {
         document.getElementById("pen2").style.background = "#E2E1E6";
         amtOfPenalites--;
@@ -126,7 +229,7 @@ function penaltie2(){
     document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
 }
 
-function penaltie3(){
+function penaltie3() {
     if (document.getElementById("pen3").style.background == "red none repeat scroll 0% 0%") {
         document.getElementById("pen3").style.background = "#E2E1E6";
         amtOfPenalites--;
@@ -134,11 +237,12 @@ function penaltie3(){
         document.getElementById("pen3").style.background = "red";
         amtOfPenalites++;
     }
-    
+
     total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
     document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
 }
-function penaltie4(){
+
+function penaltie4() {
     if (document.getElementById("pen4").style.background == "red none repeat scroll 0% 0%") {
         document.getElementById("pen4").style.background = "#E2E1E6";
         amtOfPenalites--;
@@ -153,11 +257,13 @@ function penaltie4(){
 
 // Red row
 function keepRed2() {
-    if (document.getElementById("red2").style.background == "red none repeat scroll 0% 0%") {
+    if (red2Active == true) {
         document.getElementById("red2").style.background = "#FFBFC2";
+        red2Active = false
         amtOfRed--;
     } else {
         document.getElementById("red2").style.background = "red";
+        red2Active = true
         amtOfRed++;
     }
 
@@ -180,11 +286,13 @@ function keepRed2() {
 }
 
 function keepRed3() {
-    if (document.getElementById("red3").style.background == "red none repeat scroll 0% 0%") {
+    if (red3Active == true) {
         document.getElementById("red3").style.background = "#FFBFC2";
+        red3Active = false
         amtOfRed--;
     } else {
         document.getElementById("red3").style.background = "red";
+        red3Active = true
         amtOfRed++;
     }
 
@@ -207,11 +315,13 @@ function keepRed3() {
 }
 
 function keepRed4() {
-    if (document.getElementById("red4").style.background == "red none repeat scroll 0% 0%") {
+    if (red4Active == true) {
         document.getElementById("red4").style.background = "#FFBFC2";
+        red4Active = false
         amtOfRed--;
     } else {
         document.getElementById("red4").style.background = "red";
+        red4Active = true
         amtOfRed++;
     }
 
@@ -234,11 +344,13 @@ function keepRed4() {
 }
 
 function keepRed5() {
-    if (document.getElementById("red5").style.background == "red none repeat scroll 0% 0%") {
+    if (red5Active == true) {
         document.getElementById("red5").style.background = "#FFBFC2";
+        yellow4Active = false
         amtOfRed--;
     } else {
         document.getElementById("red5").style.background = "red";
+        red5Active = true
         amtOfRed++;
     }
 
@@ -261,11 +373,13 @@ function keepRed5() {
 }
 
 function keepRed6() {
-    if (document.getElementById("red6").style.background == "red none repeat scroll 0% 0%") {
+    if (red6Active == true) {
         document.getElementById("red6").style.background = "#FFBFC2";
+        red6Active = false
         amtOfRed--;
     } else {
         document.getElementById("red6").style.background = "red";
+        red6Active = true
         amtOfRed++;
     }
 
@@ -288,11 +402,13 @@ function keepRed6() {
 }
 
 function keepRed7() {
-    if (document.getElementById("red7").style.background == "red none repeat scroll 0% 0%") {
+    if (red7Active == true) {
         document.getElementById("red7").style.background = "#FFBFC2";
+        red7Active = false
         amtOfRed--;
     } else {
         document.getElementById("red7").style.background = "red";
+        red7Active = true
         amtOfRed++;
     }
 
@@ -315,11 +431,13 @@ function keepRed7() {
 }
 
 function keepRed8() {
-    if (document.getElementById("red8").style.background == "red none repeat scroll 0% 0%") {
+    if (red8Active == true) {
         document.getElementById("red8").style.background = "#FFBFC2";
+        red8Active = false
         amtOfRed--;
     } else {
         document.getElementById("red8").style.background = "red";
+        red8Active = true
         amtOfRed++;
     }
 
@@ -342,11 +460,13 @@ function keepRed8() {
 }
 
 function keepRed9() {
-    if (document.getElementById("red9").style.background == "red none repeat scroll 0% 0%") {
+    if (red9Active == true) {
         document.getElementById("red9").style.background = "#FFBFC2";
+        red9Active = false
         amtOfRed--;
     } else {
         document.getElementById("red9").style.background = "red";
+        red9Active = true
         amtOfRed++;
     }
 
@@ -369,11 +489,13 @@ function keepRed9() {
 }
 
 function keepRed10() {
-    if (document.getElementById("red10").style.background == "red none repeat scroll 0% 0%") {
+    if (red10Active == true) {
         document.getElementById("red10").style.background = "#FFBFC2";
+        red10Active = false
         amtOfRed--;
     } else {
         document.getElementById("red10").style.background = "red";
+        red10Active = true
         amtOfRed++;
     }
 
@@ -396,11 +518,13 @@ function keepRed10() {
 }
 
 function keepRed11() {
-    if (document.getElementById("red11").style.background == "red none repeat scroll 0% 0%") {
+    if (red11Active == true) {
         document.getElementById("red11").style.background = "#FFBFC2";
+        red11Active = false
         amtOfRed--;
     } else {
         document.getElementById("red11").style.background = "red";
+        red11Active = true
         amtOfRed++;
     }
 
@@ -423,11 +547,13 @@ function keepRed11() {
 }
 
 function keepRed12() {
-    if (document.getElementById("red12").style.background == "red none repeat scroll 0% 0%") {
+    if (red12Active == true) {
         document.getElementById("red12").style.background = "#FFBFC2";
+        red12Active = false
         amtOfRed--;
     } else {
         document.getElementById("red12").style.background = "red";
+        red12Active = true
         amtOfRed++;
     }
 
@@ -450,11 +576,13 @@ function keepRed12() {
 }
 
 function keepRedLock() {
-    if (document.getElementById("redLock").style.background == "red none repeat scroll 0% 0%") {
+    if (redLockActive == true) {
         document.getElementById("redLock").style.background = "#FFBFC2";
+        redLockActive = false
         amtOfRed--;
     } else {
         document.getElementById("redLock").style.background = "red";
+        redLockActive = true
         amtOfRed++;
     }
 
@@ -478,11 +606,13 @@ function keepRedLock() {
 
 // Yellow row
 function keepyellow2() {
-    if (document.getElementById("yellow2").style.background == "yellow none repeat scroll 0% 0%") {
+    if (yellow2Active == true) {
         document.getElementById("yellow2").style.background = "#FEECC8";
+        yellow2Active = false
         amtOfyellow--;
     } else {
         document.getElementById("yellow2").style.background = "yellow";
+        yellow2Active = true
         amtOfyellow++;
     }
 
@@ -505,11 +635,13 @@ function keepyellow2() {
 }
 
 function keepyellow3() {
-    if (document.getElementById("yellow3").style.background == "yellow none repeat scroll 0% 0%") {
+    if (yellow3Active == true) {
         document.getElementById("yellow3").style.background = "#FEECC8";
+        yellow3Active = false
         amtOfyellow--;
     } else {
         document.getElementById("yellow3").style.background = "yellow";
+        yellow3Active = true
         amtOfyellow++;
     }
 
@@ -532,11 +664,13 @@ function keepyellow3() {
 }
 
 function keepyellow4() {
-    if (document.getElementById("yellow4").style.background == "yellow none repeat scroll 0% 0%") {
+    if (yellow4Active == true) {
         document.getElementById("yellow4").style.background = "#FEECC8";
+        yellow4Active = false
         amtOfyellow--;
     } else {
         document.getElementById("yellow4").style.background = "yellow";
+        yellow4Active = true
         amtOfyellow++;
     }
 
@@ -559,11 +693,13 @@ function keepyellow4() {
 }
 
 function keepyellow5() {
-    if (document.getElementById("yellow5").style.background == "yellow none repeat scroll 0% 0%") {
+   if (yellow5Active == true) {
         document.getElementById("yellow5").style.background = "#FEECC8";
+        yellow5Active = false
         amtOfyellow--;
     } else {
         document.getElementById("yellow5").style.background = "yellow";
+        yellow5Active = true
         amtOfyellow++;
     }
 
@@ -586,11 +722,13 @@ function keepyellow5() {
 }
 
 function keepyellow6() {
-    if (document.getElementById("yellow6").style.background == "yellow none repeat scroll 0% 0%") {
+    if (yellow6Active == true) {
         document.getElementById("yellow6").style.background = "#FEECC8";
+        yellow6Active = false
         amtOfyellow--;
     } else {
         document.getElementById("yellow6").style.background = "yellow";
+        yellow6Active = true
         amtOfyellow++;
     }
 
@@ -613,11 +751,13 @@ function keepyellow6() {
 }
 
 function keepyellow7() {
-    if (document.getElementById("yellow7").style.background == "yellow none repeat scroll 0% 0%") {
+    if (yellow7Active == true) {
         document.getElementById("yellow7").style.background = "#FEECC8";
+        yellow7Active = false
         amtOfyellow--;
     } else {
         document.getElementById("yellow7").style.background = "yellow";
+        yellow7Active = true
         amtOfyellow++;
     }
 
@@ -640,11 +780,13 @@ function keepyellow7() {
 }
 
 function keepyellow8() {
-    if (document.getElementById("yellow8").style.background == "yellow none repeat scroll 0% 0%") {
+    if (yellow8Active == true) {
         document.getElementById("yellow8").style.background = "#FEECC8";
+        yellow8Active = false
         amtOfyellow--;
     } else {
         document.getElementById("yellow8").style.background = "yellow";
+        yellow8Active = true
         amtOfyellow++;
     }
 
@@ -667,11 +809,13 @@ function keepyellow8() {
 }
 
 function keepyellow9() {
-    if (document.getElementById("yellow9").style.background == "yellow none repeat scroll 0% 0%") {
+    if (yellow9Active == true) {
         document.getElementById("yellow9").style.background = "#FEECC8";
+        yellow9Active = false
         amtOfyellow--;
     } else {
         document.getElementById("yellow9").style.background = "yellow";
+        yellow9Active = true
         amtOfyellow++;
     }
 
@@ -694,11 +838,13 @@ function keepyellow9() {
 }
 
 function keepyellow10() {
-    if (document.getElementById("yellow10").style.background == "yellow none repeat scroll 0% 0%") {
+    if (yellow10Active == true) {
         document.getElementById("yellow10").style.background = "#FEECC8";
+        yellow10Active = false
         amtOfyellow--;
     } else {
         document.getElementById("yellow10").style.background = "yellow";
+        yellow10Active = true
         amtOfyellow++;
     }
 
@@ -721,11 +867,13 @@ function keepyellow10() {
 }
 
 function keepyellow11() {
-    if (document.getElementById("yellow11").style.background == "yellow none repeat scroll 0% 0%") {
+    if (yellow11Active == true) {
         document.getElementById("yellow11").style.background = "#FEECC8";
+        yellow11Active = false
         amtOfyellow--;
     } else {
         document.getElementById("yellow11").style.background = "yellow";
+        yellow11Active = true
         amtOfyellow++;
     }
 
@@ -748,11 +896,13 @@ function keepyellow11() {
 }
 
 function keepyellow12() {
-    if (document.getElementById("yellow12").style.background == "yellow none repeat scroll 0% 0%") {
+    if (yellow12Active == true) {
         document.getElementById("yellow12").style.background = "#FEECC8";
+        yellow12Active = false
         amtOfyellow--;
     } else {
         document.getElementById("yellow12").style.background = "yellow";
+        yellow12Active = true
         amtOfyellow++;
     }
 
@@ -775,11 +925,13 @@ function keepyellow12() {
 }
 
 function keepyellowLock() {
-    if (document.getElementById("yellowLock").style.background == "yellow none repeat scroll 0% 0%") {
+    if (yellowLockActive == true) {
         document.getElementById("yellowLock").style.background = "#FEECC8";
+        yellowLockActive = false
         amtOfyellow--;
     } else {
         document.getElementById("yellowLock").style.background = "yellow";
+        yellowLockActive = true
         amtOfyellow++;
     }
 
@@ -803,11 +955,13 @@ function keepyellowLock() {
 
 // Green row
 function keepgreen2() {
-    if (document.getElementById("green2").style.background == "green none repeat scroll 0% 0%") {
+    if (green2Active == true) {
         document.getElementById("green2").style.background = "#C3EBD0";
+        green2Active = false
         amtOfgreen--;
     } else {
         document.getElementById("green2").style.background = "green";
+        green2Active = true
         amtOfgreen++;
     }
 
@@ -830,11 +984,13 @@ function keepgreen2() {
 }
 
 function keepgreen3() {
-    if (document.getElementById("green3").style.background == "green none repeat scroll 0% 0%") {
+    if (green3Active == true) {
         document.getElementById("green3").style.background = "#C3EBD0";
+        green3Active = false
         amtOfgreen--;
     } else {
         document.getElementById("green3").style.background = "green";
+        green3Active = true
         amtOfgreen++;
     }
 
@@ -857,11 +1013,13 @@ function keepgreen3() {
 }
 
 function keepgreen4() {
-    if (document.getElementById("green4").style.background == "green none repeat scroll 0% 0%") {
+    if (green4Active == true) {
         document.getElementById("green4").style.background = "#C3EBD0";
+        green4Active = false
         amtOfgreen--;
     } else {
         document.getElementById("green4").style.background = "green";
+        green4Active = true
         amtOfgreen++;
     }
 
@@ -884,11 +1042,13 @@ function keepgreen4() {
 }
 
 function keepgreen5() {
-    if (document.getElementById("green5").style.background == "green none repeat scroll 0% 0%") {
+    if (green5Active == true) {
         document.getElementById("green5").style.background = "#C3EBD0";
+        green5Active = false
         amtOfgreen--;
     } else {
         document.getElementById("green5").style.background = "green";
+        green5Active = true
         amtOfgreen++;
     }
 
@@ -911,11 +1071,13 @@ function keepgreen5() {
 }
 
 function keepgreen6() {
-    if (document.getElementById("green6").style.background == "green none repeat scroll 0% 0%") {
+    if (green6Active == true) {
         document.getElementById("green6").style.background = "#C3EBD0";
+        green6Active = false
         amtOfgreen--;
     } else {
         document.getElementById("green6").style.background = "green";
+        green6Active = true
         amtOfgreen++;
     }
 
@@ -938,11 +1100,13 @@ function keepgreen6() {
 }
 
 function keepgreen7() {
-    if (document.getElementById("green7").style.background == "green none repeat scroll 0% 0%") {
+    if (green7Active == true) {
         document.getElementById("green7").style.background = "#C3EBD0";
+        green7Active = false
         amtOfgreen--;
     } else {
         document.getElementById("green7").style.background = "green";
+        green7Active = true
         amtOfgreen++;
     }
 
@@ -965,11 +1129,13 @@ function keepgreen7() {
 }
 
 function keepgreen8() {
-    if (document.getElementById("green8").style.background == "green none repeat scroll 0% 0%") {
+    if (green8Active == true) {
         document.getElementById("green8").style.background = "#C3EBD0";
+        green8Active = false
         amtOfgreen--;
     } else {
         document.getElementById("green8").style.background = "green";
+        green8Active = true
         amtOfgreen++;
     }
 
@@ -992,11 +1158,13 @@ function keepgreen8() {
 }
 
 function keepgreen9() {
-    if (document.getElementById("green9").style.background == "green none repeat scroll 0% 0%") {
+    if (green9Active == true) {
         document.getElementById("green9").style.background = "#C3EBD0";
+        green9Active = false
         amtOfgreen--;
     } else {
         document.getElementById("green9").style.background = "green";
+        green9Active = true
         amtOfgreen++;
     }
 
@@ -1019,11 +1187,13 @@ function keepgreen9() {
 }
 
 function keepgreen10() {
-    if (document.getElementById("green10").style.background == "green none repeat scroll 0% 0%") {
+    if (green10Active == true) {
         document.getElementById("green10").style.background = "#C3EBD0";
+        green10Active = false
         amtOfgreen--;
     } else {
         document.getElementById("green10").style.background = "green";
+        green10Active = true
         amtOfgreen++;
     }
 
@@ -1046,11 +1216,13 @@ function keepgreen10() {
 }
 
 function keepgreen11() {
-    if (document.getElementById("green11").style.background == "green none repeat scroll 0% 0%") {
+    if (green11Active == true) {
         document.getElementById("green11").style.background = "#C3EBD0";
+        green11Active = false
         amtOfgreen--;
     } else {
         document.getElementById("green11").style.background = "green";
+        green11Active = true
         amtOfgreen++;
     }
 
@@ -1073,11 +1245,13 @@ function keepgreen11() {
 }
 
 function keepgreen12() {
-    if (document.getElementById("green12").style.background == "green none repeat scroll 0% 0%") {
+    if (green12Active == true) {
         document.getElementById("green12").style.background = "#C3EBD0";
+        green12Active = false
         amtOfgreen--;
     } else {
         document.getElementById("green12").style.background = "green";
+        green12Active = true
         amtOfgreen++;
     }
 
@@ -1100,11 +1274,13 @@ function keepgreen12() {
 }
 
 function keepgreenLock() {
-    if (document.getElementById("greenLock").style.background == "green none repeat scroll 0% 0%") {
+    if (greenLockActive == true) {
         document.getElementById("greenLock").style.background = "#C3EBD0";
+        greenLockActive = false
         amtOfgreen--;
     } else {
         document.getElementById("greenLock").style.background = "green";
+        greenLockActive = true
         amtOfgreen++;
     }
 
@@ -1128,11 +1304,13 @@ function keepgreenLock() {
 
 // Blue row
 function keepblue2() {
-    if (document.getElementById("blue2").style.background == "blue none repeat scroll 0% 0%") {
+    if (blue2Active == true) {
         document.getElementById("blue2").style.background = "#BFC8E9";
+        blue2Active = false
         amtOfblue--;
     } else {
         document.getElementById("blue2").style.background = "blue";
+        blue2Active = true
         amtOfblue++;
     }
 
@@ -1155,11 +1333,13 @@ function keepblue2() {
 }
 
 function keepblue3() {
-    if (document.getElementById("blue3").style.background == "blue none repeat scroll 0% 0%") {
+    if (blue3Active == true) {
         document.getElementById("blue3").style.background = "#BFC8E9";
+        blue3Active = false
         amtOfblue--;
     } else {
         document.getElementById("blue3").style.background = "blue";
+        blue3Active = true
         amtOfblue++;
     }
 
@@ -1182,11 +1362,13 @@ function keepblue3() {
 }
 
 function keepblue4() {
-    if (document.getElementById("blue4").style.background == "blue none repeat scroll 0% 0%") {
+    if (blue4Active == true) {
         document.getElementById("blue4").style.background = "#BFC8E9";
+        blue4Active = false
         amtOfblue--;
     } else {
         document.getElementById("blue4").style.background = "blue";
+        blue4Active = true
         amtOfblue++;
     }
 
@@ -1209,11 +1391,13 @@ function keepblue4() {
 }
 
 function keepblue5() {
-    if (document.getElementById("blue5").style.background == "blue none repeat scroll 0% 0%") {
+    if (blue5Active == true) {
         document.getElementById("blue5").style.background = "#BFC8E9";
+        blue5Active = false
         amtOfblue--;
     } else {
         document.getElementById("blue5").style.background = "blue";
+        blue5Active = true
         amtOfblue++;
     }
 
@@ -1236,11 +1420,13 @@ function keepblue5() {
 }
 
 function keepblue6() {
-    if (document.getElementById("blue6").style.background == "blue none repeat scroll 0% 0%") {
+    if (blue6Active == true) {
         document.getElementById("blue6").style.background = "#BFC8E9";
+        blue6Active = false
         amtOfblue--;
     } else {
         document.getElementById("blue6").style.background = "blue";
+        blue6Active = true
         amtOfblue++;
     }
 
@@ -1263,11 +1449,13 @@ function keepblue6() {
 }
 
 function keepblue7() {
-    if (document.getElementById("blue7").style.background == "blue none repeat scroll 0% 0%") {
+    if (blue7Active == true) {
         document.getElementById("blue7").style.background = "#BFC8E9";
+        blue7Active = false
         amtOfblue--;
     } else {
         document.getElementById("blue7").style.background = "blue";
+        blue7Active = true
         amtOfblue++;
     }
 
@@ -1290,11 +1478,13 @@ function keepblue7() {
 }
 
 function keepblue8() {
-    if (document.getElementById("blue8").style.background == "blue none repeat scroll 0% 0%") {
+    if (blue8Active == true) {
         document.getElementById("blue8").style.background = "#BFC8E9";
+        blue8Active = false
         amtOfblue--;
     } else {
         document.getElementById("blue8").style.background = "blue";
+        blue8Active = true
         amtOfblue++;
     }
 
@@ -1317,11 +1507,13 @@ function keepblue8() {
 }
 
 function keepblue9() {
-    if (document.getElementById("blue9").style.background == "blue none repeat scroll 0% 0%") {
+    if (blue9Active == true) {
         document.getElementById("blue9").style.background = "#BFC8E9";
+        blue9Active = false
         amtOfblue--;
     } else {
         document.getElementById("blue9").style.background = "blue";
+        blue9Active = true
         amtOfblue++;
     }
 
@@ -1344,11 +1536,13 @@ function keepblue9() {
 }
 
 function keepblue10() {
-    if (document.getElementById("blue10").style.background == "blue none repeat scroll 0% 0%") {
+    if (blue10Active == true) {
         document.getElementById("blue10").style.background = "#BFC8E9";
+        blue10Active = false
         amtOfblue--;
     } else {
         document.getElementById("blue10").style.background = "blue";
+        blue10Active = true
         amtOfblue++;
     }
 
@@ -1371,11 +1565,13 @@ function keepblue10() {
 }
 
 function keepblue11() {
-    if (document.getElementById("blue11").style.background == "blue none repeat scroll 0% 0%") {
+    if (blue11Active == true) {
         document.getElementById("blue11").style.background = "#BFC8E9";
+        blue11Active = false
         amtOfblue--;
     } else {
         document.getElementById("blue11").style.background = "blue";
+        blue11Active = true
         amtOfblue++;
     }
 
@@ -1398,11 +1594,13 @@ function keepblue11() {
 }
 
 function keepblue12() {
-    if (document.getElementById("blue12").style.background == "blue none repeat scroll 0% 0%") {
+    if (blue12Active == true) {
         document.getElementById("blue12").style.background = "#BFC8E9";
+        blue12Active = false
         amtOfblue--;
     } else {
         document.getElementById("blue12").style.background = "blue";
+        blue12Active = true
         amtOfblue++;
     }
 
@@ -1425,14 +1623,15 @@ function keepblue12() {
 }
 
 function keepblueLock() {
-    if (document.getElementById("blueLock").style.background == "blue none repeat scroll 0% 0%") {
+    if (blueLockActive == true) {
         document.getElementById("blueLock").style.background = "#BFC8E9";
+        blueLockActive = false
         amtOfblue--;
     } else {
         document.getElementById("blueLock").style.background = "blue";
+        blueLockActive = true
         amtOfblue++;
     }
-
     if (amtOfblue == 1) blueScore = 1
     if (amtOfblue == 2) blueScore = 3
     if (amtOfblue == 3) blueScore = 6
