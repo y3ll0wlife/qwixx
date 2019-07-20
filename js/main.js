@@ -285,6 +285,7 @@ function keepRed2() {
         amtOfRed++;
     }
 
+    if (amtOfRed == 0) redScore = 0
     if (amtOfRed == 1) redScore = 1
     if (amtOfRed == 2) redScore = 3
     if (amtOfRed == 3) redScore = 6
@@ -343,6 +344,7 @@ function keepRed4() {
         amtOfRed++;
     }
 
+    if (amtOfRed == 0) redScore = 0
     if (amtOfRed == 1) redScore = 1
     if (amtOfRed == 2) redScore = 3
     if (amtOfRed == 3) redScore = 6
@@ -372,6 +374,7 @@ function keepRed5() {
         amtOfRed++;
     }
 
+    if (amtOfRed == 0) redScore = 0
     if (amtOfRed == 1) redScore = 1
     if (amtOfRed == 2) redScore = 3
     if (amtOfRed == 3) redScore = 6
@@ -401,6 +404,7 @@ function keepRed6() {
         amtOfRed++;
     }
 
+    if (amtOfRed == 0) redScore = 0
     if (amtOfRed == 1) redScore = 1
     if (amtOfRed == 2) redScore = 3
     if (amtOfRed == 3) redScore = 6
@@ -430,6 +434,7 @@ function keepRed7() {
         amtOfRed++;
     }
 
+    if (amtOfRed == 0) redScore = 0
     if (amtOfRed == 1) redScore = 1
     if (amtOfRed == 2) redScore = 3
     if (amtOfRed == 3) redScore = 6
@@ -459,6 +464,7 @@ function keepRed8() {
         amtOfRed++;
     }
 
+    if (amtOfRed == 0) redScore = 0
     if (amtOfRed == 1) redScore = 1
     if (amtOfRed == 2) redScore = 3
     if (amtOfRed == 3) redScore = 6
@@ -488,6 +494,7 @@ function keepRed9() {
         amtOfRed++;
     }
 
+    if (amtOfRed == 0) redScore = 0
     if (amtOfRed == 1) redScore = 1
     if (amtOfRed == 2) redScore = 3
     if (amtOfRed == 3) redScore = 6
@@ -517,6 +524,7 @@ function keepRed10() {
         amtOfRed++;
     }
 
+    if (amtOfRed == 0) redScore = 0
     if (amtOfRed == 1) redScore = 1
     if (amtOfRed == 2) redScore = 3
     if (amtOfRed == 3) redScore = 6
@@ -546,6 +554,7 @@ function keepRed11() {
         amtOfRed++;
     }
 
+    if (amtOfRed == 0) redScore = 0
     if (amtOfRed == 1) redScore = 1
     if (amtOfRed == 2) redScore = 3
     if (amtOfRed == 3) redScore = 6
@@ -575,6 +584,7 @@ function keepRed12() {
         amtOfRed++;
     }
 
+    if (amtOfRed == 0) redScore = 0
     if (amtOfRed == 1) redScore = 1
     if (amtOfRed == 2) redScore = 3
     if (amtOfRed == 3) redScore = 6
@@ -604,6 +614,7 @@ function keepRedLock() {
         amtOfRed++;
     }
 
+    if (amtOfRed == 0) redScore = 0
     if (amtOfRed == 1) redScore = 1
     if (amtOfRed == 2) redScore = 3
     if (amtOfRed == 3) redScore = 6
@@ -634,6 +645,7 @@ function keepyellow2() {
         amtOfyellow++;
     }
 
+    if (amtOfyellow == 0) yellowScore = 0
     if (amtOfyellow == 1) yellowScore = 1
     if (amtOfyellow == 2) yellowScore = 3
     if (amtOfyellow == 3) yellowScore = 6
@@ -663,6 +675,7 @@ function keepyellow3() {
         amtOfyellow++;
     }
 
+    if (amtOfyellow == 0) yellowScore = 0
     if (amtOfyellow == 1) yellowScore = 1
     if (amtOfyellow == 2) yellowScore = 3
     if (amtOfyellow == 3) yellowScore = 6
@@ -692,6 +705,7 @@ function keepyellow4() {
         amtOfyellow++;
     }
 
+    if (amtOfyellow == 0) yellowScore = 0
     if (amtOfyellow == 1) yellowScore = 1
     if (amtOfyellow == 2) yellowScore = 3
     if (amtOfyellow == 3) yellowScore = 6
@@ -721,6 +735,7 @@ function keepyellow5() {
         amtOfyellow++;
     }
 
+    if (amtOfyellow == 0) yellowScore = 0
     if (amtOfyellow == 1) yellowScore = 1
     if (amtOfyellow == 2) yellowScore = 3
     if (amtOfyellow == 3) yellowScore = 6
@@ -750,6 +765,7 @@ function keepyellow6() {
         amtOfyellow++;
     }
 
+    if (amtOfyellow == 0) yellowScore = 0
     if (amtOfyellow == 1) yellowScore = 1
     if (amtOfyellow == 2) yellowScore = 3
     if (amtOfyellow == 3) yellowScore = 6
@@ -779,6 +795,7 @@ function keepyellow7() {
         amtOfyellow++;
     }
 
+    if (amtOfyellow == 0) yellowScore = 0
     if (amtOfyellow == 1) yellowScore = 1
     if (amtOfyellow == 2) yellowScore = 3
     if (amtOfyellow == 3) yellowScore = 6
@@ -808,6 +825,7 @@ function keepyellow8() {
         amtOfyellow++;
     }
 
+    if (amtOfyellow == 0) yellowScore = 0
     if (amtOfyellow == 1) yellowScore = 1
     if (amtOfyellow == 2) yellowScore = 3
     if (amtOfyellow == 3) yellowScore = 6
@@ -837,6 +855,7 @@ function keepyellow9() {
         amtOfyellow++;
     }
 
+    if (amtOfyellow == 0) yellowScore = 0
     if (amtOfyellow == 1) yellowScore = 1
     if (amtOfyellow == 2) yellowScore = 3
     if (amtOfyellow == 3) yellowScore = 6
@@ -866,6 +885,7 @@ function keepyellow10() {
         amtOfyellow++;
     }
 
+    if (amtOfyellow == 0) yellowScore = 0
     if (amtOfyellow == 1) yellowScore = 1
     if (amtOfyellow == 2) yellowScore = 3
     if (amtOfyellow == 3) yellowScore = 6
@@ -895,6 +915,7 @@ function keepyellow11() {
         amtOfyellow++;
     }
 
+    if (amtOfyellow == 0) yellowScore = 0
     if (amtOfyellow == 1) yellowScore = 1
     if (amtOfyellow == 2) yellowScore = 3
     if (amtOfyellow == 3) yellowScore = 6
@@ -924,6 +945,7 @@ function keepyellow12() {
         amtOfyellow++;
     }
 
+    if (amtOfyellow == 0) yellowScore = 0
     if (amtOfyellow == 1) yellowScore = 1
     if (amtOfyellow == 2) yellowScore = 3
     if (amtOfyellow == 3) yellowScore = 6
@@ -953,6 +975,7 @@ function keepyellowLock() {
         amtOfyellow++;
     }
 
+    if (amtOfyellow == 0) yellowScore = 0
     if (amtOfyellow == 1) yellowScore = 1
     if (amtOfyellow == 2) yellowScore = 3
     if (amtOfyellow == 3) yellowScore = 6
@@ -983,6 +1006,7 @@ function keepgreen2() {
         amtOfgreen++;
     }
 
+    if (amtOfgreen == 0) greenScore = 0
     if (amtOfgreen == 1) greenScore = 1
     if (amtOfgreen == 2) greenScore = 3
     if (amtOfgreen == 3) greenScore = 6
@@ -1012,6 +1036,7 @@ function keepgreen3() {
         amtOfgreen++;
     }
 
+    if (amtOfgreen == 0) greenScore = 0
     if (amtOfgreen == 1) greenScore = 1
     if (amtOfgreen == 2) greenScore = 3
     if (amtOfgreen == 3) greenScore = 6
@@ -1041,6 +1066,7 @@ function keepgreen4() {
         amtOfgreen++;
     }
 
+    if (amtOfgreen == 0) greenScore = 0
     if (amtOfgreen == 1) greenScore = 1
     if (amtOfgreen == 2) greenScore = 3
     if (amtOfgreen == 3) greenScore = 6
@@ -1070,6 +1096,7 @@ function keepgreen5() {
         amtOfgreen++;
     }
 
+    if (amtOfgreen == 0) greenScore = 0
     if (amtOfgreen == 1) greenScore = 1
     if (amtOfgreen == 2) greenScore = 3
     if (amtOfgreen == 3) greenScore = 6
@@ -1099,6 +1126,7 @@ function keepgreen6() {
         amtOfgreen++;
     }
 
+    if (amtOfgreen == 0) greenScore = 0
     if (amtOfgreen == 1) greenScore = 1
     if (amtOfgreen == 2) greenScore = 3
     if (amtOfgreen == 3) greenScore = 6
@@ -1128,6 +1156,7 @@ function keepgreen7() {
         amtOfgreen++;
     }
 
+    if (amtOfgreen == 0) greenScore = 0
     if (amtOfgreen == 1) greenScore = 1
     if (amtOfgreen == 2) greenScore = 3
     if (amtOfgreen == 3) greenScore = 6
@@ -1157,6 +1186,7 @@ function keepgreen8() {
         amtOfgreen++;
     }
 
+    if (amtOfgreen == 0) greenScore = 0
     if (amtOfgreen == 1) greenScore = 1
     if (amtOfgreen == 2) greenScore = 3
     if (amtOfgreen == 3) greenScore = 6
@@ -1186,6 +1216,7 @@ function keepgreen9() {
         amtOfgreen++;
     }
 
+    if (amtOfgreen == 0) greenScore = 0
     if (amtOfgreen == 1) greenScore = 1
     if (amtOfgreen == 2) greenScore = 3
     if (amtOfgreen == 3) greenScore = 6
@@ -1215,6 +1246,7 @@ function keepgreen10() {
         amtOfgreen++;
     }
 
+    if (amtOfgreen == 0) greenScore = 0
     if (amtOfgreen == 1) greenScore = 1
     if (amtOfgreen == 2) greenScore = 3
     if (amtOfgreen == 3) greenScore = 6
@@ -1244,6 +1276,7 @@ function keepgreen11() {
         amtOfgreen++;
     }
 
+    if (amtOfgreen == 0) greenScore = 0
     if (amtOfgreen == 1) greenScore = 1
     if (amtOfgreen == 2) greenScore = 3
     if (amtOfgreen == 3) greenScore = 6
@@ -1273,6 +1306,7 @@ function keepgreen12() {
         amtOfgreen++;
     }
 
+    if (amtOfgreen == 0) greenScore = 0
     if (amtOfgreen == 1) greenScore = 1
     if (amtOfgreen == 2) greenScore = 3
     if (amtOfgreen == 3) greenScore = 6
@@ -1302,6 +1336,7 @@ function keepgreenLock() {
         amtOfgreen++;
     }
 
+    if (amtOfgreen == 0) greenScore = 0
     if (amtOfgreen == 1) greenScore = 1
     if (amtOfgreen == 2) greenScore = 3
     if (amtOfgreen == 3) greenScore = 6
@@ -1332,6 +1367,7 @@ function keepblue2() {
         amtOfblue++;
     }
 
+    if (amtOfblue == 0) blueScore = 0
     if (amtOfblue == 1) blueScore = 1
     if (amtOfblue == 2) blueScore = 3
     if (amtOfblue == 3) blueScore = 6
@@ -1361,6 +1397,7 @@ function keepblue3() {
         amtOfblue++;
     }
 
+    if (amtOfblue == 0) blueScore = 0
     if (amtOfblue == 1) blueScore = 1
     if (amtOfblue == 2) blueScore = 3
     if (amtOfblue == 3) blueScore = 6
@@ -1390,6 +1427,7 @@ function keepblue4() {
         amtOfblue++;
     }
 
+    if (amtOfblue == 0) blueScore = 0
     if (amtOfblue == 1) blueScore = 1
     if (amtOfblue == 2) blueScore = 3
     if (amtOfblue == 3) blueScore = 6
@@ -1419,6 +1457,7 @@ function keepblue5() {
         amtOfblue++;
     }
 
+    if (amtOfblue == 0) blueScore = 0
     if (amtOfblue == 1) blueScore = 1
     if (amtOfblue == 2) blueScore = 3
     if (amtOfblue == 3) blueScore = 6
@@ -1448,6 +1487,7 @@ function keepblue6() {
         amtOfblue++;
     }
 
+    if (amtOfblue == 0) blueScore = 0
     if (amtOfblue == 1) blueScore = 1
     if (amtOfblue == 2) blueScore = 3
     if (amtOfblue == 3) blueScore = 6
@@ -1477,6 +1517,7 @@ function keepblue7() {
         amtOfblue++;
     }
 
+    if (amtOfblue == 0) blueScore = 0
     if (amtOfblue == 1) blueScore = 1
     if (amtOfblue == 2) blueScore = 3
     if (amtOfblue == 3) blueScore = 6
@@ -1506,6 +1547,7 @@ function keepblue8() {
         amtOfblue++;
     }
 
+    if (amtOfblue == 0) blueScore = 0
     if (amtOfblue == 1) blueScore = 1
     if (amtOfblue == 2) blueScore = 3
     if (amtOfblue == 3) blueScore = 6
@@ -1535,6 +1577,7 @@ function keepblue9() {
         amtOfblue++;
     }
 
+    if (amtOfblue == 0) blueScore = 0
     if (amtOfblue == 1) blueScore = 1
     if (amtOfblue == 2) blueScore = 3
     if (amtOfblue == 3) blueScore = 6
@@ -1564,6 +1607,7 @@ function keepblue10() {
         amtOfblue++;
     }
 
+    if (amtOfblue == 0) blueScore = 0
     if (amtOfblue == 1) blueScore = 1
     if (amtOfblue == 2) blueScore = 3
     if (amtOfblue == 3) blueScore = 6
@@ -1593,6 +1637,8 @@ function keepblue11() {
         amtOfblue++;
     }
 
+    if (amtOfblue == 0) blueScore = 0
+    if (amtOfblue == 0) blueScore = 0
     if (amtOfblue == 1) blueScore = 1
     if (amtOfblue == 2) blueScore = 3
     if (amtOfblue == 3) blueScore = 6
@@ -1622,6 +1668,7 @@ function keepblue12() {
         amtOfblue++;
     }
 
+    if (amtOfblue == 0) blueScore = 0
     if (amtOfblue == 1) blueScore = 1
     if (amtOfblue == 2) blueScore = 3
     if (amtOfblue == 3) blueScore = 6
@@ -1650,6 +1697,8 @@ function keepblueLock() {
         blueLockActive = true
         amtOfblue++;
     }
+
+    if (amtOfblue == 0) blueScore = 0
     if (amtOfblue == 1) blueScore = 1
     if (amtOfblue == 2) blueScore = 3
     if (amtOfblue == 3) blueScore = 6
