@@ -210,7 +210,24 @@ function reset() {
 
 // Score
 function score() {
+    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
     document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+}
+
+function getScore(amt){
+    if (amt == 0) return 0
+    if (amt == 1) return 1
+    if (amt == 2) return 3
+    if (amt == 3) return 6
+    if (amt == 4) return 10
+    if (amt == 5) return 15
+    if (amt == 6) return 21
+    if (amt == 7) return 28
+    if (amt == 8) return 36
+    if (amt == 9) return 45
+    if (amt == 10) return 55
+    if (amt == 11) return 66
+    if (amt == 12) return 78
 }
 
 // Penalites
@@ -224,8 +241,8 @@ function penaltie1() {
         pen1Active = true
         amtOfPenalites++;
     }
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    
+    score()
 }
 
 function penaltie2() {
@@ -239,8 +256,7 @@ function penaltie2() {
         amtOfPenalites++;
     }
 
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    score()
 }
 
 function penaltie3() {
@@ -254,8 +270,7 @@ function penaltie3() {
         amtOfPenalites++;
     }
 
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    score()
 }
 
 function penaltie4() {
@@ -269,8 +284,7 @@ function penaltie4() {
         amtOfPenalites++;
     }
 
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    score()
 }
 
 // Red row
@@ -285,23 +299,8 @@ function keepRed2() {
         amtOfRed++;
     }
 
-    if (amtOfRed == 0) redScore = 0
-    if (amtOfRed == 1) redScore = 1
-    if (amtOfRed == 2) redScore = 3
-    if (amtOfRed == 3) redScore = 6
-    if (amtOfRed == 4) redScore = 10
-    if (amtOfRed == 5) redScore = 15
-    if (amtOfRed == 6) redScore = 21
-    if (amtOfRed == 7) redScore = 28
-    if (amtOfRed == 8) redScore = 36
-    if (amtOfRed == 9) redScore = 45
-    if (amtOfRed == 10) redScore = 55
-    if (amtOfRed == 11) redScore = 66
-    if (amtOfRed == 12) redScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
-
+    redScore = getScore(amtOfRed)
+    score()
 }
 
 function keepRed3() {
@@ -315,21 +314,8 @@ function keepRed3() {
         amtOfRed++;
     }
 
-    if (amtOfRed == 1) redScore = 1
-    if (amtOfRed == 2) redScore = 3
-    if (amtOfRed == 3) redScore = 6
-    if (amtOfRed == 4) redScore = 10
-    if (amtOfRed == 5) redScore = 15
-    if (amtOfRed == 6) redScore = 21
-    if (amtOfRed == 7) redScore = 28
-    if (amtOfRed == 8) redScore = 36
-    if (amtOfRed == 9) redScore = 45
-    if (amtOfRed == 10) redScore = 55
-    if (amtOfRed == 11) redScore = 66
-    if (amtOfRed == 12) redScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    redScore = getScore(amtOfRed)
+    score()
 
 }
 
@@ -344,22 +330,8 @@ function keepRed4() {
         amtOfRed++;
     }
 
-    if (amtOfRed == 0) redScore = 0
-    if (amtOfRed == 1) redScore = 1
-    if (amtOfRed == 2) redScore = 3
-    if (amtOfRed == 3) redScore = 6
-    if (amtOfRed == 4) redScore = 10
-    if (amtOfRed == 5) redScore = 15
-    if (amtOfRed == 6) redScore = 21
-    if (amtOfRed == 7) redScore = 28
-    if (amtOfRed == 8) redScore = 36
-    if (amtOfRed == 9) redScore = 45
-    if (amtOfRed == 10) redScore = 55
-    if (amtOfRed == 11) redScore = 66
-    if (amtOfRed == 12) redScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    redScore = getScore(amtOfRed)
+    score()
 
 }
 
@@ -374,23 +346,8 @@ function keepRed5() {
         amtOfRed++;
     }
 
-    if (amtOfRed == 0) redScore = 0
-    if (amtOfRed == 1) redScore = 1
-    if (amtOfRed == 2) redScore = 3
-    if (amtOfRed == 3) redScore = 6
-    if (amtOfRed == 4) redScore = 10
-    if (amtOfRed == 5) redScore = 15
-    if (amtOfRed == 6) redScore = 21
-    if (amtOfRed == 7) redScore = 28
-    if (amtOfRed == 8) redScore = 36
-    if (amtOfRed == 9) redScore = 45
-    if (amtOfRed == 10) redScore = 55
-    if (amtOfRed == 11) redScore = 66
-    if (amtOfRed == 12) redScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
-
+    redScore = getScore(amtOfRed)
+    score()
 }
 
 function keepRed6() {
@@ -404,22 +361,8 @@ function keepRed6() {
         amtOfRed++;
     }
 
-    if (amtOfRed == 0) redScore = 0
-    if (amtOfRed == 1) redScore = 1
-    if (amtOfRed == 2) redScore = 3
-    if (amtOfRed == 3) redScore = 6
-    if (amtOfRed == 4) redScore = 10
-    if (amtOfRed == 5) redScore = 15
-    if (amtOfRed == 6) redScore = 21
-    if (amtOfRed == 7) redScore = 28
-    if (amtOfRed == 8) redScore = 36
-    if (amtOfRed == 9) redScore = 45
-    if (amtOfRed == 10) redScore = 55
-    if (amtOfRed == 11) redScore = 66
-    if (amtOfRed == 12) redScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    redScore = getScore(amtOfRed)
+    score()
 
 }
 
@@ -434,22 +377,8 @@ function keepRed7() {
         amtOfRed++;
     }
 
-    if (amtOfRed == 0) redScore = 0
-    if (amtOfRed == 1) redScore = 1
-    if (amtOfRed == 2) redScore = 3
-    if (amtOfRed == 3) redScore = 6
-    if (amtOfRed == 4) redScore = 10
-    if (amtOfRed == 5) redScore = 15
-    if (amtOfRed == 6) redScore = 21
-    if (amtOfRed == 7) redScore = 28
-    if (amtOfRed == 8) redScore = 36
-    if (amtOfRed == 9) redScore = 45
-    if (amtOfRed == 10) redScore = 55
-    if (amtOfRed == 11) redScore = 66
-    if (amtOfRed == 12) redScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    redScore = getScore(amtOfRed)
+    score()
 
 }
 
@@ -464,22 +393,8 @@ function keepRed8() {
         amtOfRed++;
     }
 
-    if (amtOfRed == 0) redScore = 0
-    if (amtOfRed == 1) redScore = 1
-    if (amtOfRed == 2) redScore = 3
-    if (amtOfRed == 3) redScore = 6
-    if (amtOfRed == 4) redScore = 10
-    if (amtOfRed == 5) redScore = 15
-    if (amtOfRed == 6) redScore = 21
-    if (amtOfRed == 7) redScore = 28
-    if (amtOfRed == 8) redScore = 36
-    if (amtOfRed == 9) redScore = 45
-    if (amtOfRed == 10) redScore = 55
-    if (amtOfRed == 11) redScore = 66
-    if (amtOfRed == 12) redScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    redScore = getScore(amtOfRed)
+    score()
 
 }
 
@@ -494,22 +409,8 @@ function keepRed9() {
         amtOfRed++;
     }
 
-    if (amtOfRed == 0) redScore = 0
-    if (amtOfRed == 1) redScore = 1
-    if (amtOfRed == 2) redScore = 3
-    if (amtOfRed == 3) redScore = 6
-    if (amtOfRed == 4) redScore = 10
-    if (amtOfRed == 5) redScore = 15
-    if (amtOfRed == 6) redScore = 21
-    if (amtOfRed == 7) redScore = 28
-    if (amtOfRed == 8) redScore = 36
-    if (amtOfRed == 9) redScore = 45
-    if (amtOfRed == 10) redScore = 55
-    if (amtOfRed == 11) redScore = 66
-    if (amtOfRed == 12) redScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    redScore = getScore(amtOfRed)
+    score()
 
 }
 
@@ -524,22 +425,8 @@ function keepRed10() {
         amtOfRed++;
     }
 
-    if (amtOfRed == 0) redScore = 0
-    if (amtOfRed == 1) redScore = 1
-    if (amtOfRed == 2) redScore = 3
-    if (amtOfRed == 3) redScore = 6
-    if (amtOfRed == 4) redScore = 10
-    if (amtOfRed == 5) redScore = 15
-    if (amtOfRed == 6) redScore = 21
-    if (amtOfRed == 7) redScore = 28
-    if (amtOfRed == 8) redScore = 36
-    if (amtOfRed == 9) redScore = 45
-    if (amtOfRed == 10) redScore = 55
-    if (amtOfRed == 11) redScore = 66
-    if (amtOfRed == 12) redScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    redScore = getScore(amtOfRed)
+    score()
 
 }
 
@@ -554,22 +441,8 @@ function keepRed11() {
         amtOfRed++;
     }
 
-    if (amtOfRed == 0) redScore = 0
-    if (amtOfRed == 1) redScore = 1
-    if (amtOfRed == 2) redScore = 3
-    if (amtOfRed == 3) redScore = 6
-    if (amtOfRed == 4) redScore = 10
-    if (amtOfRed == 5) redScore = 15
-    if (amtOfRed == 6) redScore = 21
-    if (amtOfRed == 7) redScore = 28
-    if (amtOfRed == 8) redScore = 36
-    if (amtOfRed == 9) redScore = 45
-    if (amtOfRed == 10) redScore = 55
-    if (amtOfRed == 11) redScore = 66
-    if (amtOfRed == 12) redScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    redScore = getScore(amtOfRed)
+    score()
 
 }
 
@@ -584,22 +457,8 @@ function keepRed12() {
         amtOfRed++;
     }
 
-    if (amtOfRed == 0) redScore = 0
-    if (amtOfRed == 1) redScore = 1
-    if (amtOfRed == 2) redScore = 3
-    if (amtOfRed == 3) redScore = 6
-    if (amtOfRed == 4) redScore = 10
-    if (amtOfRed == 5) redScore = 15
-    if (amtOfRed == 6) redScore = 21
-    if (amtOfRed == 7) redScore = 28
-    if (amtOfRed == 8) redScore = 36
-    if (amtOfRed == 9) redScore = 45
-    if (amtOfRed == 10) redScore = 55
-    if (amtOfRed == 11) redScore = 66
-    if (amtOfRed == 12) redScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    redScore = getScore(amtOfRed)
+    score()
 
 }
 
@@ -614,22 +473,8 @@ function keepRedLock() {
         amtOfRed++;
     }
 
-    if (amtOfRed == 0) redScore = 0
-    if (amtOfRed == 1) redScore = 1
-    if (amtOfRed == 2) redScore = 3
-    if (amtOfRed == 3) redScore = 6
-    if (amtOfRed == 4) redScore = 10
-    if (amtOfRed == 5) redScore = 15
-    if (amtOfRed == 6) redScore = 21
-    if (amtOfRed == 7) redScore = 28
-    if (amtOfRed == 8) redScore = 36
-    if (amtOfRed == 9) redScore = 45
-    if (amtOfRed == 10) redScore = 55
-    if (amtOfRed == 11) redScore = 66
-    if (amtOfRed == 12) redScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    redScore = getScore(amtOfRed)
+    score()
 }
 
 
@@ -645,22 +490,8 @@ function keepyellow2() {
         amtOfyellow++;
     }
 
-    if (amtOfyellow == 0) yellowScore = 0
-    if (amtOfyellow == 1) yellowScore = 1
-    if (amtOfyellow == 2) yellowScore = 3
-    if (amtOfyellow == 3) yellowScore = 6
-    if (amtOfyellow == 4) yellowScore = 10
-    if (amtOfyellow == 5) yellowScore = 15
-    if (amtOfyellow == 6) yellowScore = 21
-    if (amtOfyellow == 7) yellowScore = 28
-    if (amtOfyellow == 8) yellowScore = 36
-    if (amtOfyellow == 9) yellowScore = 45
-    if (amtOfyellow == 10) yellowScore = 55
-    if (amtOfyellow == 11) yellowScore = 66
-    if (amtOfyellow == 12) yellowScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    yellowScore = getScore(amtOfyellow)
+    score()
 
 }
 
@@ -675,22 +506,8 @@ function keepyellow3() {
         amtOfyellow++;
     }
 
-    if (amtOfyellow == 0) yellowScore = 0
-    if (amtOfyellow == 1) yellowScore = 1
-    if (amtOfyellow == 2) yellowScore = 3
-    if (amtOfyellow == 3) yellowScore = 6
-    if (amtOfyellow == 4) yellowScore = 10
-    if (amtOfyellow == 5) yellowScore = 15
-    if (amtOfyellow == 6) yellowScore = 21
-    if (amtOfyellow == 7) yellowScore = 28
-    if (amtOfyellow == 8) yellowScore = 36
-    if (amtOfyellow == 9) yellowScore = 45
-    if (amtOfyellow == 10) yellowScore = 55
-    if (amtOfyellow == 11) yellowScore = 66
-    if (amtOfyellow == 12) yellowScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    yellowScore = getScore(amtOfyellow)
+    score()
 
 }
 
@@ -705,22 +522,8 @@ function keepyellow4() {
         amtOfyellow++;
     }
 
-    if (amtOfyellow == 0) yellowScore = 0
-    if (amtOfyellow == 1) yellowScore = 1
-    if (amtOfyellow == 2) yellowScore = 3
-    if (amtOfyellow == 3) yellowScore = 6
-    if (amtOfyellow == 4) yellowScore = 10
-    if (amtOfyellow == 5) yellowScore = 15
-    if (amtOfyellow == 6) yellowScore = 21
-    if (amtOfyellow == 7) yellowScore = 28
-    if (amtOfyellow == 8) yellowScore = 36
-    if (amtOfyellow == 9) yellowScore = 45
-    if (amtOfyellow == 10) yellowScore = 55
-    if (amtOfyellow == 11) yellowScore = 66
-    if (amtOfyellow == 12) yellowScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    yellowScore = getScore(amtOfyellow)
+    score()
 
 }
 
@@ -735,23 +538,8 @@ function keepyellow5() {
         amtOfyellow++;
     }
 
-    if (amtOfyellow == 0) yellowScore = 0
-    if (amtOfyellow == 1) yellowScore = 1
-    if (amtOfyellow == 2) yellowScore = 3
-    if (amtOfyellow == 3) yellowScore = 6
-    if (amtOfyellow == 4) yellowScore = 10
-    if (amtOfyellow == 5) yellowScore = 15
-    if (amtOfyellow == 6) yellowScore = 21
-    if (amtOfyellow == 7) yellowScore = 28
-    if (amtOfyellow == 8) yellowScore = 36
-    if (amtOfyellow == 9) yellowScore = 45
-    if (amtOfyellow == 10) yellowScore = 55
-    if (amtOfyellow == 11) yellowScore = 66
-    if (amtOfyellow == 12) yellowScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
-
+    yellowScore = getScore(amtOfyellow)
+    score()
 }
 
 function keepyellow6() {
@@ -765,22 +553,8 @@ function keepyellow6() {
         amtOfyellow++;
     }
 
-    if (amtOfyellow == 0) yellowScore = 0
-    if (amtOfyellow == 1) yellowScore = 1
-    if (amtOfyellow == 2) yellowScore = 3
-    if (amtOfyellow == 3) yellowScore = 6
-    if (amtOfyellow == 4) yellowScore = 10
-    if (amtOfyellow == 5) yellowScore = 15
-    if (amtOfyellow == 6) yellowScore = 21
-    if (amtOfyellow == 7) yellowScore = 28
-    if (amtOfyellow == 8) yellowScore = 36
-    if (amtOfyellow == 9) yellowScore = 45
-    if (amtOfyellow == 10) yellowScore = 55
-    if (amtOfyellow == 11) yellowScore = 66
-    if (amtOfyellow == 12) yellowScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    yellowScore = getScore(amtOfyellow)
+    score()
 
 }
 
@@ -795,22 +569,8 @@ function keepyellow7() {
         amtOfyellow++;
     }
 
-    if (amtOfyellow == 0) yellowScore = 0
-    if (amtOfyellow == 1) yellowScore = 1
-    if (amtOfyellow == 2) yellowScore = 3
-    if (amtOfyellow == 3) yellowScore = 6
-    if (amtOfyellow == 4) yellowScore = 10
-    if (amtOfyellow == 5) yellowScore = 15
-    if (amtOfyellow == 6) yellowScore = 21
-    if (amtOfyellow == 7) yellowScore = 28
-    if (amtOfyellow == 8) yellowScore = 36
-    if (amtOfyellow == 9) yellowScore = 45
-    if (amtOfyellow == 10) yellowScore = 55
-    if (amtOfyellow == 11) yellowScore = 66
-    if (amtOfyellow == 12) yellowScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    yellowScore = getScore(amtOfyellow)
+    score()
 
 }
 
@@ -825,22 +585,8 @@ function keepyellow8() {
         amtOfyellow++;
     }
 
-    if (amtOfyellow == 0) yellowScore = 0
-    if (amtOfyellow == 1) yellowScore = 1
-    if (amtOfyellow == 2) yellowScore = 3
-    if (amtOfyellow == 3) yellowScore = 6
-    if (amtOfyellow == 4) yellowScore = 10
-    if (amtOfyellow == 5) yellowScore = 15
-    if (amtOfyellow == 6) yellowScore = 21
-    if (amtOfyellow == 7) yellowScore = 28
-    if (amtOfyellow == 8) yellowScore = 36
-    if (amtOfyellow == 9) yellowScore = 45
-    if (amtOfyellow == 10) yellowScore = 55
-    if (amtOfyellow == 11) yellowScore = 66
-    if (amtOfyellow == 12) yellowScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    yellowScore = getScore(amtOfyellow)
+    score()
 
 }
 
@@ -855,23 +601,8 @@ function keepyellow9() {
         amtOfyellow++;
     }
 
-    if (amtOfyellow == 0) yellowScore = 0
-    if (amtOfyellow == 1) yellowScore = 1
-    if (amtOfyellow == 2) yellowScore = 3
-    if (amtOfyellow == 3) yellowScore = 6
-    if (amtOfyellow == 4) yellowScore = 10
-    if (amtOfyellow == 5) yellowScore = 15
-    if (amtOfyellow == 6) yellowScore = 21
-    if (amtOfyellow == 7) yellowScore = 28
-    if (amtOfyellow == 8) yellowScore = 36
-    if (amtOfyellow == 9) yellowScore = 45
-    if (amtOfyellow == 10) yellowScore = 55
-    if (amtOfyellow == 11) yellowScore = 66
-    if (amtOfyellow == 12) yellowScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
-
+    yellowScore = getScore(amtOfyellow)
+    score()
 }
 
 function keepyellow10() {
@@ -885,22 +616,8 @@ function keepyellow10() {
         amtOfyellow++;
     }
 
-    if (amtOfyellow == 0) yellowScore = 0
-    if (amtOfyellow == 1) yellowScore = 1
-    if (amtOfyellow == 2) yellowScore = 3
-    if (amtOfyellow == 3) yellowScore = 6
-    if (amtOfyellow == 4) yellowScore = 10
-    if (amtOfyellow == 5) yellowScore = 15
-    if (amtOfyellow == 6) yellowScore = 21
-    if (amtOfyellow == 7) yellowScore = 28
-    if (amtOfyellow == 8) yellowScore = 36
-    if (amtOfyellow == 9) yellowScore = 45
-    if (amtOfyellow == 10) yellowScore = 55
-    if (amtOfyellow == 11) yellowScore = 66
-    if (amtOfyellow == 12) yellowScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    yellowScore = getScore(amtOfyellow)
+    score()
 
 }
 
@@ -915,22 +632,8 @@ function keepyellow11() {
         amtOfyellow++;
     }
 
-    if (amtOfyellow == 0) yellowScore = 0
-    if (amtOfyellow == 1) yellowScore = 1
-    if (amtOfyellow == 2) yellowScore = 3
-    if (amtOfyellow == 3) yellowScore = 6
-    if (amtOfyellow == 4) yellowScore = 10
-    if (amtOfyellow == 5) yellowScore = 15
-    if (amtOfyellow == 6) yellowScore = 21
-    if (amtOfyellow == 7) yellowScore = 28
-    if (amtOfyellow == 8) yellowScore = 36
-    if (amtOfyellow == 9) yellowScore = 45
-    if (amtOfyellow == 10) yellowScore = 55
-    if (amtOfyellow == 11) yellowScore = 66
-    if (amtOfyellow == 12) yellowScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    yellowScore = getScore(amtOfyellow)
+    score()
 
 }
 
@@ -945,22 +648,8 @@ function keepyellow12() {
         amtOfyellow++;
     }
 
-    if (amtOfyellow == 0) yellowScore = 0
-    if (amtOfyellow == 1) yellowScore = 1
-    if (amtOfyellow == 2) yellowScore = 3
-    if (amtOfyellow == 3) yellowScore = 6
-    if (amtOfyellow == 4) yellowScore = 10
-    if (amtOfyellow == 5) yellowScore = 15
-    if (amtOfyellow == 6) yellowScore = 21
-    if (amtOfyellow == 7) yellowScore = 28
-    if (amtOfyellow == 8) yellowScore = 36
-    if (amtOfyellow == 9) yellowScore = 45
-    if (amtOfyellow == 10) yellowScore = 55
-    if (amtOfyellow == 11) yellowScore = 66
-    if (amtOfyellow == 12) yellowScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    yellowScore = getScore(amtOfyellow)
+    score()
 
 }
 
@@ -975,22 +664,8 @@ function keepyellowLock() {
         amtOfyellow++;
     }
 
-    if (amtOfyellow == 0) yellowScore = 0
-    if (amtOfyellow == 1) yellowScore = 1
-    if (amtOfyellow == 2) yellowScore = 3
-    if (amtOfyellow == 3) yellowScore = 6
-    if (amtOfyellow == 4) yellowScore = 10
-    if (amtOfyellow == 5) yellowScore = 15
-    if (amtOfyellow == 6) yellowScore = 21
-    if (amtOfyellow == 7) yellowScore = 28
-    if (amtOfyellow == 8) yellowScore = 36
-    if (amtOfyellow == 9) yellowScore = 45
-    if (amtOfyellow == 10) yellowScore = 55
-    if (amtOfyellow == 11) yellowScore = 66
-    if (amtOfyellow == 12) yellowScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    yellowScore = getScore(amtOfyellow)
+    score()
 }
 
 
@@ -1006,22 +681,8 @@ function keepgreen2() {
         amtOfgreen++;
     }
 
-    if (amtOfgreen == 0) greenScore = 0
-    if (amtOfgreen == 1) greenScore = 1
-    if (amtOfgreen == 2) greenScore = 3
-    if (amtOfgreen == 3) greenScore = 6
-    if (amtOfgreen == 4) greenScore = 10
-    if (amtOfgreen == 5) greenScore = 15
-    if (amtOfgreen == 6) greenScore = 21
-    if (amtOfgreen == 7) greenScore = 28
-    if (amtOfgreen == 8) greenScore = 36
-    if (amtOfgreen == 9) greenScore = 45
-    if (amtOfgreen == 10) greenScore = 55
-    if (amtOfgreen == 11) greenScore = 66
-    if (amtOfgreen == 12) greenScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    greenScore = getScore(amtOfgreen)
+    score()
 
 }
 
@@ -1036,22 +697,8 @@ function keepgreen3() {
         amtOfgreen++;
     }
 
-    if (amtOfgreen == 0) greenScore = 0
-    if (amtOfgreen == 1) greenScore = 1
-    if (amtOfgreen == 2) greenScore = 3
-    if (amtOfgreen == 3) greenScore = 6
-    if (amtOfgreen == 4) greenScore = 10
-    if (amtOfgreen == 5) greenScore = 15
-    if (amtOfgreen == 6) greenScore = 21
-    if (amtOfgreen == 7) greenScore = 28
-    if (amtOfgreen == 8) greenScore = 36
-    if (amtOfgreen == 9) greenScore = 45
-    if (amtOfgreen == 10) greenScore = 55
-    if (amtOfgreen == 11) greenScore = 66
-    if (amtOfgreen == 12) greenScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    greenScore = getScore(amtOfgreen)
+    score()
 
 }
 
@@ -1066,22 +713,8 @@ function keepgreen4() {
         amtOfgreen++;
     }
 
-    if (amtOfgreen == 0) greenScore = 0
-    if (amtOfgreen == 1) greenScore = 1
-    if (amtOfgreen == 2) greenScore = 3
-    if (amtOfgreen == 3) greenScore = 6
-    if (amtOfgreen == 4) greenScore = 10
-    if (amtOfgreen == 5) greenScore = 15
-    if (amtOfgreen == 6) greenScore = 21
-    if (amtOfgreen == 7) greenScore = 28
-    if (amtOfgreen == 8) greenScore = 36
-    if (amtOfgreen == 9) greenScore = 45
-    if (amtOfgreen == 10) greenScore = 55
-    if (amtOfgreen == 11) greenScore = 66
-    if (amtOfgreen == 12) greenScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    greenScore = getScore(amtOfgreen)
+    score()
 
 }
 
@@ -1096,22 +729,8 @@ function keepgreen5() {
         amtOfgreen++;
     }
 
-    if (amtOfgreen == 0) greenScore = 0
-    if (amtOfgreen == 1) greenScore = 1
-    if (amtOfgreen == 2) greenScore = 3
-    if (amtOfgreen == 3) greenScore = 6
-    if (amtOfgreen == 4) greenScore = 10
-    if (amtOfgreen == 5) greenScore = 15
-    if (amtOfgreen == 6) greenScore = 21
-    if (amtOfgreen == 7) greenScore = 28
-    if (amtOfgreen == 8) greenScore = 36
-    if (amtOfgreen == 9) greenScore = 45
-    if (amtOfgreen == 10) greenScore = 55
-    if (amtOfgreen == 11) greenScore = 66
-    if (amtOfgreen == 12) greenScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    greenScore = getScore(amtOfgreen)
+    score()
 
 }
 
@@ -1126,22 +745,8 @@ function keepgreen6() {
         amtOfgreen++;
     }
 
-    if (amtOfgreen == 0) greenScore = 0
-    if (amtOfgreen == 1) greenScore = 1
-    if (amtOfgreen == 2) greenScore = 3
-    if (amtOfgreen == 3) greenScore = 6
-    if (amtOfgreen == 4) greenScore = 10
-    if (amtOfgreen == 5) greenScore = 15
-    if (amtOfgreen == 6) greenScore = 21
-    if (amtOfgreen == 7) greenScore = 28
-    if (amtOfgreen == 8) greenScore = 36
-    if (amtOfgreen == 9) greenScore = 45
-    if (amtOfgreen == 10) greenScore = 55
-    if (amtOfgreen == 11) greenScore = 66
-    if (amtOfgreen == 12) greenScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    greenScore = getScore(amtOfgreen)
+    score()
 
 }
 
@@ -1156,22 +761,8 @@ function keepgreen7() {
         amtOfgreen++;
     }
 
-    if (amtOfgreen == 0) greenScore = 0
-    if (amtOfgreen == 1) greenScore = 1
-    if (amtOfgreen == 2) greenScore = 3
-    if (amtOfgreen == 3) greenScore = 6
-    if (amtOfgreen == 4) greenScore = 10
-    if (amtOfgreen == 5) greenScore = 15
-    if (amtOfgreen == 6) greenScore = 21
-    if (amtOfgreen == 7) greenScore = 28
-    if (amtOfgreen == 8) greenScore = 36
-    if (amtOfgreen == 9) greenScore = 45
-    if (amtOfgreen == 10) greenScore = 55
-    if (amtOfgreen == 11) greenScore = 66
-    if (amtOfgreen == 12) greenScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    greenScore = getScore(amtOfgreen)
+    score()
 
 }
 
@@ -1186,22 +777,8 @@ function keepgreen8() {
         amtOfgreen++;
     }
 
-    if (amtOfgreen == 0) greenScore = 0
-    if (amtOfgreen == 1) greenScore = 1
-    if (amtOfgreen == 2) greenScore = 3
-    if (amtOfgreen == 3) greenScore = 6
-    if (amtOfgreen == 4) greenScore = 10
-    if (amtOfgreen == 5) greenScore = 15
-    if (amtOfgreen == 6) greenScore = 21
-    if (amtOfgreen == 7) greenScore = 28
-    if (amtOfgreen == 8) greenScore = 36
-    if (amtOfgreen == 9) greenScore = 45
-    if (amtOfgreen == 10) greenScore = 55
-    if (amtOfgreen == 11) greenScore = 66
-    if (amtOfgreen == 12) greenScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    greenScore = getScore(amtOfgreen)
+    score()
 
 }
 
@@ -1216,22 +793,8 @@ function keepgreen9() {
         amtOfgreen++;
     }
 
-    if (amtOfgreen == 0) greenScore = 0
-    if (amtOfgreen == 1) greenScore = 1
-    if (amtOfgreen == 2) greenScore = 3
-    if (amtOfgreen == 3) greenScore = 6
-    if (amtOfgreen == 4) greenScore = 10
-    if (amtOfgreen == 5) greenScore = 15
-    if (amtOfgreen == 6) greenScore = 21
-    if (amtOfgreen == 7) greenScore = 28
-    if (amtOfgreen == 8) greenScore = 36
-    if (amtOfgreen == 9) greenScore = 45
-    if (amtOfgreen == 10) greenScore = 55
-    if (amtOfgreen == 11) greenScore = 66
-    if (amtOfgreen == 12) greenScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    greenScore = getScore(amtOfgreen)
+    score()
 
 }
 
@@ -1246,22 +809,8 @@ function keepgreen10() {
         amtOfgreen++;
     }
 
-    if (amtOfgreen == 0) greenScore = 0
-    if (amtOfgreen == 1) greenScore = 1
-    if (amtOfgreen == 2) greenScore = 3
-    if (amtOfgreen == 3) greenScore = 6
-    if (amtOfgreen == 4) greenScore = 10
-    if (amtOfgreen == 5) greenScore = 15
-    if (amtOfgreen == 6) greenScore = 21
-    if (amtOfgreen == 7) greenScore = 28
-    if (amtOfgreen == 8) greenScore = 36
-    if (amtOfgreen == 9) greenScore = 45
-    if (amtOfgreen == 10) greenScore = 55
-    if (amtOfgreen == 11) greenScore = 66
-    if (amtOfgreen == 12) greenScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    greenScore = getScore(amtOfgreen)
+    score()
 
 }
 
@@ -1276,22 +825,8 @@ function keepgreen11() {
         amtOfgreen++;
     }
 
-    if (amtOfgreen == 0) greenScore = 0
-    if (amtOfgreen == 1) greenScore = 1
-    if (amtOfgreen == 2) greenScore = 3
-    if (amtOfgreen == 3) greenScore = 6
-    if (amtOfgreen == 4) greenScore = 10
-    if (amtOfgreen == 5) greenScore = 15
-    if (amtOfgreen == 6) greenScore = 21
-    if (amtOfgreen == 7) greenScore = 28
-    if (amtOfgreen == 8) greenScore = 36
-    if (amtOfgreen == 9) greenScore = 45
-    if (amtOfgreen == 10) greenScore = 55
-    if (amtOfgreen == 11) greenScore = 66
-    if (amtOfgreen == 12) greenScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    greenScore = getScore(amtOfgreen)
+    score()
 
 }
 
@@ -1306,22 +841,8 @@ function keepgreen12() {
         amtOfgreen++;
     }
 
-    if (amtOfgreen == 0) greenScore = 0
-    if (amtOfgreen == 1) greenScore = 1
-    if (amtOfgreen == 2) greenScore = 3
-    if (amtOfgreen == 3) greenScore = 6
-    if (amtOfgreen == 4) greenScore = 10
-    if (amtOfgreen == 5) greenScore = 15
-    if (amtOfgreen == 6) greenScore = 21
-    if (amtOfgreen == 7) greenScore = 28
-    if (amtOfgreen == 8) greenScore = 36
-    if (amtOfgreen == 9) greenScore = 45
-    if (amtOfgreen == 10) greenScore = 55
-    if (amtOfgreen == 11) greenScore = 66
-    if (amtOfgreen == 12) greenScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    greenScore = getScore(amtOfgreen)
+    score()
 
 }
 
@@ -1335,23 +856,8 @@ function keepgreenLock() {
         greenLockActive = true
         amtOfgreen++;
     }
-
-    if (amtOfgreen == 0) greenScore = 0
-    if (amtOfgreen == 1) greenScore = 1
-    if (amtOfgreen == 2) greenScore = 3
-    if (amtOfgreen == 3) greenScore = 6
-    if (amtOfgreen == 4) greenScore = 10
-    if (amtOfgreen == 5) greenScore = 15
-    if (amtOfgreen == 6) greenScore = 21
-    if (amtOfgreen == 7) greenScore = 28
-    if (amtOfgreen == 8) greenScore = 36
-    if (amtOfgreen == 9) greenScore = 45
-    if (amtOfgreen == 10) greenScore = 55
-    if (amtOfgreen == 11) greenScore = 66
-    if (amtOfgreen == 12) greenScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    greenScore = getScore(amtOfgreen)
+    score()
 }
 
 
@@ -1367,22 +873,8 @@ function keepblue2() {
         amtOfblue++;
     }
 
-    if (amtOfblue == 0) blueScore = 0
-    if (amtOfblue == 1) blueScore = 1
-    if (amtOfblue == 2) blueScore = 3
-    if (amtOfblue == 3) blueScore = 6
-    if (amtOfblue == 4) blueScore = 10
-    if (amtOfblue == 5) blueScore = 15
-    if (amtOfblue == 6) blueScore = 21
-    if (amtOfblue == 7) blueScore = 28
-    if (amtOfblue == 8) blueScore = 36
-    if (amtOfblue == 9) blueScore = 45
-    if (amtOfblue == 10) blueScore = 55
-    if (amtOfblue == 11) blueScore = 66
-    if (amtOfblue == 12) blueScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    blueScore = getScore(amtOfblue)
+    score()
 
 }
 
@@ -1397,22 +889,8 @@ function keepblue3() {
         amtOfblue++;
     }
 
-    if (amtOfblue == 0) blueScore = 0
-    if (amtOfblue == 1) blueScore = 1
-    if (amtOfblue == 2) blueScore = 3
-    if (amtOfblue == 3) blueScore = 6
-    if (amtOfblue == 4) blueScore = 10
-    if (amtOfblue == 5) blueScore = 15
-    if (amtOfblue == 6) blueScore = 21
-    if (amtOfblue == 7) blueScore = 28
-    if (amtOfblue == 8) blueScore = 36
-    if (amtOfblue == 9) blueScore = 45
-    if (amtOfblue == 10) blueScore = 55
-    if (amtOfblue == 11) blueScore = 66
-    if (amtOfblue == 12) blueScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    blueScore = getScore(amtOfblue)
+    score()
 
 }
 
@@ -1427,22 +905,8 @@ function keepblue4() {
         amtOfblue++;
     }
 
-    if (amtOfblue == 0) blueScore = 0
-    if (amtOfblue == 1) blueScore = 1
-    if (amtOfblue == 2) blueScore = 3
-    if (amtOfblue == 3) blueScore = 6
-    if (amtOfblue == 4) blueScore = 10
-    if (amtOfblue == 5) blueScore = 15
-    if (amtOfblue == 6) blueScore = 21
-    if (amtOfblue == 7) blueScore = 28
-    if (amtOfblue == 8) blueScore = 36
-    if (amtOfblue == 9) blueScore = 45
-    if (amtOfblue == 10) blueScore = 55
-    if (amtOfblue == 11) blueScore = 66
-    if (amtOfblue == 12) blueScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    blueScore = getScore(amtOfblue)
+    score()
 
 }
 
@@ -1457,22 +921,8 @@ function keepblue5() {
         amtOfblue++;
     }
 
-    if (amtOfblue == 0) blueScore = 0
-    if (amtOfblue == 1) blueScore = 1
-    if (amtOfblue == 2) blueScore = 3
-    if (amtOfblue == 3) blueScore = 6
-    if (amtOfblue == 4) blueScore = 10
-    if (amtOfblue == 5) blueScore = 15
-    if (amtOfblue == 6) blueScore = 21
-    if (amtOfblue == 7) blueScore = 28
-    if (amtOfblue == 8) blueScore = 36
-    if (amtOfblue == 9) blueScore = 45
-    if (amtOfblue == 10) blueScore = 55
-    if (amtOfblue == 11) blueScore = 66
-    if (amtOfblue == 12) blueScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    blueScore = getScore(amtOfblue)
+    score()
 
 }
 
@@ -1487,22 +937,8 @@ function keepblue6() {
         amtOfblue++;
     }
 
-    if (amtOfblue == 0) blueScore = 0
-    if (amtOfblue == 1) blueScore = 1
-    if (amtOfblue == 2) blueScore = 3
-    if (amtOfblue == 3) blueScore = 6
-    if (amtOfblue == 4) blueScore = 10
-    if (amtOfblue == 5) blueScore = 15
-    if (amtOfblue == 6) blueScore = 21
-    if (amtOfblue == 7) blueScore = 28
-    if (amtOfblue == 8) blueScore = 36
-    if (amtOfblue == 9) blueScore = 45
-    if (amtOfblue == 10) blueScore = 55
-    if (amtOfblue == 11) blueScore = 66
-    if (amtOfblue == 12) blueScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    blueScore = getScore(amtOfblue)
+    score()
 
 }
 
@@ -1517,22 +953,8 @@ function keepblue7() {
         amtOfblue++;
     }
 
-    if (amtOfblue == 0) blueScore = 0
-    if (amtOfblue == 1) blueScore = 1
-    if (amtOfblue == 2) blueScore = 3
-    if (amtOfblue == 3) blueScore = 6
-    if (amtOfblue == 4) blueScore = 10
-    if (amtOfblue == 5) blueScore = 15
-    if (amtOfblue == 6) blueScore = 21
-    if (amtOfblue == 7) blueScore = 28
-    if (amtOfblue == 8) blueScore = 36
-    if (amtOfblue == 9) blueScore = 45
-    if (amtOfblue == 10) blueScore = 55
-    if (amtOfblue == 11) blueScore = 66
-    if (amtOfblue == 12) blueScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    blueScore = getScore(amtOfblue)
+    score()
 
 }
 
@@ -1547,23 +969,8 @@ function keepblue8() {
         amtOfblue++;
     }
 
-    if (amtOfblue == 0) blueScore = 0
-    if (amtOfblue == 1) blueScore = 1
-    if (amtOfblue == 2) blueScore = 3
-    if (amtOfblue == 3) blueScore = 6
-    if (amtOfblue == 4) blueScore = 10
-    if (amtOfblue == 5) blueScore = 15
-    if (amtOfblue == 6) blueScore = 21
-    if (amtOfblue == 7) blueScore = 28
-    if (amtOfblue == 8) blueScore = 36
-    if (amtOfblue == 9) blueScore = 45
-    if (amtOfblue == 10) blueScore = 55
-    if (amtOfblue == 11) blueScore = 66
-    if (amtOfblue == 12) blueScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
-
+    blueScore = getScore(amtOfblue)
+    score()
 }
 
 function keepblue9() {
@@ -1577,22 +984,8 @@ function keepblue9() {
         amtOfblue++;
     }
 
-    if (amtOfblue == 0) blueScore = 0
-    if (amtOfblue == 1) blueScore = 1
-    if (amtOfblue == 2) blueScore = 3
-    if (amtOfblue == 3) blueScore = 6
-    if (amtOfblue == 4) blueScore = 10
-    if (amtOfblue == 5) blueScore = 15
-    if (amtOfblue == 6) blueScore = 21
-    if (amtOfblue == 7) blueScore = 28
-    if (amtOfblue == 8) blueScore = 36
-    if (amtOfblue == 9) blueScore = 45
-    if (amtOfblue == 10) blueScore = 55
-    if (amtOfblue == 11) blueScore = 66
-    if (amtOfblue == 12) blueScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    blueScore = getScore(amtOfblue)
+    score()
 
 }
 
@@ -1607,22 +1000,8 @@ function keepblue10() {
         amtOfblue++;
     }
 
-    if (amtOfblue == 0) blueScore = 0
-    if (amtOfblue == 1) blueScore = 1
-    if (amtOfblue == 2) blueScore = 3
-    if (amtOfblue == 3) blueScore = 6
-    if (amtOfblue == 4) blueScore = 10
-    if (amtOfblue == 5) blueScore = 15
-    if (amtOfblue == 6) blueScore = 21
-    if (amtOfblue == 7) blueScore = 28
-    if (amtOfblue == 8) blueScore = 36
-    if (amtOfblue == 9) blueScore = 45
-    if (amtOfblue == 10) blueScore = 55
-    if (amtOfblue == 11) blueScore = 66
-    if (amtOfblue == 12) blueScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    blueScore = getScore(amtOfblue)
+    score()
 
 }
 
@@ -1637,23 +1016,8 @@ function keepblue11() {
         amtOfblue++;
     }
 
-    if (amtOfblue == 0) blueScore = 0
-    if (amtOfblue == 0) blueScore = 0
-    if (amtOfblue == 1) blueScore = 1
-    if (amtOfblue == 2) blueScore = 3
-    if (amtOfblue == 3) blueScore = 6
-    if (amtOfblue == 4) blueScore = 10
-    if (amtOfblue == 5) blueScore = 15
-    if (amtOfblue == 6) blueScore = 21
-    if (amtOfblue == 7) blueScore = 28
-    if (amtOfblue == 8) blueScore = 36
-    if (amtOfblue == 9) blueScore = 45
-    if (amtOfblue == 10) blueScore = 55
-    if (amtOfblue == 11) blueScore = 66
-    if (amtOfblue == 12) blueScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    blueScore = getScore(amtOfblue)
+    score()
 
 }
 
@@ -1668,22 +1032,8 @@ function keepblue12() {
         amtOfblue++;
     }
 
-    if (amtOfblue == 0) blueScore = 0
-    if (amtOfblue == 1) blueScore = 1
-    if (amtOfblue == 2) blueScore = 3
-    if (amtOfblue == 3) blueScore = 6
-    if (amtOfblue == 4) blueScore = 10
-    if (amtOfblue == 5) blueScore = 15
-    if (amtOfblue == 6) blueScore = 21
-    if (amtOfblue == 7) blueScore = 28
-    if (amtOfblue == 8) blueScore = 36
-    if (amtOfblue == 9) blueScore = 45
-    if (amtOfblue == 10) blueScore = 55
-    if (amtOfblue == 11) blueScore = 66
-    if (amtOfblue == 12) blueScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    blueScore = getScore(amtOfblue)
+    score()
 
 }
 
@@ -1698,20 +1048,6 @@ function keepblueLock() {
         amtOfblue++;
     }
 
-    if (amtOfblue == 0) blueScore = 0
-    if (amtOfblue == 1) blueScore = 1
-    if (amtOfblue == 2) blueScore = 3
-    if (amtOfblue == 3) blueScore = 6
-    if (amtOfblue == 4) blueScore = 10
-    if (amtOfblue == 5) blueScore = 15
-    if (amtOfblue == 6) blueScore = 21
-    if (amtOfblue == 7) blueScore = 28
-    if (amtOfblue == 8) blueScore = 36
-    if (amtOfblue == 9) blueScore = 45
-    if (amtOfblue == 10) blueScore = 55
-    if (amtOfblue == 11) blueScore = 66
-    if (amtOfblue == 12) blueScore = 78
-
-    total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5;
-    document.getElementById("score").innerHTML = redScore + " + " + yellowScore + " + " + greenScore + " + " + blueScore + " - " + (amtOfPenalites * 5) + " = " + total
+    blueScore = getScore(amtOfblue)
+    score()
 }
