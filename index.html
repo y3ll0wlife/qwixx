@@ -18,7 +18,7 @@
 
     <title>Qwixx board</title>
 </head>
-<body>
+<body onload="recoverBoard()">
     <div id="redRow">
         <div id="red2" onclick="keepRed2();score()">2</div>
         <div id="red3" onclick="keepRed3();score()">3</div>
@@ -93,6 +93,5 @@
 
     <h1 id="score"></h1>
     <button id="reset" onclick="reset()">Reset</button>
-    
 </body>
 </html>
