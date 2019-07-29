@@ -94,7 +94,7 @@ function reset() {
         
     }
 
-    for(x=1; x < 5; x++) document.getElementById("pen" + x).style.background = "#E2E1E6";
+    for(x=1; x < 5; x++) document.getElementById("pen" + x).style.background = "white";
 
     document.getElementById("score").innerHTML = ""
 
@@ -643,7 +643,7 @@ function getScore(amt){
 // Penalites
 function penaltie1() {
     if (pen1Active == true) {
-        document.getElementById("pen1").style.background = "#E2E1E6";
+        document.getElementById("pen1").style.background = "white";
         pen1Active = false
         amtOfPenalites--;
         eraseCookie("pen1")
@@ -659,7 +659,7 @@ function penaltie1() {
 
 function penaltie2() {
     if (pen2Active == true) {
-        document.getElementById("pen2").style.background = "#E2E1E6";
+        document.getElementById("pen2").style.background = "white";
         pen2Active = false
         amtOfPenalites--;
         eraseCookie("pen2")
@@ -675,7 +675,7 @@ function penaltie2() {
 
 function penaltie3() {
     if (pen3Active == true) {
-        document.getElementById("pen3").style.background = "#E2E1E6";
+        document.getElementById("pen3").style.background = "white";
         pen3Active = false
         amtOfPenalites--;
         eraseCookie("pen3")
@@ -691,7 +691,7 @@ function penaltie3() {
 
 function penaltie4() {
     if (pen4Active == true) {
-        document.getElementById("pen4").style.background = "#E2E1E6";
+        document.getElementById("pen4").style.background = "white";
         pen4Active = false
         amtOfPenalites--;
         eraseCookie("pen4")
