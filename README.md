@@ -8,7 +8,7 @@
 ## Author
 👤 **y3ll0w**
 
-* Twitter: [@realY3ll0w](https://twitter.com/realY3ll0w)
+* Twitter: [@y3ll0wLife](https://twitter.com/y3ll0wLife)
 * Github: [y3ll0wlife](https://github.com/y3ll0wlife)
 
 ## Show your support
