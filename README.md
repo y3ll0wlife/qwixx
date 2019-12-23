@@ -11,6 +11,7 @@
 - [ ] Same size of the entire board.  
 - [ ] Unable to go back.  
 - [ ] Button to see when entire row is locked.  
+- [ ] Reset confirmation box.
 
 ## Author
 👤 **y3ll0w**
