@@ -10,7 +10,7 @@
 - [ ] Must have 5 to lock.  
 - [ ] Same size of the entire board.  
 - [ ] Unable to go back.  
-- [ ] Button to see when entire row is locked.  
+- [X] Button to see when entire row is locked.  
 - [X] Reset confirmation box.
 
 ## Author
