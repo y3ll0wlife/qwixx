@@ -18,9 +18,11 @@
   background-color: #bfc8e9;
   margin-right: 10px;
   margin-top: 15px;
-  padding: 12px;
+  height: 3.5em;
+  width: 3.5em;
   font-size: 15px;
   border: 0.1px solid black;
+  outline: none;
 }
 
 #greenRow {
@@ -43,9 +45,11 @@
   background-color: #c3ebd0;
   margin-right: 10px;
   margin-top: 15px;
-  padding: 12px;
+  height: 3.5em;
+  width: 3.5em;
   font-size: 15px;
   border: 0.1px solid black;
+  outline: none;
 }
 
 #redRow {
@@ -68,9 +72,11 @@
   background-color: #ffbfc2;
   margin-right: 10px;
   margin-top: 15px;
-  padding: 12px;
+  height: 3.5em;
+  width: 3.5em;
   font-size: 15px;
   border: 0.1px solid black;
+  outline: none;
 }
 
 #yellowRow {
@@ -93,9 +99,11 @@
   background-color: #feecc8;
   margin-right: 10px;
   margin-top: 15px;
-  padding: 12px;
+  height: 3.5em;
+  width: 3.5em;
   font-size: 15px;
   border: 0.1px solid black;
+  outline: none;
 }
 
 #penaltiRow {
@@ -108,5 +116,5 @@
 #pen3,
 #pen4 {
   margin-right: 10px;
-  padding: 10px 20px 10px 20px;
+  padding: 30px 30px 20px 10px;
 }

@@ -17,7 +17,8 @@
 #blueLock {
   background-color: #bfc8e9;
   margin-top: 10px;
-  padding: 20px 20px 20px 20px;
+  height: 5em;
+  width: 5em;
   font-size: 15px;
   border: 0.1px solid black;
 }
@@ -42,7 +43,8 @@
 #greenLock {
   background-color: #c3ebd0;
   margin-top: 10px;
-  padding: 20px 20px 20px 20px;
+  height: 5em;
+  width: 5em;
   font-size: 15px;
   border: 0.1px solid black;
 }
@@ -66,7 +68,8 @@
 #redLock {
   background-color: #ffbfc2;
   margin-top: 10px;
-  padding: 20px 20px 20px 20px;
+  height: 5em;
+  width: 5em;
   font-size: 15px;
   border: 0.1px solid black;
 }
@@ -90,7 +93,8 @@
 #yellowLock {
   background-color: #feecc8;
   margin-top: 10px;
-  padding: 20px 20px 20px 20px;
+  height: 5em;
+  width: 5em;
   font-size: 15px;
   border: 0.1px solid black;
 }

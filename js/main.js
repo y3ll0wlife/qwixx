@@ -73,6 +73,21 @@ function reset() {
   var r = confirm("Are you sure that you wanna reset the board?");
   if (r != true) return;
 
+  document.getElementById("checkRed").checked = false;
+  document.getElementById("checkYellow").checked = false;
+  document.getElementById("checkGreen").checked = false;
+  document.getElementById("checkBlue").checked = false;
+
+  stateRed = -1;
+  stateBlue = -1;
+  stateGreen = -1;
+  stateYellow = -1;
+
+  checkedRed();
+  checkedYellow();
+  checkedGreen();
+  checkedBlue();
+
   for (z = 0; z < 4; z++) {
     if (z == 0) {
       color = "red";
