@@ -13,13 +13,22 @@
 #blue9,
 #blue10,
 #blue11,
-#blue12,
-#blueLock {
+#blue12 {
   background-color: #bfc8e9;
   margin-right: 10px;
   margin-top: 15px;
   height: 3.5em;
   width: 3.5em;
+  font-size: 80%;
+  border: 0.1px solid black;
+  outline: none;
+}
+#blueLock {
+  background-color: #bfc8e9;
+  margin-right: 10px;
+  margin-top: 15px;
+  height: 3.5em;
+  width: 5em;
   font-size: 80%;
   border: 0.1px solid black;
   outline: none;
@@ -40,13 +49,22 @@
 #green9,
 #green10,
 #green11,
-#green12,
-#greenLock {
+#green12 {
   background-color: #c3ebd0;
   margin-right: 10px;
   margin-top: 15px;
   height: 3.5em;
   width: 3.5em;
+  font-size: 80%;
+  border: 0.1px solid black;
+  outline: none;
+}
+#greenLock {
+  background-color: #c3ebd0;
+  margin-right: 10px;
+  margin-top: 15px;
+  height: 3.5em;
+  width: 5em;
   font-size: 80%;
   border: 0.1px solid black;
   outline: none;
@@ -67,13 +85,22 @@
 #red9,
 #red10,
 #red11,
-#red12,
-#redLock {
+#red12 {
   background-color: #ffbfc2;
   margin-right: 10px;
   margin-top: 15px;
   height: 3.5em;
   width: 3.5em;
+  font-size: 80%;
+  border: 0.1px solid black;
+  outline: none;
+}
+#redLock {
+  background-color: #ffbfc2;
+  margin-right: 10px;
+  margin-top: 15px;
+  height: 3.5em;
+  width: 5em;
   font-size: 80%;
   border: 0.1px solid black;
   outline: none;
@@ -94,13 +121,22 @@
 #yellow9,
 #yellow10,
 #yellow11,
-#yellow12,
-#yellowLock {
+#yellow12 {
   background-color: #feecc8;
   margin-right: 10px;
   margin-top: 15px;
   height: 3.5em;
   width: 3.5em;
+  font-size: 80%;
+  border: 0.1px solid black;
+  outline: none;
+}
+#yellowLock {
+  background-color: #feecc8;
+  margin-right: 10px;
+  margin-top: 15px;
+  height: 3.5em;
+  width: 5em;
   font-size: 80%;
   border: 0.1px solid black;
   outline: none;
@@ -111,10 +147,23 @@
   justify-content: center;
 }
 
+#checkBlue,
+#checkRed,
+#checkYellow,
+#checkGreen {
+  background-color: white;
+  margin-top: 2%;
+  height: 4em;
+  width: 5em;
+  font-size: 10px;
+  outline: none;
+  border: 0.1px solid black;
+}
+
 #pen1,
 #pen2,
 #pen3,
 #pen4 {
   margin-right: 10px;
-  padding: 30px 30px 20px 10px;
+  padding: 10px;
 }

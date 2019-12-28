@@ -20,6 +20,7 @@
   height: 5em;
   width: 5em;
   font-size: 15px;
+  outline: none;
   border: 0.1px solid black;
 }
 
@@ -46,6 +47,7 @@
   height: 5em;
   width: 5em;
   font-size: 15px;
+  outline: none;
   border: 0.1px solid black;
 }
 
@@ -71,6 +73,7 @@
   height: 5em;
   width: 5em;
   font-size: 15px;
+  outline: none;
   border: 0.1px solid black;
 }
 
@@ -96,6 +99,21 @@
   height: 5em;
   width: 5em;
   font-size: 15px;
+  outline: none;
+  border: 0.1px solid black;
+}
+
+#checkBlue,
+#checkRed,
+#checkYellow,
+#checkGreen {
+  background-color: white;
+  margin-top: 25px;
+  height: 5em;
+  width: 5em;
+  font-size: 10px;
+  border-radius: 10px;
+  outline: none;
   border: 0.1px solid black;
 }
 
@@ -109,6 +127,7 @@
 #pen2,
 #pen3,
 #pen4 {
+  outline: none;
   margin-right: 10px;
   padding: 10px 20px 10px 20px;
 }

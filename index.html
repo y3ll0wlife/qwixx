@@ -21,7 +21,6 @@
   </head>
   <body onload="recoverBoard()">
     <div id="redRow">
-      <input type="checkbox" onclick="checkedRed()" id="checkRed" /><br />
       <button id="red2" onclick="keepRed2();score()">2</button>
       <button id="red3" onclick="keepRed3();score()">3</button>
       <button id="red4" onclick="keepRed4();score()">4</button>
@@ -35,11 +34,10 @@
       <button id="red12" onclick="keepRed12();score()">12</button>
 
       <button id="redLock" onclick="keepRedLock();score()">LOCK</button>
+      <button id="checkRed" onclick="checkedRed()">Disable</button>
     </div>
 
     <div id="yellowRow">
-      <input type="checkbox" onclick="checkedYellow()" id="checkYellow" /><br />
-
       <button id="yellow2" onclick="keepyellow2();score()">2</button>
       <button id="yellow3" onclick="keepyellow3();score()">3</button>
       <button id="yellow4" onclick="keepyellow4();score()">4</button>
@@ -53,11 +51,10 @@
       <button id="yellow12" onclick="keepyellow12();score()">12</button>
 
       <button id="yellowLock" onclick="keepyellowLock();score()">LOCK</button>
+      <button id="checkYellow" onclick="checkedYellow()">Disable</button>
     </div>
 
     <div id="greenRow">
-      <input type="checkbox" onclick="checkedGreen()" id="checkGreen" /><br />
-
       <button id="green2" onclick="keepgreen2();score()">12</button>
       <button id="green3" onclick="keepgreen3();score()">11</button>
       <button id="green4" onclick="keepgreen4();score()">10</button>
@@ -71,11 +68,10 @@
       <button id="green12" onclick="keepgreen12();score()">2</button>
 
       <button id="greenLock" onclick="keepgreenLock();score()">LOCK</button>
+      <button id="checkGreen" onclick="checkedGreen()">Disable</button>
     </div>
 
     <div id="blueRow">
-      <input type="checkbox" onclick="checkedBlue()" id="checkBlue" /><br />
-
       <button id="blue2" onclick="keepblue2();score()">12</button>
       <button id="blue3" onclick="keepblue3();score()">11</button>
       <button id="blue4" onclick="keepblue4();score()">10</button>
@@ -89,6 +85,7 @@
       <button id="blue12" onclick="keepblue12();score()">2</button>
 
       <button id="blueLock" onclick="keepblueLock();score()">LOCK</button>
+      <button id="checkBlue" onclick="checkedBlue()">Disable</button>
     </div>
 
     <div id="penaltiRow">
