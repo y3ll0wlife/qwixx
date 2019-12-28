@@ -8,7 +8,7 @@
 ## Features to add
 
 - [ ] Must have 5 to lock.  
-- [ ] Same size of the entire board.  
+- [X] Same size of the entire board.  
 - [ ] Unable to go back.  
 - [X] Button to see when entire row is locked.  
 - [X] Reset confirmation box.
