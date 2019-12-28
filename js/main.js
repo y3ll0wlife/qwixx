@@ -70,9 +70,6 @@ var total = redScore + yellowScore + greenScore + blueScore - amtOfPenalites * 5
 
 // Reset
 function reset() {
-  var r = confirm("Are you sure that you wanna reset the board?");
-  if (r != true) return;
-
   document.getElementById("checkRed").checked = false;
   document.getElementById("checkYellow").checked = false;
   document.getElementById("checkGreen").checked = false;
