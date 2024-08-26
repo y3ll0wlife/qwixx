@@ -58,8 +58,12 @@ function App() {
       socket.emit("join", ROOM_GUID);
     });
 
-    socket.on("move", (msg: { color: string, user: string, game_row: GameRow[] }) => {
+    socket.on("move", (msg: { color: string, socket_id: string, game_row: GameRow[] }) => {
       console.log("Message received", msg);
+
+      if (socket.id !== msg.socket_id) {
+        return;
+      }
 
       if (msg.color === "Red") {
         setRedRow(msg.game_row);
@@ -110,11 +114,14 @@ function App() {
 
   return (
     <>
+      <h3>
+        {socket?.id}
+      </h3>
       <div>
         {redRow.map((row, i) => {
           const showText = row.number == 12 ? "12 + Lock" : row.number;
           const colorClass = row.disabled ? 'red-btn-disable' : 'red-btn';
-          return (<button disabled={row.disabled} className={colorClass} onClick={() => sendMove(Color.RED, row.number)} key={i}>{showText}</button>)
+          return (<button className={colorClass} onClick={() => sendMove(Color.RED, row.number)} key={i}>{showText}</button>)
         })}
       </div >
       <br />
@@ -122,7 +129,7 @@ function App() {
         {yellowRow.map((row, i) => {
           const showText = row.number == 12 ? "12 + Lock" : row.number;
           const colorClass = row.disabled ? 'yellow-btn-disable' : 'yellow-btn';
-          return (<button disabled={row.disabled} className={colorClass} onClick={() => sendMove(Color.YELLOW, row.number)} key={i}>{showText}</button>)
+          return (<button className={colorClass} onClick={() => sendMove(Color.YELLOW, row.number)} key={i}>{showText}</button>)
         })}
       </div>
       <br />
@@ -130,7 +137,7 @@ function App() {
         {greenRow.map((row, i) => {
           const showText = row.number == 2 ? "2 + Lock" : row.number;
           const colorClass = row.disabled ? 'green-btn-disable' : 'green-btn';
-          return (<button disabled={row.disabled} className={colorClass} onClick={() => sendMove(Color.GREEN, row.number)} key={i}>{showText}</button>)
+          return (<button className={colorClass} onClick={() => sendMove(Color.GREEN, row.number)} key={i}>{showText}</button>)
         })}
       </div>
       <br />
@@ -138,7 +145,7 @@ function App() {
         {blueRow.map((row, i) => {
           const showText = row.number == 2 ? "2 + Lock" : row.number;
           const colorClass = row.disabled ? 'blue-btn-disable' : 'blue-btn';
-          return (<button disabled={row.disabled} className={colorClass} onClick={() => sendMove(Color.BLUE, row.number)} key={i}>{showText}</button>)
+          return (<button className={colorClass} onClick={() => sendMove(Color.BLUE, row.number)} key={i}>{showText}</button>)
         })}
       </div>
       <br />

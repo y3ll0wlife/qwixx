@@ -6,6 +6,7 @@ use socketioxide::{
     extract::{Data, SocketRef, State},
     SocketIo,
 };
+use state::Cell;
 use tokio::main;
 use tower::ServiceBuilder;
 use tower_http::cors::CorsLayer;
@@ -13,38 +14,39 @@ use tracing::info;
 use tracing_subscriber::FmtSubscriber;
 
 #[derive(Debug, Deserialize, Clone)]
-struct MoveIn {
-    room: String,
-    color: String,
-    number: usize,
+pub struct MoveIn {
+    pub room: String,
+    pub color: String,
+    pub number: usize,
 }
 
 #[derive(Debug, Serialize, Clone)]
 struct MoveOut {
-    user: String,
+    socket_id: String,
     color: String,
     game_row: Vec<Cell>,
 }
-#[derive(Debug, Serialize, Clone)]
-struct Cell {
-    number: usize,
-    disabled: bool,
-}
 
+/*
 #[derive(Serialize, Clone)]
 struct Messages {
     messages: Vec<state::Message>,
 }
-
+*/
 async fn on_connect(socket: SocketRef) {
     info!("socket connected: {}", socket.id);
 
     socket.on(
         "join",
-        |socket: SocketRef, Data::<String>(room), store: State<state::MessageStore>| async move {
+        |socket: SocketRef, Data::<String>(room), store: State<state::GameStore>| async move {
             info!("Received join: {:?}", room);
             let _ = socket.leave_all();
             let _ = socket.join(room.clone());
+
+            let game = store.get(&room).await;
+            store.add_user_to_game(&room, &socket.id).await;
+            println!("{:#?}", game);
+
             /*let messages = store.get(&room).await;
             let _ = socket.emit("messages", Messages { messages });*/
         },
@@ -52,7 +54,7 @@ async fn on_connect(socket: SocketRef) {
 
     socket.on(
         "move",
-        |socket: SocketRef, Data::<MoveIn>(data), store: State<state::MessageStore>| async move {
+        |socket: SocketRef, Data::<MoveIn>(data), store: State<state::GameStore>| async move {
             info!("Received message: {:?}", data);
 
             /*let response = state::Message {
@@ -64,19 +66,12 @@ async fn on_connect(socket: SocketRef) {
             store.insert(&data.room, response.clone()).await;
             */
 
-            let mut cells: Vec<Cell> = vec![];
-            for i in 2..13 {
-                let cell = Cell {
-                    number: i,
-                    disabled: if i == data.number { true } else { false },
-                };
-                cells.push(cell)
-            }
+            let row = store.update_user_board(&socket.id, &data).await;
 
             let response = MoveOut {
+                socket_id: socket.id.to_string(),
                 color: data.color,
-                game_row: cells,
-                user: format!("anon-{}", socket.id),
+                game_row: row,
             };
 
             let _ = socket.within(data.room).emit("move", response);
@@ -93,8 +88,8 @@ async fn handler(axum::extract::State(io): axum::extract::State<SocketIo>) {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     tracing::subscriber::set_global_default(FmtSubscriber::default())?;
 
-    let messages = state::MessageStore::default();
-    let (layer, io) = SocketIo::builder().with_state(messages).build_layer();
+    let game_store = state::GameStore::default();
+    let (layer, io) = SocketIo::builder().with_state(game_store).build_layer();
 
     io.ns("/", on_connect);
 
