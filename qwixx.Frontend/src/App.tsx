@@ -27,7 +27,8 @@ interface GameBoard {
 
 interface GameRow {
   number: number,
-  disabled: boolean
+  disabled: boolean,
+  clicked: boolean
 }
 
 function App() {
@@ -36,10 +37,10 @@ function App() {
   const [connected, setConnected] = useState(false);
 
 
-  const [redRow, setRedRow] = useState<GameRow[]>(RED_YELLOW_ROW.map<GameRow>(number => { return { number, disabled: false } }));
-  const [yellowRow, setYellowRow] = useState<GameRow[]>(RED_YELLOW_ROW.map<GameRow>(number => { return { number, disabled: false } }));
-  const [greenRow, setGreenRow] = useState<GameRow[]>(GREEN_BLUE_ROW.map<GameRow>(number => { return { number, disabled: false } }));
-  const [blueRow, setBlueRow] = useState<GameRow[]>(GREEN_BLUE_ROW.map<GameRow>(number => { return { number, disabled: false } }));
+  const [redRow, setRedRow] = useState<GameRow[]>(RED_YELLOW_ROW.map<GameRow>(number => { return { number, disabled: number == 12, clicked: false } }));
+  const [yellowRow, setYellowRow] = useState<GameRow[]>(RED_YELLOW_ROW.map<GameRow>(number => { return { number, disabled: number == 12, clicked: false } }));
+  const [greenRow, setGreenRow] = useState<GameRow[]>(GREEN_BLUE_ROW.map<GameRow>(number => { return { number, disabled: number == 2, clicked: false } }));
+  const [blueRow, setBlueRow] = useState<GameRow[]>(GREEN_BLUE_ROW.map<GameRow>(number => { return { number, disabled: number == 2, clicked: false } }));
 
   useEffect(() => {
     if (onceRef.current) {
@@ -70,19 +71,17 @@ function App() {
       } else if (msg.color === "Yellow") {
         setYellowRow(msg.game_row);
       }
-      /*
       else if (msg.color === "Green") {
         setGreenRow(msg.game_row);
       } else if (msg.color === "Blue") {
         setBlueRow(msg.game_row);
-      }*/
-
+      }
 
     });
 
   }, []);
 
-  const sendMove = (colorValue: Color, number: number) => {
+  const colorFromValue = (colorValue: Color): string => {
     let color;
     switch (colorValue) {
       case Color.RED:
@@ -99,14 +98,35 @@ function App() {
         break;
     }
 
+    return color;
+  }
+
+  const sendMove = (colorValue: Color, number: number) => {
+
+
     socket?.emit("move", {
-      color,
+      color: colorFromValue(colorValue),
       number,
       room: ROOM_GUID,
     });
 
   };
 
+  const getClassName = (colorValue: Color, row: GameRow): string => {
+    let className = `${colorFromValue(colorValue).toLowerCase()}-btn`;
+
+    if (row.clicked && row.disabled) {
+      className += "-clicked-disable"
+    }
+    else if (row.clicked) {
+      className += "-clicked"
+    }
+    else if (row.disabled) {
+      className += "-disable"
+    }
+
+    return className
+  }
 
   if (!connected) {
     return <>Loading...</>
@@ -120,32 +140,32 @@ function App() {
       <div>
         {redRow.map((row, i) => {
           const showText = row.number == 12 ? "12 + Lock" : row.number;
-          const colorClass = row.disabled ? 'red-btn-disable' : 'red-btn';
-          return (<button className={colorClass} onClick={() => sendMove(Color.RED, row.number)} key={i}>{showText}</button>)
+          const className = getClassName(Color.RED, row);
+          return (<button className={className} onClick={() => sendMove(Color.RED, row.number)} key={i}>{showText}</button>)
         })}
       </div >
       <br />
       <div>
         {yellowRow.map((row, i) => {
           const showText = row.number == 12 ? "12 + Lock" : row.number;
-          const colorClass = row.disabled ? 'yellow-btn-disable' : 'yellow-btn';
-          return (<button className={colorClass} onClick={() => sendMove(Color.YELLOW, row.number)} key={i}>{showText}</button>)
+          const className = getClassName(Color.YELLOW, row);
+          return (<button className={className} onClick={() => sendMove(Color.YELLOW, row.number)} key={i}>{showText}</button>)
         })}
       </div>
       <br />
       <div>
         {greenRow.map((row, i) => {
           const showText = row.number == 2 ? "2 + Lock" : row.number;
-          const colorClass = row.disabled ? 'green-btn-disable' : 'green-btn';
-          return (<button className={colorClass} onClick={() => sendMove(Color.GREEN, row.number)} key={i}>{showText}</button>)
+          const className = getClassName(Color.GREEN, row);
+          return (<button className={className} onClick={() => sendMove(Color.GREEN, row.number)} key={i}>{showText}</button>)
         })}
       </div>
       <br />
       <div>
         {blueRow.map((row, i) => {
           const showText = row.number == 2 ? "2 + Lock" : row.number;
-          const colorClass = row.disabled ? 'blue-btn-disable' : 'blue-btn';
-          return (<button className={colorClass} onClick={() => sendMove(Color.BLUE, row.number)} key={i}>{showText}</button>)
+          const className = getClassName(Color.BLUE, row);
+          return (<button className={className} onClick={() => sendMove(Color.BLUE, row.number)} key={i}>{showText}</button>)
         })}
       </div>
       <br />

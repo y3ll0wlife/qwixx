@@ -40,49 +40,72 @@ button {
 button:hover {
   border-color: white;
 }
-
-.red-btn {
-  background-color: #ee696f;
+.red-btn,
+.red-btn-clicked,
+.red-btn-disable,
+.red-btn-clicked-disable,
+.yellow-btn,
+.yellow-btn-clicked,
+.yellow-btn-disable,
+.yellow-btn-clicked-disable,
+.blue-btn,
+.blue-btn-clicked,
+.blue-btn-disable,
+.blue-btn-clicked-disable,
+.green-btn,
+.green-btn-clicked,
+.green-btn-disable,
+.green-btn-clicked-disable {
   color: black;
   margin-right: 5px;
 }
+
+.red-btn {
+  background-color: #ee696f;
+}
+.red-btn-clicked {
+  background-color: #f897a1;
+}
 .red-btn-disable {
-  background-color: #ffbbbf;
-  color: black;
-  margin-right: 5px;
+  background-color: #f897a1;
+  opacity: 50%;
+}
+.red-btn-clicked-disable {
+  background-color: #f897a1;
+  opacity: 75%;
 }
 
 .yellow-btn {
   background-color: #f8c661;
-  color: black;
-  margin-right: 5px;
+}
+.yellow-btn-clicked {
+  background-color: #f1d7a3;
 }
 .yellow-btn-disable {
   background-color: #f1d7a3;
-  color: black;
-  margin-right: 5px;
+  opacity: 50%;
 }
 
 .green-btn {
   background-color: #2e7c32;
-  color: black;
-  margin-right: 5px;
+}
+.green-btn-clicked {
+  background-color: #7ca87e;
 }
 .green-btn-disable {
   background-color: #7ca87e;
-  color: black;
-  margin-right: 5px;
+  opacity: 50%;
 }
 
 .blue-btn {
   background-color: #4362ce;
-  color: black;
-  margin-right: 5px;
+}
+.blue-btn-clicked {
+  background-color: #a3b4ee;
 }
 .blue-btn-disable {
   background-color: #a3b4ee;
-  color: black;
-  margin-right: 5px;
+  opacity: 50%;
 }
 
 .penalty-btn {
