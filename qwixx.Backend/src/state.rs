@@ -1,6 +1,6 @@
 use serde::Serialize;
 use socketioxide::socket::Sid;
-use std::{borrow::BorrowMut, collections::HashMap, sync::Arc};
+use std::{collections::HashMap, sync::Arc};
 use tokio::sync::RwLock;
 
 use crate::MoveIn;
@@ -31,17 +31,31 @@ impl Default for GameBoard {
         let mut green_blue: Vec<Cell> = vec![];
 
         for number in 2..13 {
-            red_yellow.push(Cell {
+            let mut cell = Cell {
                 number,
                 disabled: false,
-            });
+                clicked: false,
+            };
+
+            if number == 12 {
+                cell.disabled = true;
+            }
+
+            red_yellow.push(cell);
         }
 
         for number in (2..13).rev() {
-            green_blue.push(Cell {
+            let mut cell = Cell {
                 number,
                 disabled: false,
-            });
+                clicked: false,
+            };
+
+            if number == 2 {
+                cell.disabled = true;
+            }
+
+            green_blue.push(cell);
         }
 
         GameBoard {
@@ -57,6 +71,7 @@ impl Default for GameBoard {
 pub struct Cell {
     pub number: usize,
     pub disabled: bool,
+    pub clicked: bool,
 }
 
 impl GameStore {
@@ -77,29 +92,6 @@ impl GameStore {
             .unwrap_or_default()
     }
 
-    pub async fn get_user_board(&self, room: &String, socket_id: &Sid) -> GameBoard {
-        let game = self
-            .rooms
-            .read()
-            .await
-            .get(room)
-            .cloned()
-            .unwrap_or_default();
-
-        match game.boards.get(socket_id) {
-            Some(board) => board.clone(),
-            None => {
-                let mut binding = self.rooms.write().await;
-                let game = binding.entry(room.clone()).or_default();
-
-                let board = GameBoard::default();
-                game.boards.insert(socket_id.clone(), board.clone());
-
-                board
-            }
-        }
-    }
-
     pub async fn add_user_to_game(&self, room: &String, socket_id: &Sid) {
         let mut binding = self.rooms.write().await;
         let game = binding.entry(room.clone()).or_default();
@@ -112,25 +104,37 @@ impl GameStore {
         let mut binding = self.rooms.write().await;
         let game = binding.entry(data.room.clone()).or_default();
 
-        let board = game.boards.get_mut(socket_id).unwrap();
+        let board = game
+            .boards
+            .get_mut(socket_id)
+            .expect("Failed to find board from socket id");
 
-        let mut row = match data.color.as_str() {
-            "Red" => board.red_row.clone(),
-            "Yellow" => board.yellow_row.clone(),
-            "Green" => board.green_row.clone(),
-            "Blue" => board.blue_row.clone(),
+        let row: &mut Vec<Cell> = match data.color.as_str() {
+            "Red" => board.red_row.as_mut(),
+            "Yellow" => board.yellow_row.as_mut(),
+            "Green" => board.green_row.as_mut(),
+            "Blue" => board.blue_row.as_mut(),
             _ => panic!("Invalid color"),
         };
 
-        let cell = row
-            .iter_mut()
-            .find(|cell| cell.number == data.number)
-            .expect("Cell does not exist in the row");
+        for cell in row.iter_mut() {
+            cell.disabled = false;
+        }
 
-        cell.disabled = !cell.disabled;
+        let amount_of_clicked_cells = row.iter().filter(|x| x.clicked).count();
+        if amount_of_clicked_cells < 4 {
+            row.last_mut().unwrap().disabled = true;
+        }
 
-        println!("{:#?}", cell);
-        println!("{:#?}", row);
-        row
+        for cell in row.iter_mut() {
+            cell.disabled = true;
+
+            if cell.number == data.number {
+                cell.clicked = !cell.clicked;
+                break;
+            }
+        }
+
+        row.clone()
     }
 }

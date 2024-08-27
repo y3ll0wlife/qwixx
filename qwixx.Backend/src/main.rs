@@ -43,12 +43,7 @@ async fn on_connect(socket: SocketRef) {
             let _ = socket.leave_all();
             let _ = socket.join(room.clone());
 
-            let game = store.get(&room).await;
             store.add_user_to_game(&room, &socket.id).await;
-            println!("{:#?}", game);
-
-            /*let messages = store.get(&room).await;
-            let _ = socket.emit("messages", Messages { messages });*/
         },
     );
 
@@ -56,15 +51,6 @@ async fn on_connect(socket: SocketRef) {
         "move",
         |socket: SocketRef, Data::<MoveIn>(data), store: State<state::GameStore>| async move {
             info!("Received message: {:?}", data);
-
-            /*let response = state::Message {
-                text: data.text,
-                user: format!("anon-{}", socket.id),
-                date: chrono::Utc::now(),
-            };
-
-            store.insert(&data.room, response.clone()).await;
-            */
 
             let row = store.update_user_board(&socket.id, &data).await;
 
