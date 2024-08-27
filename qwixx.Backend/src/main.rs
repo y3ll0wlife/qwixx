@@ -1,6 +1,11 @@
+mod models;
 mod state;
 
 use axum::routing::get;
+use models::{
+    game_store::GameStore,
+    moves::{MoveIn, MoveOut},
+};
 use serde::{Deserialize, Serialize};
 use socketioxide::{
     extract::{Data, SocketRef, State},
@@ -13,32 +18,12 @@ use tower_http::cors::CorsLayer;
 use tracing::info;
 use tracing_subscriber::FmtSubscriber;
 
-#[derive(Debug, Deserialize, Clone)]
-pub struct MoveIn {
-    pub room: String,
-    pub color: String,
-    pub number: usize,
-}
-
-#[derive(Debug, Serialize, Clone)]
-struct MoveOut {
-    socket_id: String,
-    color: String,
-    game_row: Vec<Cell>,
-}
-
-/*
-#[derive(Serialize, Clone)]
-struct Messages {
-    messages: Vec<state::Message>,
-}
-*/
 async fn on_connect(socket: SocketRef) {
     info!("socket connected: {}", socket.id);
 
     socket.on(
         "join",
-        |socket: SocketRef, Data::<String>(room), store: State<state::GameStore>| async move {
+        |socket: SocketRef, Data::<String>(room), store: State<GameStore>| async move {
             info!("Received join: {:?}", room);
             let _ = socket.leave_all();
             let _ = socket.join(room.clone());
@@ -49,7 +34,7 @@ async fn on_connect(socket: SocketRef) {
 
     socket.on(
         "move",
-        |socket: SocketRef, Data::<MoveIn>(data), store: State<state::GameStore>| async move {
+        |socket: SocketRef, Data::<MoveIn>(data), store: State<GameStore>| async move {
             info!("Received message: {:?}", data);
 
             let row = store.update_user_board(&socket.id, &data).await;
@@ -74,7 +59,7 @@ async fn handler(axum::extract::State(io): axum::extract::State<SocketIo>) {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     tracing::subscriber::set_global_default(FmtSubscriber::default())?;
 
-    let game_store = state::GameStore::default();
+    let game_store = GameStore::default();
     let (layer, io) = SocketIo::builder().with_state(game_store).build_layer();
 
     io.ns("/", on_connect);
