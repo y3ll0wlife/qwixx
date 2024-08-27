@@ -131,6 +131,7 @@ impl GameStore {
 
             if cell.number == data.number {
                 cell.clicked = !cell.clicked;
+                cell.disabled = false;
                 break;
             }
         }

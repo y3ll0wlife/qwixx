@@ -63,6 +63,7 @@ button:hover {
 .red-btn {
   background-color: #ee696f;
 }
+.red-btn-clicked-disable,
 .red-btn-clicked {
   background-color: #f897a1;
 }
@@ -70,14 +71,11 @@ button:hover {
   background-color: #f897a1;
   opacity: 50%;
 }
-.red-btn-clicked-disable {
-  background-color: #f897a1;
-  opacity: 75%;
-}
 
 .yellow-btn {
   background-color: #f8c661;
 }
+.yellow-btn-clicked-disable,
 .yellow-btn-clicked {
   background-color: #f1d7a3;
 }
@@ -89,6 +87,7 @@ button:hover {
 .green-btn {
   background-color: #2e7c32;
 }
+.green-btn-clicked-disable,
 .green-btn-clicked {
   background-color: #7ca87e;
 }
@@ -100,6 +99,7 @@ button:hover {
 .blue-btn {
   background-color: #4362ce;
 }
+.blue-btn-clicked-disable,
 .blue-btn-clicked {
   background-color: #a3b4ee;
 }

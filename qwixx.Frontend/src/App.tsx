@@ -141,7 +141,7 @@ function App() {
         {redRow.map((row, i) => {
           const showText = row.number == 12 ? "12 + Lock" : row.number;
           const className = getClassName(Color.RED, row);
-          return (<button className={className} onClick={() => sendMove(Color.RED, row.number)} key={i}>{showText}</button>)
+          return (<button disabled={className.includes("disable")} className={className} onClick={() => sendMove(Color.RED, row.number)} key={i}>{showText}</button>)
         })}
       </div >
       <br />
