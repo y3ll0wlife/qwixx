@@ -1,4 +1,5 @@
 mod models;
+mod qwixx;
 mod state;
 
 use axum::routing::get;

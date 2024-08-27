@@ -1,4 +1,4 @@
-use crate::state::Cell;
+use crate::{qwixx::score::get_row_score, state::Cell};
 
 use super::{game::Game, game_board::GameBoard, moves::MoveIn};
 use socketioxide::socket::Sid;
@@ -97,6 +97,8 @@ impl GameStore {
         if amount_of_clicked_cells < 5 {
             row.last_mut().unwrap().disabled = true;
         }
+
+        println!("{:#?}", get_row_score(&row));
 
         row.clone()
     }
