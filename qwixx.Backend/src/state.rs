@@ -121,19 +121,43 @@ impl GameStore {
             cell.disabled = false;
         }
 
-        let amount_of_clicked_cells = row.iter().filter(|x| x.clicked).count();
-        if amount_of_clicked_cells < 4 {
-            row.last_mut().unwrap().disabled = true;
+        let clicked_number_row = row.clone();
+        let clicked_numbers = clicked_number_row
+            .iter()
+            .filter(|x| x.clicked)
+            .collect::<Vec<&Cell>>();
+
+        let cell_to_update = row
+            .iter_mut()
+            .find(|cell| cell.number == data.number)
+            .unwrap();
+        cell_to_update.clicked = !cell_to_update.clicked;
+
+        if cell_to_update.clicked {
+            for cell in row.iter_mut() {
+                cell.disabled = true;
+
+                if cell.number == data.number {
+                    cell.disabled = false;
+                    break;
+                }
+            }
+        } else if !cell_to_update.clicked && clicked_numbers.len() > 1 {
+            let last_clicked = clicked_numbers.get(clicked_numbers.len() - 2).unwrap();
+
+            for cell in row.iter_mut() {
+                cell.disabled = true;
+
+                if cell.number == last_clicked.number {
+                    cell.disabled = false;
+                    break;
+                }
+            }
         }
 
-        for cell in row.iter_mut() {
-            cell.disabled = true;
-
-            if cell.number == data.number {
-                cell.clicked = !cell.clicked;
-                cell.disabled = false;
-                break;
-            }
+        let amount_of_clicked_cells = row.iter().filter(|x| x.clicked).count();
+        if amount_of_clicked_cells < 5 {
+            row.last_mut().unwrap().disabled = true;
         }
 
         row.clone()

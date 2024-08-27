@@ -149,7 +149,7 @@ function App() {
         {yellowRow.map((row, i) => {
           const showText = row.number == 12 ? "12 + Lock" : row.number;
           const className = getClassName(Color.YELLOW, row);
-          return (<button className={className} onClick={() => sendMove(Color.YELLOW, row.number)} key={i}>{showText}</button>)
+          return (<button disabled={className.includes("disable")} className={className} onClick={() => sendMove(Color.YELLOW, row.number)} key={i}>{showText}</button>)
         })}
       </div>
       <br />
@@ -157,7 +157,7 @@ function App() {
         {greenRow.map((row, i) => {
           const showText = row.number == 2 ? "2 + Lock" : row.number;
           const className = getClassName(Color.GREEN, row);
-          return (<button className={className} onClick={() => sendMove(Color.GREEN, row.number)} key={i}>{showText}</button>)
+          return (<button disabled={className.includes("disable")} className={className} onClick={() => sendMove(Color.GREEN, row.number)} key={i}>{showText}</button>)
         })}
       </div>
       <br />
@@ -165,7 +165,7 @@ function App() {
         {blueRow.map((row, i) => {
           const showText = row.number == 2 ? "2 + Lock" : row.number;
           const className = getClassName(Color.BLUE, row);
-          return (<button className={className} onClick={() => sendMove(Color.BLUE, row.number)} key={i}>{showText}</button>)
+          return (<button disabled={className.includes("disable")} className={className} onClick={() => sendMove(Color.BLUE, row.number)} key={i}>{showText}</button>)
         })}
       </div>
       <br />
