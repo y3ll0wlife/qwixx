@@ -6,9 +6,8 @@ pub fn get_row_score(row: &Vec<Cell>) -> usize {
     let mut clicked = row.iter().filter(|x| x.clicked).count();
     let is_lock_clicked = row
         .iter()
-        .filter(|x| x.clicked && x.number == last_cell.number)
-        .count()
-        > 0;
+        .find(|x| x.clicked && x.number == last_cell.number)
+        .is_some();
 
     if is_lock_clicked {
         clicked += 1;
