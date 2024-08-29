@@ -22,13 +22,29 @@ pub struct JoinRoomErrorOut {
 pub async fn handle_join_room(socket: SocketRef, data: Data<JoinRoomIn>, store: State<GameStore>) {
     let data = data.0;
 
-    println!("{:#?}", data);
+    let _ = socket.leave_all();
 
-    let response = JoinRoomErrorOut {
-        message: String::from("Game code is invalid"),
-    };
+    match store.find_room_from_code(&data.code).await {
+        Some(room) => {
+            let response = JoinRoomOut {
+                room_code: room.code.clone(),
+                room_id: room.id.clone(),
+            };
 
-    // TODO add logic here
+            let _ = socket.join(room.id.clone());
 
-    let _ = socket.emit("join_room_error", response);
+            store
+                .create_or_join_game_room(&response.room_id, &response.room_code, &socket.id)
+                .await;
+
+            let _ = socket.emit("join_room", response);
+        }
+        None => {
+            let response = JoinRoomErrorOut {
+                message: String::from("Game code is invalid"),
+            };
+
+            let _ = socket.emit("join_room_error", response);
+        }
+    }
 }

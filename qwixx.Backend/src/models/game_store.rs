@@ -15,7 +15,25 @@ pub struct GameStore {
 }
 
 impl GameStore {
-    pub async fn create_game_room(&self, room_id: &String, room_code: &String, socket_id: &Sid) {
+    pub async fn find_room_from_code(&self, room_code: &String) -> Option<Game> {
+        let binding = self.rooms.read().await;
+
+        match binding
+            .clone()
+            .into_iter()
+            .find(|(_id, room)| &room.code == room_code)
+        {
+            Some((_id, game)) => Some(game),
+            None => None,
+        }
+    }
+
+    pub async fn create_or_join_game_room(
+        &self,
+        room_id: &String,
+        room_code: &String,
+        socket_id: &Sid,
+    ) {
         let mut binding = self.rooms.write().await;
         let game = match binding.entry(room_id.clone()) {
             Entry::Occupied(entry) => entry.into_mut(),

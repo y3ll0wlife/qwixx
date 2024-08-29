@@ -2,6 +2,7 @@ mod models;
 mod qwixx;
 mod socket;
 mod tests;
+mod utils;
 
 use models::game_store::GameStore;
 use socket::socket::on_connect;

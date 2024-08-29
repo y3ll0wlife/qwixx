@@ -19,3 +19,4 @@ tower-http = { version = "0.5", features = ["cors", "fs"] }
 tower = "0.5"
 chrono = { version = "0.4", features = ["serde"] }
 uuid = { version = "1.10", features = ["v4", "fast-rng"] }
+rand = "0.8.5"

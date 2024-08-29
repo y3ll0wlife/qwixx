@@ -106,6 +106,10 @@ function App() {
       setRoom(msg);
     })
 
+    socket.on("join_room", (msg: Room) => {
+      setRoom(msg);
+    })
+
     socket.on("join_room_error", ({ message }: { message: string }) => {
       setError(message);
     })
