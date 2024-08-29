@@ -3,6 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": {
+    "url": "https://github.com/y3ll0wlife",
+    "name": "y3ll0wlife",
+    "email": "46920058+y3ll0wlife@users.noreply.github.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/y3ll0wlife/qwixx"
+  },
   "scripts": {
     "dev": "vite --host",
     "build": "tsc -b && vite build",
