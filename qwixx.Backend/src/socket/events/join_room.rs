@@ -19,7 +19,7 @@ pub struct JoinRoomErrorOut {
     pub message: String,
 }
 
-pub async fn handle_join(socket: SocketRef, data: Data<JoinRoomIn>, store: State<GameStore>) {
+pub async fn handle_join_room(socket: SocketRef, data: Data<JoinRoomIn>, store: State<GameStore>) {
     let data = data.0;
 
     println!("{:#?}", data);

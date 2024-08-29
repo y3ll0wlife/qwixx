@@ -1,4 +1,4 @@
 pub mod create_room;
-pub mod join;
+pub mod join_room;
 pub mod r#move;
 pub mod penalty;

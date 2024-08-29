@@ -160,7 +160,7 @@ function App() {
       return;
     }
 
-    socket?.emit("join", {
+    socket?.emit("join_room", {
       code: gameCode.getValue(),
       username: username.getValue()
     });
