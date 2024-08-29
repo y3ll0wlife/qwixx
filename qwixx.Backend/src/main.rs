@@ -1,13 +1,13 @@
 mod models;
 mod qwixx;
-mod state;
 mod tests;
 
 use axum::routing::get;
 use models::{
+    actions::{MoveIn, MoveOut, PenaltyIn, PenaltyOut},
     game_store::GameStore,
-    moves::{MoveIn, MoveOut},
 };
+use qwixx::score::{get_penalty_score, get_row_score};
 use socketioxide::{
     extract::{Data, SocketRef, State},
     SocketIo,
@@ -42,10 +42,27 @@ async fn on_connect(socket: SocketRef) {
             let response = MoveOut {
                 socket_id: socket.id.to_string(),
                 color: data.color,
+                points: get_row_score(&row),
                 game_row: row,
             };
 
             let _ = socket.within(data.room).emit("move", response);
+        },
+    );
+
+    socket.on(
+        "penalty",
+        |socket: SocketRef, Data::<PenaltyIn>(data), store: State<GameStore>| async move {
+            info!("Received message: {:?}", data);
+
+            let penalty_count = store.update_user_penalty(&socket.id, &data).await;
+
+            let response = PenaltyOut {
+                socket_id: socket.id.to_string(),
+                points: get_penalty_score(&penalty_count),
+            };
+
+            let _ = socket.within(data.room).emit("penalty", response);
         },
     )
 }

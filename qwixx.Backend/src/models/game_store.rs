@@ -1,6 +1,9 @@
-use crate::state::Cell;
-
-use super::{game::Game, game_board::GameBoard, moves::MoveIn};
+use super::{
+    actions::{MoveIn, PenaltyIn},
+    cell::Cell,
+    game::Game,
+    game_board::GameBoard,
+};
 use socketioxide::socket::Sid;
 use std::{collections::HashMap, sync::Arc};
 use tokio::sync::RwLock;
@@ -99,5 +102,25 @@ impl GameStore {
         }
 
         row.clone()
+    }
+
+    pub async fn update_user_penalty(&self, socket_id: &Sid, data: &PenaltyIn) -> usize {
+        let mut binding = self.rooms.write().await;
+        let game = binding.entry(data.room.clone()).or_default();
+
+        let board = game
+            .boards
+            .get_mut(socket_id)
+            .expect("Failed to find board from socket id");
+
+        if data.removed {
+            board.penalty_count -= 1;
+        } else {
+            board.penalty_count += 1;
+        }
+
+        println!("{:#?}", board.penalty_count);
+
+        board.penalty_count
     }
 }

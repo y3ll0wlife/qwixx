@@ -108,8 +108,14 @@ button:hover {
   opacity: 50%;
 }
 
-.penalty-btn {
-  background-color: #f8e4e5;
+.penalty-btn,
+.penalty-btn-clicked {
   color: black;
   margin-right: 5px;
+}
+.penalty-btn {
+  background-color: #f8e4e5;
+}
+.penalty-btn-clicked {
+  background-color: #ee2b35;
 }

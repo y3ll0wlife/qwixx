@@ -1,4 +1,4 @@
-use crate::state::Cell;
+use crate::models::cell::Cell;
 
 pub fn get_row_score(row: &Vec<Cell>) -> usize {
     let last_cell = row.last().unwrap();
@@ -28,6 +28,16 @@ pub fn get_row_score(row: &Vec<Cell>) -> usize {
         10 => 55,
         11 => 66,
         12 => 78,
+        _ => 0,
+    }
+}
+
+pub fn get_penalty_score(count: &usize) -> usize {
+    match count {
+        1 => 5,
+        2 => 10,
+        3 => 15,
+        4 => 20,
         _ => 0,
     }
 }

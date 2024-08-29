@@ -1,4 +1,4 @@
-use crate::state::Cell;
+use super::cell::Cell;
 use serde::Serialize;
 
 #[derive(Serialize, Clone, Debug)]
@@ -7,6 +7,7 @@ pub struct GameBoard {
     pub yellow_row: Vec<Cell>,
     pub green_row: Vec<Cell>,
     pub blue_row: Vec<Cell>,
+    pub penalty_count: usize,
 }
 
 impl Default for GameBoard {
@@ -47,6 +48,7 @@ impl Default for GameBoard {
             yellow_row: red_yellow.clone(),
             green_row: green_blue.clone(),
             blue_row: green_blue.clone(),
+            penalty_count: 0,
         }
     }
 }

@@ -1,6 +1,9 @@
 #[cfg(test)]
 mod score_tests {
-    use crate::{qwixx::score::get_row_score, state::Cell};
+    use crate::{
+        models::cell::Cell,
+        qwixx::score::{get_penalty_score, get_row_score},
+    };
 
     #[test]
     fn test_zero_clicked() {
@@ -163,5 +166,35 @@ mod score_tests {
         let score = get_row_score(&cells);
 
         assert_eq!(score, 78)
+    }
+
+    #[test]
+    fn test_penalty_zero() {
+        let score = get_penalty_score(&0);
+        assert_eq!(score, 0)
+    }
+
+    #[test]
+    fn test_penalty_one() {
+        let score = get_penalty_score(&1);
+        assert_eq!(score, 5)
+    }
+
+    #[test]
+    fn test_penalty_two() {
+        let score = get_penalty_score(&2);
+        assert_eq!(score, 10)
+    }
+
+    #[test]
+    fn test_penalty_three() {
+        let score = get_penalty_score(&3);
+        assert_eq!(score, 15)
+    }
+
+    #[test]
+    fn test_penalty_four() {
+        let score = get_penalty_score(&4);
+        assert_eq!(score, 20)
     }
 }

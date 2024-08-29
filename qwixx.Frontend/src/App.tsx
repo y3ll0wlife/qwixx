@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { MouseEvent, useEffect, useRef, useState } from 'react'
 import './App.css'
 import { io, Socket } from 'socket.io-client';
 
@@ -42,6 +42,14 @@ function App() {
   const [greenRow, setGreenRow] = useState<GameRow[]>(GREEN_BLUE_ROW.map<GameRow>(number => { return { number, disabled: number == 2, clicked: false } }));
   const [blueRow, setBlueRow] = useState<GameRow[]>(GREEN_BLUE_ROW.map<GameRow>(number => { return { number, disabled: number == 2, clicked: false } }));
 
+  const [redScore, setRedScore] = useState<number>(0);
+  const [yellowScore, setYellowScore] = useState<number>(0);
+  const [greenScore, setGreenScore] = useState<number>(0);
+  const [blueScore, setBlueScore] = useState<number>(0);
+
+  const [penaltyScore, setPenaltyScore] = useState<number>(0);
+
+
   useEffect(() => {
     if (onceRef.current) {
       return;
@@ -53,30 +61,37 @@ function App() {
     setSocket(socket);
 
     socket.on("connect", () => {
-      console.log("Connected to socket server");
       setConnected(true);
 
       socket.emit("join", ROOM_GUID);
     });
 
-    socket.on("move", (msg: { color: string, socket_id: string, game_row: GameRow[] }) => {
-      console.log("Message received", msg);
-
+    socket.on("move", (msg: { color: string, socket_id: string, game_row: GameRow[], points: number }) => {
       if (socket.id !== msg.socket_id) {
         return;
       }
 
       if (msg.color === "Red") {
         setRedRow(msg.game_row);
+        setRedScore(msg.points);
       } else if (msg.color === "Yellow") {
         setYellowRow(msg.game_row);
+        setYellowScore(msg.points);
       }
       else if (msg.color === "Green") {
         setGreenRow(msg.game_row);
+        setGreenScore(msg.points);
       } else if (msg.color === "Blue") {
         setBlueRow(msg.game_row);
+        setBlueScore(msg.points);
       }
+    });
 
+    socket.on("penalty", (msg: { socket_id: string, points: number }) => {
+      if (socket.id !== msg.socket_id) {
+        return;
+      }
+      setPenaltyScore(msg.points);
     });
 
   }, []);
@@ -102,15 +117,20 @@ function App() {
   }
 
   const sendMove = (colorValue: Color, number: number) => {
-
-
     socket?.emit("move", {
       color: colorFromValue(colorValue),
       number,
       room: ROOM_GUID,
     });
-
   };
+
+  const sendPenalty = (event: React.MouseEvent<HTMLElement>) => {
+    socket?.emit("penalty", {
+      room: ROOM_GUID,
+      removed: event.currentTarget.className.includes("clicked")
+    });
+  };
+
 
   const getClassName = (colorValue: Color, row: GameRow): string => {
     let className = `${colorFromValue(colorValue).toLowerCase()}-btn`;
@@ -169,11 +189,15 @@ function App() {
         })}
       </div>
       <br />
-      <br />
       <div>
         {PENALTY_ROW.map((penalty, i) => {
-          return (<button className='penalty-btn' key={i}>{penalty}</button>)
+          const className = (i + 1) < (penaltyScore / 4) ? 'penalty-btn-clicked' : 'penalty-btn'
+
+          return (<button onClick={sendPenalty} className={className} key={i}>{penalty}</button>)
         })}
+      </div>
+      <div>
+        <h3>{redScore} + {yellowScore} + {greenScore} + {blueScore} - {penaltyScore} = {redScore + yellowScore + greenScore + blueScore - penaltyScore}</h3>
       </div>
     </>
   )
