@@ -1,9 +1,5 @@
-use super::{
-    actions::{MoveIn, PenaltyIn},
-    cell::Cell,
-    game::Game,
-    game_board::GameBoard,
-};
+use super::{cell::Cell, game::Game, game_board::GameBoard};
+use crate::socket::events::{penalty::PenaltyIn, r#move::MoveIn};
 use socketioxide::socket::Sid;
 use std::{
     collections::{hash_map::Entry, HashMap},
