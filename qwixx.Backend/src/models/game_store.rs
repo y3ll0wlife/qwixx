@@ -5,7 +5,7 @@ use super::{
     game_board::GameBoard,
 };
 use socketioxide::socket::Sid;
-use std::{collections::HashMap, sync::Arc};
+use std::{borrow::Borrow, collections::HashMap, sync::Arc};
 use tokio::sync::RwLock;
 
 pub type RoomStore = HashMap<String, Game>;
@@ -41,7 +41,7 @@ impl GameStore {
         game.boards.insert(socket_id.clone(), board);
     }
 
-    pub async fn update_user_board(&self, socket_id: &Sid, data: &MoveIn) -> Vec<Cell> {
+    pub async fn update_user_board(&self, socket_id: &Sid, data: &MoveIn) -> (Cell, Vec<Cell>) {
         let mut binding = self.rooms.write().await;
         let game = binding.entry(data.room.clone()).or_default();
 
@@ -74,6 +74,8 @@ impl GameStore {
             .unwrap();
         cell_to_update.clicked = !cell_to_update.clicked;
 
+        let updated_cell = cell_to_update.clone();
+
         if cell_to_update.clicked {
             for cell in row.iter_mut() {
                 cell.disabled = true;
@@ -101,7 +103,7 @@ impl GameStore {
             row.last_mut().unwrap().disabled = true;
         }
 
-        row.clone()
+        (updated_cell, row.clone())
     }
 
     pub async fn update_user_penalty(&self, socket_id: &Sid, data: &PenaltyIn) -> usize {
@@ -118,8 +120,6 @@ impl GameStore {
         } else {
             board.penalty_count += 1;
         }
-
-        println!("{:#?}", board.penalty_count);
 
         board.penalty_count
     }

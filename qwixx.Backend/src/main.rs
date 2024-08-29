@@ -37,13 +37,14 @@ async fn on_connect(socket: SocketRef) {
         |socket: SocketRef, Data::<MoveIn>(data), store: State<GameStore>| async move {
             info!("Received message: {:?}", data);
 
-            let row = store.update_user_board(&socket.id, &data).await;
+            let (updated_cell, row) = store.update_user_board(&socket.id, &data).await;
 
             let response = MoveOut {
                 socket_id: socket.id.to_string(),
                 color: data.color,
                 points: get_row_score(&row),
                 game_row: row,
+                updated_cell,
             };
 
             let _ = socket.within(data.room).emit("move", response);

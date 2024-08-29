@@ -14,6 +14,7 @@ pub struct MoveOut {
     pub color: String,
     pub game_row: Vec<Cell>,
     pub points: usize,
+    pub updated_cell: Cell,
 }
 
 #[derive(Debug, Deserialize, Clone)]

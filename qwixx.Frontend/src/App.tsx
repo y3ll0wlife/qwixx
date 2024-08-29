@@ -18,14 +18,7 @@ enum Color {
 const RED_YELLOW_ROW = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const GREEN_BLUE_ROW = [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
 
-interface GameBoard {
-  red: GameRow[],
-  yellow: GameRow[],
-  green: GameRow[],
-  blue: GameRow[]
-}
-
-interface GameRow {
+interface Cell {
   number: number,
   disabled: boolean,
   clicked: boolean
@@ -37,10 +30,10 @@ function App() {
   const [connected, setConnected] = useState(false);
 
 
-  const [redRow, setRedRow] = useState<GameRow[]>(RED_YELLOW_ROW.map<GameRow>(number => { return { number, disabled: number == 12, clicked: false } }));
-  const [yellowRow, setYellowRow] = useState<GameRow[]>(RED_YELLOW_ROW.map<GameRow>(number => { return { number, disabled: number == 12, clicked: false } }));
-  const [greenRow, setGreenRow] = useState<GameRow[]>(GREEN_BLUE_ROW.map<GameRow>(number => { return { number, disabled: number == 2, clicked: false } }));
-  const [blueRow, setBlueRow] = useState<GameRow[]>(GREEN_BLUE_ROW.map<GameRow>(number => { return { number, disabled: number == 2, clicked: false } }));
+  const [redRow, setRedRow] = useState<Cell[]>(RED_YELLOW_ROW.map<Cell>(number => { return { number, disabled: number == 12, clicked: false } }));
+  const [yellowRow, setYellowRow] = useState<Cell[]>(RED_YELLOW_ROW.map<Cell>(number => { return { number, disabled: number == 12, clicked: false } }));
+  const [greenRow, setGreenRow] = useState<Cell[]>(GREEN_BLUE_ROW.map<Cell>(number => { return { number, disabled: number == 2, clicked: false } }));
+  const [blueRow, setBlueRow] = useState<Cell[]>(GREEN_BLUE_ROW.map<Cell>(number => { return { number, disabled: number == 2, clicked: false } }));
 
   const [redScore, setRedScore] = useState<number>(0);
   const [yellowScore, setYellowScore] = useState<number>(0);
@@ -66,9 +59,9 @@ function App() {
       socket.emit("join", ROOM_GUID);
     });
 
-    socket.on("move", (msg: { color: string, socket_id: string, game_row: GameRow[], points: number }) => {
+    socket.on("move", (msg: { color: string, socket_id: string, game_row: Cell[], points: number, updated_cell: Cell }) => {
       if (socket.id !== msg.socket_id) {
-        setLastMoveText(`made by ${socket.id} in color ${msg.color} (total points in row ${msg.points})`)
+        setLastMoveText(`made by ${socket.id} color: ${msg.color}, number: ${msg.updated_cell.number} (total points in row ${msg.points})`)
         return;
       }
 
@@ -135,7 +128,7 @@ function App() {
   };
 
 
-  const getClassName = (colorValue: Color, row: GameRow): string => {
+  const getClassName = (colorValue: Color, row: Cell): string => {
     let className = `${colorFromValue(colorValue).toLowerCase()}-btn`;
 
     if (row.clicked && row.disabled) {
