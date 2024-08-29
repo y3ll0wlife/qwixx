@@ -1,7 +1,7 @@
-import { MouseEvent, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import { io, Socket } from 'socket.io-client';
-
+import { Notification } from '@mantine/core';
 
 const PENALTY_ROW = ["X", "X", "X", "X"];
 
@@ -48,7 +48,7 @@ function App() {
   const [blueScore, setBlueScore] = useState<number>(0);
 
   const [penaltyScore, setPenaltyScore] = useState<number>(0);
-
+  const [lastMoveText, setLastMoveText] = useState<string | null>(null);
 
   useEffect(() => {
     if (onceRef.current) {
@@ -57,7 +57,7 @@ function App() {
 
     onceRef.current = true;
 
-    const socket = io("ws://localhost:3000");
+    const socket = io("ws://192.168.1.229:3000");
     setSocket(socket);
 
     socket.on("connect", () => {
@@ -68,6 +68,7 @@ function App() {
 
     socket.on("move", (msg: { color: string, socket_id: string, game_row: GameRow[], points: number }) => {
       if (socket.id !== msg.socket_id) {
+        setLastMoveText(`made by ${socket.id} in color ${msg.color} (total points in row ${msg.points})`)
         return;
       }
 
@@ -88,13 +89,15 @@ function App() {
     });
 
     socket.on("penalty", (msg: { socket_id: string, points: number }) => {
+
       if (socket.id !== msg.socket_id) {
+        setLastMoveText(`a penalty by ${socket.id} (has lost ${msg.points} points in penaltities)`)
         return;
       }
       setPenaltyScore(msg.points);
     });
 
-  }, []);
+  }, [lastMoveText]);
 
   const colorFromValue = (colorValue: Color): string => {
     let color;
@@ -154,6 +157,9 @@ function App() {
 
   return (
     <>
+      {lastMoveText != null ? <Notification radius={'sm'} withCloseButton={false}>
+        Last move was {lastMoveText}
+      </Notification> : null}
       <h3>
         {socket?.id}
       </h3>
