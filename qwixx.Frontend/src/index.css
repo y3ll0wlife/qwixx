@@ -68,6 +68,9 @@ button:hover {
   background-color: #f897a1;
   opacity: 50%;
 }
+.red-score {
+  color: #ee696f;
+}
 
 .yellow-btn {
   background-color: #f8c661;
@@ -79,6 +82,9 @@ button:hover {
 .yellow-btn-disable {
   background-color: #f1d7a3;
   opacity: 50%;
+}
+.yellow-score {
+  color: #f8c661;
 }
 
 .green-btn {
@@ -92,6 +98,9 @@ button:hover {
   background-color: #7ca87e;
   opacity: 50%;
 }
+.green-score {
+  color: #51b656;
+}
 
 .blue-btn {
   background-color: #4362ce;
@@ -104,6 +113,9 @@ button:hover {
   background-color: #a3b4ee;
   opacity: 50%;
 }
+.blue-score {
+  color: #839aee;
+}
 
 .penalty-btn,
 .penalty-btn-clicked {
@@ -115,4 +127,7 @@ button:hover {
 }
 .penalty-btn-clicked {
   background-color: #ee2b35;
+}
+.penalty-score {
+  color: #ff000d;
 }

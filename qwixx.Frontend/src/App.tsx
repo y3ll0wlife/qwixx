@@ -29,7 +29,6 @@ function App() {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [connected, setConnected] = useState(false);
 
-
   const [redRow, setRedRow] = useState<Cell[]>(RED_YELLOW_ROW.map<Cell>(number => { return { number, disabled: number == 12, clicked: false } }));
   const [yellowRow, setYellowRow] = useState<Cell[]>(RED_YELLOW_ROW.map<Cell>(number => { return { number, disabled: number == 12, clicked: false } }));
   const [greenRow, setGreenRow] = useState<Cell[]>(GREEN_BLUE_ROW.map<Cell>(number => { return { number, disabled: number == 2, clicked: false } }));
@@ -47,7 +46,6 @@ function App() {
     if (onceRef.current) {
       return;
     }
-
     onceRef.current = true;
 
     const socket = io("ws://192.168.1.229:3000");
@@ -60,8 +58,9 @@ function App() {
     });
 
     socket.on("move", (msg: { color: string, socket_id: string, game_row: Cell[], points: number, updated_cell: Cell }) => {
+
       if (socket.id !== msg.socket_id) {
-        setLastMoveText(`made by ${socket.id} color: ${msg.color}, number: ${msg.updated_cell.number} (total points in row ${msg.points})`)
+        setLastMoveText(`made by ${msg.socket_id} color: ${msg.color}, number: ${msg.updated_cell.number} (total points in row ${msg.points})`)
         return;
       }
 
@@ -82,9 +81,8 @@ function App() {
     });
 
     socket.on("penalty", (msg: { socket_id: string, points: number }) => {
-
       if (socket.id !== msg.socket_id) {
-        setLastMoveText(`a penalty by ${socket.id} (has lost ${msg.points} points in penaltities)`)
+        setLastMoveText(`a penalty by ${msg.socket_id} (has lost ${msg.points} points in penaltities)`)
         return;
       }
       setPenaltyScore(msg.points);
@@ -196,7 +194,12 @@ function App() {
         })}
       </div>
       <div>
-        <h3>{redScore} + {yellowScore} + {greenScore} + {blueScore} - {penaltyScore} = {redScore + yellowScore + greenScore + blueScore - penaltyScore}</h3>
+        <h3>
+          <span className='red-score'>{redScore} </span> +
+          <span className='yellow-score'> {yellowScore}</span> +
+          <span className='green-score'> {greenScore}</span> +
+          <span className='blue-score'> {blueScore}</span> -
+          <span className='penalty-score'> {penaltyScore}</span> = {redScore + yellowScore + greenScore + blueScore - penaltyScore}</h3>
       </div>
     </>
   )
