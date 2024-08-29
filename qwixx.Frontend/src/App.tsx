@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import { io, Socket } from 'socket.io-client';
 import { Notification } from '@mantine/core';
+import { Button, TextInput, Grid } from '@mantine/core';
+import { useField } from '@mantine/form';
 
 const PENALTY_ROW = ["X", "X", "X", "X"];
 
-//! TODO CHANGE THIS
-const ROOM_GUID = "98c4c056-c328-41bb-ba45-0e410ef81f2b";
 
 enum Color {
   RED,
@@ -22,6 +22,11 @@ interface Cell {
   number: number,
   disabled: boolean,
   clicked: boolean
+}
+
+interface Room {
+  room_id: string,
+  room_code: string
 }
 
 function App() {
@@ -42,6 +47,18 @@ function App() {
   const [penaltyScore, setPenaltyScore] = useState<number>(0);
   const [lastMoveText, setLastMoveText] = useState<string | null>(null);
 
+  const [error, setError] = useState<string | null>(null);
+
+  const username = useField({
+    initialValue: "",
+    validate: (value) => (value.trim().length < 2 ? "Username is too short" : null),
+  });
+  const gameCode = useField({
+    initialValue: "",
+    validate: (value) => (value.trim().length != 5 ? "Code is not 5 characters long" : null),
+  });
+  const [room, setRoom] = useState<Room | null>(null);
+
   useEffect(() => {
     if (onceRef.current) {
       return;
@@ -53,12 +70,9 @@ function App() {
 
     socket.on("connect", () => {
       setConnected(true);
-
-      socket.emit("join", ROOM_GUID);
     });
 
     socket.on("move", (msg: { color: string, socket_id: string, game_row: Cell[], points: number, updated_cell: Cell }) => {
-
       if (socket.id !== msg.socket_id) {
         setLastMoveText(`made by ${msg.socket_id} color: ${msg.color}, number: ${msg.updated_cell.number} (total points in row ${msg.points})`)
         return;
@@ -88,6 +102,14 @@ function App() {
       setPenaltyScore(msg.points);
     });
 
+    socket.on("create_room", (msg: Room) => {
+      setRoom(msg);
+    })
+
+    socket.on("join_room_error", ({ message }: { message: string }) => {
+      setError(message);
+    })
+
   }, [lastMoveText]);
 
   const colorFromValue = (colorValue: Color): string => {
@@ -111,19 +133,51 @@ function App() {
   }
 
   const sendMove = (colorValue: Color, number: number) => {
+    setError(null);
+
     socket?.emit("move", {
       color: colorFromValue(colorValue),
       number,
-      room: ROOM_GUID,
+      room: room?.room_id,
     });
   };
 
   const sendPenalty = (event: React.MouseEvent<HTMLElement>) => {
+    setError(null);
+
     socket?.emit("penalty", {
-      room: ROOM_GUID,
+      room: room?.room_id,
       removed: event.currentTarget.className.includes("clicked")
     });
   };
+
+  const joinGame = async () => {
+    setError(null);
+
+    const gameCodeValidation = await gameCode.validate();
+    const userNameValidation = await username.validate();
+    if (gameCodeValidation !== null || userNameValidation !== null) {
+      return;
+    }
+
+    socket?.emit("join", {
+      code: gameCode.getValue(),
+      username: username.getValue()
+    });
+  }
+
+  const createGame = async () => {
+    setError(null);
+
+    const userNameValidation = await username.validate();
+    if (userNameValidation !== null) {
+      return;
+    }
+
+    socket?.emit("create_room", {
+      username: username.getValue()
+    });
+  }
 
 
   const getClassName = (colorValue: Color, row: Cell): string => {
@@ -146,13 +200,45 @@ function App() {
     return <>Loading...</>
   }
 
+  if (room === null) {
+    return <>
+      {error !== null ?
+        <Notification radius={'sm'} withCloseButton={false}>
+          {error}
+        </Notification> :
+        null}
+      <p style={{ textAlign: "left" }}>Username</p>
+      <TextInput {...username.getInputProps()} placeholder="Enter your username" mb="sm" />
+      <Grid>
+        <Grid.Col span={6}>
+          <h3>Create a game?</h3>
+          <div>
+            <Button onClick={() => createGame()}>Create game</Button>
+          </div >
+        </Grid.Col>
+        <Grid.Col span={6}>
+          <h3>Or join one?</h3>
+          <div>
+            <TextInput {...gameCode.getInputProps()} placeholder="Enter the game code" mb="sm" />
+            <Button onClick={() => joinGame()}>Join game</Button>
+          </div>
+        </Grid.Col>
+      </Grid>
+    </>
+  }
+
   return (
     <>
-      {lastMoveText != null ? <Notification radius={'sm'} withCloseButton={false}>
-        Last move was {lastMoveText}
-      </Notification> : null}
+      {lastMoveText !== null ?
+        <Notification radius={'sm'} withCloseButton={false}>
+          Last move was {lastMoveText}
+        </Notification> :
+        null}
       <h3>
         {socket?.id}
+      </h3>
+      <h3>
+        {room.room_code} ({room.room_id})
       </h3>
       <div>
         {redRow.map((row, i) => {

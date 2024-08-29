@@ -5,7 +5,10 @@ use super::{
     game_board::GameBoard,
 };
 use socketioxide::socket::Sid;
-use std::{borrow::Borrow, collections::HashMap, sync::Arc};
+use std::{
+    collections::{hash_map::Entry, HashMap},
+    sync::Arc,
+};
 use tokio::sync::RwLock;
 
 pub type RoomStore = HashMap<String, Game>;
@@ -16,26 +19,14 @@ pub struct GameStore {
 }
 
 impl GameStore {
-    /*
-    pub async fn insert(&self, room: &String, message: Message) {
-        let mut binding = self.games.write().await;
-        let messages = binding.entry(room.clone()).or_default();
-        messages.push_front(message);
-        messages.truncate(20);
-    } */
-
-    pub async fn get(&self, room: &String) -> Game {
-        self.rooms
-            .read()
-            .await
-            .get(room)
-            .cloned()
-            .unwrap_or_default()
-    }
-
-    pub async fn add_user_to_game(&self, room: &String, socket_id: &Sid) {
+    pub async fn create_game_room(&self, room_id: &String, room_code: &String, socket_id: &Sid) {
         let mut binding = self.rooms.write().await;
-        let game = binding.entry(room.clone()).or_default();
+        let game = match binding.entry(room_id.clone()) {
+            Entry::Occupied(entry) => entry.into_mut(),
+            Entry::Vacant(entry) => {
+                entry.insert(Game::initialize(room_id.to_string(), room_code.to_string()))
+            }
+        };
 
         let board = GameBoard::default();
         game.boards.insert(socket_id.clone(), board);
