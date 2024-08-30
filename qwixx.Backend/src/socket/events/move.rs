@@ -25,7 +25,10 @@ pub struct MoveOut {
 pub async fn handle_move(socket: SocketRef, data: Data<MoveIn>, store: State<GameStore>) {
     let data = data.0;
 
-    info!("Received move: {:#?}", data);
+    info!(
+        "Socket {} sent move: C{}-N{}",
+        socket.id, data.color, data.color
+    );
 
     let (updated_cell, row) = store.update_user_board(&socket.id, &data).await;
 

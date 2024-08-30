@@ -22,10 +22,10 @@ pub async fn handle_create_room(
 ) {
     let data = data.0;
 
-    info!("Received create");
     let _ = socket.leave_all();
 
     let room_id = Uuid::new_v4().to_string();
+    info!("Socket {} created room {}", socket.id, room_id);
 
     // TODO Support usernames here
 

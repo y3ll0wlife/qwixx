@@ -18,7 +18,10 @@ pub struct PenaltyOut {
 pub async fn handle_penalty(socket: SocketRef, data: Data<PenaltyIn>, store: State<GameStore>) {
     let data = data.0;
 
-    info!("Received penalty: {:?}", data);
+    info!(
+        "Socket {} sent penalty: removed {}",
+        socket.id, data.removed
+    );
 
     let penalty_count = store.update_user_penalty(&socket.id, &data).await;
 

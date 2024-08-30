@@ -1,6 +1,5 @@
-use std::iter;
-
 use rand::Rng;
+use std::iter;
 
 const CODE_LENGTH: usize = 5;
 

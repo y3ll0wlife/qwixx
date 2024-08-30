@@ -1,6 +1,7 @@
 use crate::models::game_store::GameStore;
 use serde::{Deserialize, Serialize};
 use socketioxide::extract::{Data, SocketRef, State};
+use tracing::info;
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct JoinRoomIn {
@@ -26,6 +27,11 @@ pub async fn handle_join_room(socket: SocketRef, data: Data<JoinRoomIn>, store: 
 
     match store.find_room_from_code(&data.code).await {
         Some(room) => {
+            info!(
+                "Socket {} joined game room with code {} (room id: {})",
+                socket.id, data.code, room.id
+            );
+
             let response = JoinRoomOut {
                 room_code: room.code.clone(),
                 room_id: room.id.clone(),
@@ -40,6 +46,11 @@ pub async fn handle_join_room(socket: SocketRef, data: Data<JoinRoomIn>, store: 
             let _ = socket.emit("join_room", response);
         }
         None => {
+            info!(
+                "Socket {} tried to join game room with code {} (invalid)",
+                socket.id, data.code
+            );
+
             let response = JoinRoomErrorOut {
                 message: String::from("Game code is invalid"),
             };
