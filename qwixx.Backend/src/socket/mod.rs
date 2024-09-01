@@ -1,2 +1,2 @@
 pub mod events;
-pub mod socket;
+pub mod socket_handler;

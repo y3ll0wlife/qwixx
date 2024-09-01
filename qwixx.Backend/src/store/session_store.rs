@@ -26,7 +26,7 @@ impl SessionStore {
 
     pub async fn insert(&self, username: &String, socket_id: &Sid, room_id: &Uuid) -> User {
         let mut binding = self.users.write().await;
-        let user = User::initialize(username.to_string(), socket_id.clone(), room_id.clone());
+        let user = User::initialize(username.to_string(), *socket_id, *room_id);
         binding.insert(user.id, user.clone());
 
         user

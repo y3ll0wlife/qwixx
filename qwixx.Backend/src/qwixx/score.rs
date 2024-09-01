@@ -1,13 +1,12 @@
 use crate::models::cell::Cell;
 
-pub fn get_row_score(row: &Vec<Cell>) -> usize {
+pub fn get_row_score(row: &[Cell]) -> usize {
     let last_cell = row.last().unwrap();
 
     let mut clicked = row.iter().filter(|x| x.clicked).count();
     let is_lock_clicked = row
         .iter()
-        .find(|x| x.clicked && x.number == last_cell.number)
-        .is_some();
+        .any(|x| x.clicked && x.number == last_cell.number);
 
     if is_lock_clicked {
         clicked += 1;

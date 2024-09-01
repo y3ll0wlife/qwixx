@@ -1,5 +1,5 @@
 use crate::{
-    models::{cell::Cell, jwt::JwtTokenClaims, user::User},
+    models::{cell::Cell, jwt::JwtTokenClaims},
     qwixx::score,
     socket::events::join_room::JoinRoomOut,
     store::{game_store::GameStore, session_store::SessionStore},
@@ -57,9 +57,13 @@ pub async fn handle_reconnect(
     }
     let room = room.unwrap();
 
+    if room.has_ended {
+        return;
+    }
+
     let response = JoinRoomOut {
         room_code: room.code,
-        room_id: room.id.clone(),
+        room_id: room.id,
         token: user.token,
         user_id: user.id,
     };

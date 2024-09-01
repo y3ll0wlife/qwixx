@@ -15,9 +15,7 @@ pub fn create_token(user: &User) -> String {
     };
 
     let claims = Claims::with_custom_claims(my_additional_data, Duration::from_hours(24));
-    let token = key.authenticate(claims).unwrap();
-
-    token
+    key.authenticate(claims).unwrap()
 }
 
 pub fn validate_token(token: &str) -> Option<JwtTokenClaims> {

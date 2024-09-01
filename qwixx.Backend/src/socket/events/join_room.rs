@@ -47,7 +47,7 @@ pub async fn handle_join_room(
 
             let response = JoinRoomOut {
                 room_code: room.code.clone(),
-                room_id: room.id.clone(),
+                room_id: room.id,
                 token: user.token,
                 user_id: user.id,
             };

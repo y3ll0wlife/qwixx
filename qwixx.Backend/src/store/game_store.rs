@@ -21,14 +21,11 @@ impl GameStore {
     pub async fn find_room_from_code(&self, room_code: &String) -> Option<Game> {
         let binding = self.rooms.read().await;
 
-        match binding
+        binding
             .clone()
             .into_iter()
             .find(|(_id, room)| &room.code == room_code)
-        {
-            Some((_id, game)) => Some(game),
-            None => None,
-        }
+            .map(|(_id, game)| game)
     }
 
     pub async fn find_room_from_id(&self, id: &Uuid) -> Option<Game> {
@@ -44,20 +41,18 @@ impl GameStore {
         user_id: &Uuid,
     ) {
         let mut binding = self.rooms.write().await;
-        let game = match binding.entry(room_id.clone()) {
+        let game = match binding.entry(*room_id) {
             Entry::Occupied(entry) => entry.into_mut(),
-            Entry::Vacant(entry) => {
-                entry.insert(Game::initialize(room_id.clone(), room_code.to_string()))
-            }
+            Entry::Vacant(entry) => entry.insert(Game::initialize(*room_id, room_code.to_string())),
         };
 
         let board = GameBoard::default();
-        game.boards.insert(user_id.clone(), board);
+        game.boards.insert(*user_id, board);
     }
 
     pub async fn update_user_board(&self, user_id: &Uuid, data: &MoveIn) -> (Cell, Vec<Cell>) {
         let mut binding = self.rooms.write().await;
-        let game = binding.entry(data.room.clone()).or_default();
+        let game = binding.entry(data.room).or_default();
 
         let board = game
             .boards
@@ -122,7 +117,7 @@ impl GameStore {
 
     pub async fn update_user_penalty(&self, user_id: &Uuid, data: &PenaltyIn) -> usize {
         let mut binding = self.rooms.write().await;
-        let game = binding.entry(data.room.clone()).or_default();
+        let game = binding.entry(data.room).or_default();
 
         let board = game
             .boards

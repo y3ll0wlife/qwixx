@@ -6,7 +6,7 @@ mod tests;
 mod utils;
 
 use dotenv::dotenv;
-use socket::socket::on_connect;
+use socket::socket_handler::on_connect;
 use socketioxide::SocketIo;
 use store::{game_store::GameStore, session_store::SessionStore};
 use tokio::main;
