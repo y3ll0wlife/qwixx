@@ -1,6 +1,6 @@
 use crate::{
     models::{cell::Cell, jwt::JwtTokenClaims},
-    qwixx::score::get_row_score,
+    qwixx::score,
     store::game_store::GameStore,
     utils::jwt,
 };
@@ -46,7 +46,7 @@ pub async fn handle_move(socket: SocketRef, data: Data<MoveIn>, store: State<Gam
     let response = MoveOut {
         user: token_claims,
         color: data.color,
-        points: get_row_score(&row),
+        points: score::get_row_score(&row),
         game_row: row,
         updated_cell,
     };

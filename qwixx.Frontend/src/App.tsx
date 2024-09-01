@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
-import './App.css'
-import { io, Socket } from 'socket.io-client';
-import { Notification } from '@mantine/core';
-import { Button, TextInput, Grid } from '@mantine/core';
-import { useField } from '@mantine/form';
+import { useEffect, useRef, useState } from "react"
+import "./App.css"
+import { io, Socket } from "socket.io-client";
+import { Notification } from "@mantine/core";
+import { Button, TextInput, Grid } from "@mantine/core";
+import { useField } from "@mantine/form";
 
 const PENALTY_ROW = ["X", "X", "X", "X"];
-
 
 enum Color {
   RED,
@@ -27,7 +26,15 @@ interface Cell {
 interface Room {
   room_id: string,
   room_code: string
+  token: string,
+  user_id: string
 }
+
+interface User {
+  id: string,
+  username: string
+}
+
 
 function App() {
   const onceRef = useRef(false);
@@ -68,13 +75,29 @@ function App() {
     const socket = io("ws://192.168.1.229:3000");
     setSocket(socket);
 
-    socket.on("connect", () => {
-      setConnected(true);
+    socket.onAnyOutgoing((eventName, ...args) => {
+      console.log(`%c[${eventName}]%c ~> ${JSON.stringify(args)}`, "color:#25c2a0;font-weight:bold", "color:white;font-weight:normal")
+
+    });
+    socket.onAny((eventName, ...args) => {
+      console.log(`%c[${eventName}]%c <~ ${JSON.stringify(args)}`, "color:#78dce8;font-weight:bold", "color:white;font-weight:normal")
     });
 
-    socket.on("move", (msg: { color: string, socket_id: string, game_row: Cell[], points: number, updated_cell: Cell }) => {
-      if (socket.id !== msg.socket_id) {
-        setLastMoveText(`made by ${msg.socket_id} color: ${msg.color}, number: ${msg.updated_cell.number} (total points in row ${msg.points})`)
+    socket.on("connect", () => {
+      setConnected(true);
+      const token = localStorage.getItem("token");
+      if (token) {
+        socket.emit("reconnect", {
+          token
+        })
+      }
+
+    });
+
+
+    socket.on("move", (msg: { color: string, user: User, game_row: Cell[], points: number, updated_cell: Cell }) => {
+      if (localStorage.getItem('userId') !== msg.user.id) {
+        setLastMoveText(`made by ${msg.user.username} color: ${msg.color}, number: ${msg.updated_cell.number} (total points in row ${msg.points})`)
         return;
       }
 
@@ -94,9 +117,9 @@ function App() {
       }
     });
 
-    socket.on("penalty", (msg: { socket_id: string, points: number }) => {
-      if (socket.id !== msg.socket_id) {
-        setLastMoveText(`a penalty by ${msg.socket_id} (has lost ${msg.points} points in penaltities)`)
+    socket.on("penalty", (msg: { user: User, points: number }) => {
+      if (localStorage.getItem('userId') !== msg.user.id) {
+        setLastMoveText(`a penalty by ${msg.user.username} (has lost ${msg.points} points in penaltities)`)
         return;
       }
       setPenaltyScore(msg.points);
@@ -104,17 +127,43 @@ function App() {
 
     socket.on("create_room", (msg: Room) => {
       setRoom(msg);
+      localStorage.setItem("token", msg.token);
+      localStorage.setItem("userId", msg.user_id);
     })
 
     socket.on("join_room", (msg: Room) => {
       setRoom(msg);
+      localStorage.setItem("token", msg.token);
+      localStorage.setItem("userId", msg.user_id);
     })
 
     socket.on("join_room_error", ({ message }: { message: string }) => {
       setError(message);
     })
 
+    socket.on("restore_board", (msg: { user: User, red_row: Cell[], red_points: number, yellow_row: Cell[], yellow_points: number, green_row: Cell[], green_points: number, blue_row: Cell[], blue_points: number, penalty_score: number }) => {
+      console.log(msg.user.id)
+      if (localStorage.getItem('userId') !== msg.user.id) {
+        setLastMoveText(`${msg.user.username} has reconnected`)
+        return;
+      }
+      setPenaltyScore(msg.penalty_score);
+
+      setRedRow(msg.red_row);
+      setRedScore(msg.red_points);
+
+      setYellowRow(msg.yellow_row);
+      setYellowScore(msg.yellow_points);
+
+      setGreenRow(msg.green_row);
+      setGreenScore(msg.green_points);
+
+      setBlueRow(msg.blue_row);
+      setBlueScore(msg.blue_points);
+    })
+
   }, [lastMoveText]);
+
 
   const colorFromValue = (colorValue: Color): string => {
     let color;
@@ -143,6 +192,7 @@ function App() {
       color: colorFromValue(colorValue),
       number,
       room: room?.room_id,
+      token: localStorage.getItem('token')
     });
   };
 
@@ -151,7 +201,8 @@ function App() {
 
     socket?.emit("penalty", {
       room: room?.room_id,
-      removed: event.currentTarget.className.includes("clicked")
+      removed: event.currentTarget.className.includes("clicked"),
+      token: localStorage.getItem('token')
     });
   };
 
@@ -207,7 +258,7 @@ function App() {
   if (room === null) {
     return <>
       {error !== null ?
-        <Notification radius={'sm'} withCloseButton={false}>
+        <Notification radius={"sm"} withCloseButton={false}>
           {error}
         </Notification> :
         null}
@@ -234,15 +285,12 @@ function App() {
   return (
     <>
       {lastMoveText !== null ?
-        <Notification radius={'sm'} withCloseButton={false}>
+        <Notification radius={"sm"} withCloseButton={false}>
           Last move was {lastMoveText}
         </Notification> :
         null}
       <h3>
-        {socket?.id}
-      </h3>
-      <h3>
-        {room.room_code} ({room.room_id})
+        {room.room_code}
       </h3>
       <div>
         {redRow.map((row, i) => {
@@ -278,18 +326,18 @@ function App() {
       <br />
       <div>
         {PENALTY_ROW.map((penalty, i) => {
-          const className = (i + 1) < (penaltyScore / 4) ? 'penalty-btn-clicked' : 'penalty-btn'
+          const className = (i + 1) < (penaltyScore / 4) ? "penalty-btn-clicked" : "penalty-btn"
 
           return (<button onClick={sendPenalty} className={className} key={i}>{penalty}</button>)
         })}
       </div>
       <div>
         <h3>
-          <span className='red-score'>{redScore} </span> +
-          <span className='yellow-score'> {yellowScore}</span> +
-          <span className='green-score'> {greenScore}</span> +
-          <span className='blue-score'> {blueScore}</span> -
-          <span className='penalty-score'> {penaltyScore}</span> = {redScore + yellowScore + greenScore + blueScore - penaltyScore}</h3>
+          <span className="red-score">{redScore} </span> +
+          <span className="yellow-score"> {yellowScore}</span> +
+          <span className="green-score"> {greenScore}</span> +
+          <span className="blue-score"> {blueScore}</span> -
+          <span className="penalty-score"> {penaltyScore}</span> = {redScore + yellowScore + greenScore + blueScore - penaltyScore}</h3>
       </div>
     </>
   )

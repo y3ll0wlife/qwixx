@@ -2,7 +2,6 @@ use crate::{
     models::{cell::Cell, game::Game, game_board::GameBoard},
     socket::events::{penalty::PenaltyIn, r#move::MoveIn},
 };
-use socketioxide::socket::Sid;
 use std::{
     collections::{hash_map::Entry, HashMap},
     sync::Arc,
@@ -30,6 +29,12 @@ impl GameStore {
             Some((_id, game)) => Some(game),
             None => None,
         }
+    }
+
+    pub async fn find_room_from_id(&self, id: &Uuid) -> Option<Game> {
+        let binding = self.rooms.read().await;
+
+        binding.get(id).cloned()
     }
 
     pub async fn create_or_join_game_room(
@@ -122,7 +127,7 @@ impl GameStore {
         let board = game
             .boards
             .get_mut(user_id)
-            .expect("Failed to find board from socket id");
+            .expect("Failed to find board from user id");
 
         if data.removed {
             board.penalty_count -= 1;

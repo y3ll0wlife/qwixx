@@ -31,4 +31,10 @@ impl SessionStore {
 
         user
     }
+
+    pub async fn get(&self, user_id: &Uuid) -> Option<User> {
+        let binding = self.users.read().await;
+
+        binding.get(user_id).cloned()
+    }
 }

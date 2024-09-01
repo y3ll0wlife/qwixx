@@ -1,7 +1,4 @@
-use crate::{
-    models::jwt::JwtTokenClaims, qwixx::score::get_penalty_score, store::game_store::GameStore,
-    utils::jwt,
-};
+use crate::{models::jwt::JwtTokenClaims, qwixx::score, store::game_store::GameStore, utils::jwt};
 use serde::{Deserialize, Serialize};
 use socketioxide::extract::{Data, SocketRef, State};
 use tracing::info;
@@ -39,7 +36,7 @@ pub async fn handle_penalty(socket: SocketRef, data: Data<PenaltyIn>, store: Sta
 
     let response = PenaltyOut {
         user: token_claims,
-        points: get_penalty_score(&penalty_count),
+        points: score::get_penalty_score(&penalty_count),
     };
 
     let _ = socket

@@ -7,6 +7,7 @@ use uuid::Uuid;
 pub struct Game {
     pub id: Uuid,
     pub code: String,
+    pub has_ended: bool,
     pub boards: HashMap<Uuid, GameBoard>,
 }
 
@@ -15,6 +16,7 @@ impl Game {
         Game {
             id,
             code,
+            has_ended: false,
             ..Default::default()
         }
     }
