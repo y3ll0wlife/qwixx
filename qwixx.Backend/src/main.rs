@@ -1,12 +1,14 @@
 mod models;
 mod qwixx;
 mod socket;
+mod store;
 mod tests;
 mod utils;
 
-use models::game_store::GameStore;
+use dotenv::dotenv;
 use socket::socket::on_connect;
 use socketioxide::SocketIo;
+use store::{game_store::GameStore, session_store::SessionStore};
 use tokio::main;
 use tower::ServiceBuilder;
 use tower_http::cors::CorsLayer;
@@ -15,10 +17,14 @@ use tracing_subscriber::FmtSubscriber;
 
 #[main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    dotenv().ok();
+
     tracing::subscriber::set_global_default(FmtSubscriber::default())?;
 
-    let game_store = GameStore::default();
-    let (layer, io) = SocketIo::builder().with_state(game_store).build_layer();
+    let (layer, io) = SocketIo::builder()
+        .with_state(SessionStore::default())
+        .with_state(GameStore::default())
+        .build_layer();
 
     io.ns("/", on_connect);
 

@@ -1,18 +1,17 @@
-use serde::Serialize;
-use socketioxide::socket::Sid;
-use std::collections::HashMap;
-
 use super::game_board::GameBoard;
+use serde::Serialize;
+use std::collections::HashMap;
+use uuid::Uuid;
 
 #[derive(Serialize, Clone, Debug, Default)]
 pub struct Game {
-    pub id: String,
+    pub id: Uuid,
     pub code: String,
-    pub boards: HashMap<Sid, GameBoard>,
+    pub boards: HashMap<Uuid, GameBoard>,
 }
 
 impl Game {
-    pub fn initialize(id: String, code: String) -> Game {
+    pub fn initialize(id: Uuid, code: String) -> Game {
         Game {
             id,
             code,

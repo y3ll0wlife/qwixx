@@ -1,13 +1,17 @@
-use super::{cell::Cell, game::Game, game_board::GameBoard};
-use crate::socket::events::{penalty::PenaltyIn, r#move::MoveIn};
+use crate::{
+    models::{cell::Cell, game::Game, game_board::GameBoard},
+    socket::events::{penalty::PenaltyIn, r#move::MoveIn},
+};
 use socketioxide::socket::Sid;
 use std::{
     collections::{hash_map::Entry, HashMap},
     sync::Arc,
 };
 use tokio::sync::RwLock;
+use uuid::Uuid;
 
-pub type RoomStore = HashMap<String, Game>;
+// HashMap<Room_Id, Game>
+pub type RoomStore = HashMap<Uuid, Game>;
 
 #[derive(Default, Clone)]
 pub struct GameStore {
@@ -30,30 +34,30 @@ impl GameStore {
 
     pub async fn create_or_join_game_room(
         &self,
-        room_id: &String,
+        room_id: &Uuid,
         room_code: &String,
-        socket_id: &Sid,
+        user_id: &Uuid,
     ) {
         let mut binding = self.rooms.write().await;
         let game = match binding.entry(room_id.clone()) {
             Entry::Occupied(entry) => entry.into_mut(),
             Entry::Vacant(entry) => {
-                entry.insert(Game::initialize(room_id.to_string(), room_code.to_string()))
+                entry.insert(Game::initialize(room_id.clone(), room_code.to_string()))
             }
         };
 
         let board = GameBoard::default();
-        game.boards.insert(socket_id.clone(), board);
+        game.boards.insert(user_id.clone(), board);
     }
 
-    pub async fn update_user_board(&self, socket_id: &Sid, data: &MoveIn) -> (Cell, Vec<Cell>) {
+    pub async fn update_user_board(&self, user_id: &Uuid, data: &MoveIn) -> (Cell, Vec<Cell>) {
         let mut binding = self.rooms.write().await;
         let game = binding.entry(data.room.clone()).or_default();
 
         let board = game
             .boards
-            .get_mut(socket_id)
-            .expect("Failed to find board from socket id");
+            .get_mut(user_id)
+            .expect("Failed to find board from user id");
 
         let row: &mut Vec<Cell> = match data.color.as_str() {
             "Red" => board.red_row.as_mut(),
@@ -111,13 +115,13 @@ impl GameStore {
         (updated_cell, row.clone())
     }
 
-    pub async fn update_user_penalty(&self, socket_id: &Sid, data: &PenaltyIn) -> usize {
+    pub async fn update_user_penalty(&self, user_id: &Uuid, data: &PenaltyIn) -> usize {
         let mut binding = self.rooms.write().await;
         let game = binding.entry(data.room.clone()).or_default();
 
         let board = game
             .boards
-            .get_mut(socket_id)
+            .get_mut(user_id)
             .expect("Failed to find board from socket id");
 
         if data.removed {

@@ -1,9 +1,10 @@
+use socketioxide::extract::SocketRef;
+use tracing::info;
+
 use crate::socket::events::{
     create_room::handle_create_room, join_room::handle_join_room, penalty::handle_penalty,
     r#move::handle_move,
 };
-use socketioxide::extract::SocketRef;
-use tracing::info;
 
 pub async fn on_connect(socket: SocketRef) {
     info!("Socket connected {}", socket.id);

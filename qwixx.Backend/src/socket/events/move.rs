@@ -1,21 +1,25 @@
 use crate::{
-    models::{cell::Cell, game_store::GameStore},
+    models::{cell::Cell, jwt::JwtTokenClaims},
     qwixx::score::get_row_score,
+    store::game_store::GameStore,
+    utils::jwt,
 };
 use serde::{Deserialize, Serialize};
 use socketioxide::extract::{Data, SocketRef, State};
 use tracing::info;
+use uuid::Uuid;
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct MoveIn {
-    pub room: String,
+    pub room: Uuid,
     pub color: String,
     pub number: usize,
+    pub token: String,
 }
 
 #[derive(Debug, Serialize, Clone)]
 pub struct MoveOut {
-    pub socket_id: String,
+    pub user: JwtTokenClaims,
     pub color: String,
     pub game_row: Vec<Cell>,
     pub points: usize,
@@ -25,20 +29,27 @@ pub struct MoveOut {
 pub async fn handle_move(socket: SocketRef, data: Data<MoveIn>, store: State<GameStore>) {
     let data = data.0;
 
+    let validate_token = jwt::validate_token(&data.token);
+    if validate_token.is_none() {
+        return;
+    }
+
+    let token_claims = validate_token.unwrap();
+
     info!(
-        "Socket {} sent move: C{}-N{}",
-        socket.id, data.color, data.color
+        "Socket {} sent move: {} {}",
+        socket.id, data.color, data.number
     );
 
-    let (updated_cell, row) = store.update_user_board(&socket.id, &data).await;
+    let (updated_cell, row) = store.update_user_board(&token_claims.id, &data).await;
 
     let response = MoveOut {
-        socket_id: socket.id.to_string(),
+        user: token_claims,
         color: data.color,
         points: get_row_score(&row),
         game_row: row,
         updated_cell,
     };
 
-    let _ = socket.within(data.room).emit("move", response);
+    let _ = socket.within(data.room.to_string()).emit("move", response);
 }
