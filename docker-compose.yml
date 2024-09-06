@@ -1,0 +1,14 @@
+version: "3"
+services:
+  qwixx-frontend:
+    image: y3ll0w/qwixx-frontend:latest
+    ports:
+      - "2351:3000"
+  
+  qwixx-backend:
+    image: y3ll0w/qwixx-backend:latest
+    environment:
+      JWT_SECRET: "JWT_SECRET"
+    ports:
+      - "7134:3000"
+
