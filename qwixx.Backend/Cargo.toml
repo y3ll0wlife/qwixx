@@ -28,3 +28,6 @@ jwt-simple = { version = "0.12", default-features = false, features = [
     "pure-rust",
 ] }
 dotenv = "0.15"
+
+[target.'cfg(unix)'.dependencies]
+openssl = { version = "0.10", features = ["vendored"] }
