@@ -5,6 +5,7 @@ on:
     branches: ["master"]
     paths:
       - "qwixx.Backend/**"
+      - ".github/workflows/qwixx-backend-deploy.yml"
 
 jobs:
   push_to_registry:
