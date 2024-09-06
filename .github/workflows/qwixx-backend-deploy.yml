@@ -33,3 +33,18 @@ jobs:
           context: ./qwixx.Backend
           push: true
           tags: y3ll0w/qwixx-backend:latest
+
+  deploy:
+    needs: push_to_registry
+    name: Deploy image on VPS
+    runs-on: ubuntu-latest
+    steps:
+      - name: install ssh keys
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+      - name: connect and pull
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d && exit"
+      - name: cleanup
+        run: rm -rf ~/.ssh
