@@ -76,7 +76,7 @@ function App() {
     }
     onceRef.current = true;
 
-    const socket = io("ws://192.168.1.229:3000");
+    const socket = io(import.meta.env.VITE_GATEWAY_URL);
     setSocket(socket);
 
     socket.onAnyOutgoing((eventName, ...args) => {
@@ -353,7 +353,7 @@ function App() {
   if (hasEnded && endedTableData) {
     return (
       <>
-        <Table data={endedTableData} />
+        <Table data={endedTableData} mb={"xl"} />
         <button onClick={leaveGame} style={{ border: "0px", margin: "10px" }}>Leave game</button>
       </>
     )
