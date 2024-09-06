@@ -4,7 +4,7 @@ RUN rustup target add x86_64-unknown-linux-musl
 RUN apt update && apt install -y musl-tools musl-dev
 RUN update-ca-certificates
 
-ENV USER=qwixx-backend
+ENV USER=backend
 ENV UID=10001
 
 RUN adduser \
@@ -17,7 +17,7 @@ RUN adduser \
     "${USER}"
 
 
-WORKDIR /qwixx-backend
+WORKDIR /backend
 
 COPY ./ .
 
@@ -29,10 +29,10 @@ COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /etc/group /etc/group
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
-WORKDIR /qwixx-backend
+WORKDIR /backend
 
-COPY --from=builder /qwixx-backend/target/x86_64-unknown-linux-musl/release/qwixx-backend ./
+COPY --from=builder /backend/target/x86_64-unknown-linux-musl/release/backend ./
 
 EXPOSE 3000
 
-CMD ["/qwixx-backend/qwixx-backend"]
+CMD ["/backend/backend"]
