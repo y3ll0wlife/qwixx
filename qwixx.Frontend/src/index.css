@@ -1,0 +1,133 @@
+body {
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: white;
+}
+.red-btn,
+.red-btn-clicked,
+.red-btn-disable,
+.red-btn-clicked-disable,
+.yellow-btn,
+.yellow-btn-clicked,
+.yellow-btn-disable,
+.yellow-btn-clicked-disable,
+.blue-btn,
+.blue-btn-clicked,
+.blue-btn-disable,
+.blue-btn-clicked-disable,
+.green-btn,
+.green-btn-clicked,
+.green-btn-disable,
+.green-btn-clicked-disable {
+  color: black;
+  margin-right: 5px;
+}
+
+.red-btn {
+  background-color: #ee696f;
+}
+.red-btn-clicked-disable,
+.red-btn-clicked {
+  background-color: #f897a1;
+}
+.red-btn-disable {
+  background-color: #f897a1;
+  opacity: 50%;
+}
+.red-score {
+  color: #ee696f;
+}
+
+.yellow-btn {
+  background-color: #f8c661;
+}
+.yellow-btn-clicked-disable,
+.yellow-btn-clicked {
+  background-color: #f1d7a3;
+}
+.yellow-btn-disable {
+  background-color: #f1d7a3;
+  opacity: 50%;
+}
+.yellow-score {
+  color: #f8c661;
+}
+
+.green-btn {
+  background-color: #2e7c32;
+}
+.green-btn-clicked-disable,
+.green-btn-clicked {
+  background-color: #7ca87e;
+}
+.green-btn-disable {
+  background-color: #7ca87e;
+  opacity: 50%;
+}
+.green-score {
+  color: #51b656;
+}
+
+.blue-btn {
+  background-color: #4362ce;
+}
+.blue-btn-clicked-disable,
+.blue-btn-clicked {
+  background-color: #a3b4ee;
+}
+.blue-btn-disable {
+  background-color: #a3b4ee;
+  opacity: 50%;
+}
+.blue-score {
+  color: #839aee;
+}
+
+.penalty-btn,
+.penalty-btn-clicked {
+  color: black;
+  margin-right: 5px;
+}
+.penalty-btn {
+  background-color: #f8e4e5;
+}
+.penalty-btn-clicked {
+  background-color: #ee2b35;
+}
+.penalty-score {
+  color: #ff000d;
+}

@@ -1,23 +1,20 @@
-<h1 align="center">Welcome to Qwixx 👋</h1>
-<p>
-</p>
+![Banner](/assets/banner.png)
 
-<h3 align="center">A scorecard for the board game Qwixx</h6>
-<h3 align="center">Website: https://y3ll0wlife.github.io/Qwixx/</h6>
+# qwixx
 
-## Features to add
+> A fast family dice game
 
-- [ ] Must have 5 to lock.  
-- [X] Same size of the entire board.  
-- [ ] Unable to go back.  
-- [X] Button to see when entire row is locked.  
-- [X] Reset confirmation box.
+## About
 
-## Author
-👤 **y3ll0w**
+This project aims to create an online scorecard that can be used instead of of the paper cards that the game provides.
 
-* Twitter: [@y3ll0wLife](https://twitter.com/y3ll0wLife)
-* Github: [y3ll0wlife](https://github.com/y3ll0wlife)
+## Project structure
 
-## Show your support
-Give a ⭐️ if this project helped you!
+We have 2 packages inside the project:
+
+- **qwixx.Frontend:** [React](https://react.dev/) frontend.
+- **qwixx.Backend:** [Rust](https://www.rust-lang.org/) backend.
+
+## License
+
+[MIT](./LICENSE)
