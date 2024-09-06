@@ -18,6 +18,7 @@ pub struct CreateRoomOut {
     pub room_code: String,
     pub token: String,
     pub user_id: Uuid,
+    pub room_creator_id: Uuid,
 }
 
 pub async fn handle_create_room(
@@ -42,6 +43,7 @@ pub async fn handle_create_room(
         room_code: code_generation::generate_game_code(),
         token: user.token,
         user_id: user.id,
+        room_creator_id: user.id,
     };
 
     let _ = socket.join(response.room_id.to_string());

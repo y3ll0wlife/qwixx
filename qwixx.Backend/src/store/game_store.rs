@@ -1,13 +1,22 @@
 use crate::{
-    models::{cell::Cell, game::Game, game_board::GameBoard},
+    models::{
+        cell::Cell,
+        game::Game,
+        game_board::GameBoard,
+        game_end_result::{GameEndResult, Scoreboard},
+    },
+    qwixx::score::{self, get_penalty_score, get_row_score},
     socket::events::{penalty::PenaltyIn, r#move::MoveIn},
 };
+use socketioxide::extract::State;
 use std::{
     collections::{hash_map::Entry, HashMap},
     sync::Arc,
 };
 use tokio::sync::RwLock;
 use uuid::Uuid;
+
+use super::session_store::SessionStore;
 
 // HashMap<Room_Id, Game>
 pub type RoomStore = HashMap<Uuid, Game>;
@@ -34,6 +43,59 @@ impl GameStore {
         binding.get(id).cloned()
     }
 
+    pub async fn end_game(
+        &self,
+        room_id: &Uuid,
+        session_store: &State<SessionStore>,
+    ) -> GameEndResult {
+        let mut binding = self.rooms.write().await;
+
+        let game = binding
+            .iter_mut()
+            .find(|(_id, room)| &room.id == room_id)
+            .map(|(_id, game)| game)
+            .expect("Failed to find game");
+
+        game.has_ended = true;
+
+        let mut scoreboard: Vec<Scoreboard> = vec![];
+
+        for (id, board) in game.boards.iter() {
+            let user = session_store
+                .get(id)
+                .await
+                .expect("Failed to find user from id");
+
+            let mut score = Scoreboard {
+                username: user.username,
+                placement: 0,
+                red_points: get_row_score(&board.red_row),
+                yellow_points: get_row_score(&board.yellow_row),
+                green_points: get_row_score(&board.green_row),
+                blue_points: get_row_score(&board.blue_row),
+                penalties: get_penalty_score(&board.penalty_count),
+                total_points: 0,
+            };
+
+            score.total_points = score.red_points as i64
+                + score.yellow_points as i64
+                + score.green_points as i64
+                + score.blue_points as i64
+                - score.penalties as i64;
+
+            scoreboard.push(score)
+        }
+
+        scoreboard.sort_by_key(|sb| sb.total_points);
+        scoreboard.reverse();
+
+        for (i, sb) in scoreboard.iter_mut().enumerate() {
+            sb.placement = i + 1;
+        }
+
+        GameEndResult { scoreboard }
+    }
+
     pub async fn create_or_join_game_room(
         &self,
         room_id: &Uuid,
@@ -43,16 +105,26 @@ impl GameStore {
         let mut binding = self.rooms.write().await;
         let game = match binding.entry(*room_id) {
             Entry::Occupied(entry) => entry.into_mut(),
-            Entry::Vacant(entry) => entry.insert(Game::initialize(*room_id, room_code.to_string())),
+            Entry::Vacant(entry) => {
+                entry.insert(Game::initialize(*room_id, room_code.to_string(), *user_id))
+            }
         };
 
         let board = GameBoard::default();
         game.boards.insert(*user_id, board);
     }
 
-    pub async fn update_user_board(&self, user_id: &Uuid, data: &MoveIn) -> (Cell, Vec<Cell>) {
+    pub async fn update_user_board(
+        &self,
+        user_id: &Uuid,
+        data: &MoveIn,
+    ) -> Option<(Cell, Vec<Cell>)> {
         let mut binding = self.rooms.write().await;
         let game = binding.entry(data.room).or_default();
+
+        if game.has_ended {
+            return None;
+        }
 
         let board = game
             .boards
@@ -112,12 +184,16 @@ impl GameStore {
             row.last_mut().unwrap().disabled = true;
         }
 
-        (updated_cell, row.clone())
+        Some((updated_cell, row.clone()))
     }
 
-    pub async fn update_user_penalty(&self, user_id: &Uuid, data: &PenaltyIn) -> usize {
+    pub async fn update_user_penalty(&self, user_id: &Uuid, data: &PenaltyIn) -> Option<usize> {
         let mut binding = self.rooms.write().await;
         let game = binding.entry(data.room).or_default();
+
+        if game.has_ended {
+            return None;
+        }
 
         let board = game
             .boards
@@ -130,6 +206,6 @@ impl GameStore {
             board.penalty_count += 1;
         }
 
-        board.penalty_count
+        Some(board.penalty_count)
     }
 }

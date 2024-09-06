@@ -8,6 +8,7 @@ use crate::{
 use serde::{Deserialize, Serialize};
 use socketioxide::extract::{Data, SocketRef, State};
 use tracing::info;
+use uuid::Uuid;
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct ReconnectIn {
@@ -16,6 +17,7 @@ pub struct ReconnectIn {
 
 #[derive(Debug, Serialize, Clone)]
 pub struct ReconnectOutBoard {
+    pub creator_user_id: Uuid,
     pub user: JwtTokenClaims,
     pub red_row: Vec<Cell>,
     pub red_points: usize,
@@ -66,6 +68,7 @@ pub async fn handle_reconnect(
         room_id: room.id,
         token: user.token,
         user_id: user.id,
+        room_creator_id: room.creator_user_id,
     };
 
     let _ = socket.join(room.id.to_string());
@@ -78,6 +81,7 @@ pub async fn handle_reconnect(
     let board = board.unwrap();
 
     let response = ReconnectOutBoard {
+        creator_user_id: room.creator_user_id,
         user: token_claims,
         red_points: score::get_row_score(&board.red_row),
         yellow_points: score::get_row_score(&board.yellow_row),

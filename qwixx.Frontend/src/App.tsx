@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import "./App.css"
 import { io, Socket } from "socket.io-client";
-import { Notification } from "@mantine/core";
-import { Button, TextInput, Grid } from "@mantine/core";
+import { Notification, TableData } from "@mantine/core";
+import { Button, TextInput, Grid, Table } from "@mantine/core";
 import { useField } from "@mantine/form";
 
 const PENALTY_ROW = ["X", "X", "X", "X"];
@@ -28,6 +28,7 @@ interface Room {
   room_code: string
   token: string,
   user_id: string
+  room_creator_id: string,
 }
 
 interface User {
@@ -55,6 +56,7 @@ function App() {
   const [lastMoveText, setLastMoveText] = useState<string | null>(null);
 
   const [error, setError] = useState<string | null>(null);
+  const [gameCreatorId, setGameCreatorId] = useState<string | null>(null);
 
   const username = useField({
     initialValue: "",
@@ -66,6 +68,8 @@ function App() {
   });
   const [room, setRoom] = useState<Room | null>(null);
 
+  const [hasEnded, setHasEnded] = useState<boolean>(false);
+  const [endedTableData, setEndedTableData] = useState<TableData | null>(null);
   useEffect(() => {
     if (onceRef.current) {
       return;
@@ -91,13 +95,44 @@ function App() {
           token
         })
       }
-
     });
+
+    socket.on("end_game", (msg: {
+      result: {
+        scoreboard: {
+          blue_points: number
+          green_points: number
+          penalties: number
+          placement: number
+          red_points: number
+          total_points: number
+          username: string
+          yellow_points: number
+        }[]
+      }
+    }) => {
+      setHasEnded(true);
+
+      const body = msg.result.scoreboard.map((board) => {
+        let placementText = board.placement.toString();
+        if (board.placement === 1) placementText = "🥇"
+        else if (board.placement === 2) placementText = "🥈"
+        else if (board.placement === 3) placementText = "🥉";
+
+        return [placementText, board.username, board.total_points, board.red_points, board.yellow_points, board.green_points, board.blue_points, board.penalties]
+      })
+
+
+      setEndedTableData({
+        head: ["Placement", "Username", "Points", "Red", "Yellow", "Green", "Blue", "Penalties"],
+        body
+      });
+    })
 
 
     socket.on("move", (msg: { color: string, user: User, game_row: Cell[], points: number, updated_cell: Cell }) => {
-      if (localStorage.getItem('userId') !== msg.user.id) {
-        setLastMoveText(`made by ${msg.user.username} color: ${msg.color}, number: ${msg.updated_cell.number} (total points in row ${msg.points})`)
+      if (localStorage.getItem("userId") !== msg.user.id) {
+        setLastMoveText(`Last move was made by ${msg.user.username} color: ${msg.color}, number: ${msg.updated_cell.number} (total points in row ${msg.points})`)
         return;
       }
 
@@ -118,8 +153,8 @@ function App() {
     });
 
     socket.on("penalty", (msg: { user: User, points: number }) => {
-      if (localStorage.getItem('userId') !== msg.user.id) {
-        setLastMoveText(`a penalty by ${msg.user.username} (has lost ${msg.points} points in penaltities)`)
+      if (localStorage.getItem("userId") !== msg.user.id) {
+        setLastMoveText(`Last move was a penalty by ${msg.user.username} (has lost ${msg.points} points in penaltities)`)
         return;
       }
       setPenaltyScore(msg.points);
@@ -129,21 +164,46 @@ function App() {
       setRoom(msg);
       localStorage.setItem("token", msg.token);
       localStorage.setItem("userId", msg.user_id);
+      setGameCreatorId(msg.room_creator_id);
     })
 
     socket.on("join_room", (msg: Room) => {
       setRoom(msg);
       localStorage.setItem("token", msg.token);
       localStorage.setItem("userId", msg.user_id);
+      setGameCreatorId(msg.room_creator_id);
+    })
+
+
+
+    socket.on("clear_token", () => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+
+      setGameCreatorId(null);
+      setRoom(null);
+
+      setRedRow(RED_YELLOW_ROW.map<Cell>(number => { return { number, disabled: number == 12, clicked: false } }));
+      setYellowRow(RED_YELLOW_ROW.map<Cell>(number => { return { number, disabled: number == 12, clicked: false } }));
+      setGreenRow(GREEN_BLUE_ROW.map<Cell>(number => { return { number, disabled: number == 2, clicked: false } }));
+      setBlueRow(GREEN_BLUE_ROW.map<Cell>(number => { return { number, disabled: number == 2, clicked: false } }));
+
+      setRedScore(0);
+      setYellowScore(0);
+      setGreenScore(0);
+      setBlueScore(0);
+
+      setPenaltyScore(0);
+      setLastMoveText(null);
     })
 
     socket.on("join_room_error", ({ message }: { message: string }) => {
       setError(message);
     })
 
-    socket.on("restore_board", (msg: { user: User, red_row: Cell[], red_points: number, yellow_row: Cell[], yellow_points: number, green_row: Cell[], green_points: number, blue_row: Cell[], blue_points: number, penalty_score: number }) => {
-      console.log(msg.user.id)
-      if (localStorage.getItem('userId') !== msg.user.id) {
+    socket.on("restore_board", (msg: { creator_user_id: string, user: User, red_row: Cell[], red_points: number, yellow_row: Cell[], yellow_points: number, green_row: Cell[], green_points: number, blue_row: Cell[], blue_points: number, penalty_score: number }) => {
+      setGameCreatorId(msg.creator_user_id);
+      if (localStorage.getItem("userId") !== msg.user.id) {
         setLastMoveText(`${msg.user.username} has reconnected`)
         return;
       }
@@ -192,7 +252,7 @@ function App() {
       color: colorFromValue(colorValue),
       number,
       room: room?.room_id,
-      token: localStorage.getItem('token')
+      token: localStorage.getItem("token")
     });
   };
 
@@ -202,7 +262,7 @@ function App() {
     socket?.emit("penalty", {
       room: room?.room_id,
       removed: event.currentTarget.className.includes("clicked"),
-      token: localStorage.getItem('token')
+      token: localStorage.getItem("token")
     });
   };
 
@@ -234,6 +294,41 @@ function App() {
     });
   }
 
+  const endGame = async () => {
+    socket?.emit("end_game", {
+      room: room?.room_id,
+      token: localStorage.getItem("token")
+    });
+  }
+
+  const leaveGame = async () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+
+    setHasEnded(false);
+
+    setGameCreatorId(null);
+    setRoom(null);
+
+    setRedRow(RED_YELLOW_ROW.map<Cell>(number => { return { number, disabled: number == 12, clicked: false } }));
+    setYellowRow(RED_YELLOW_ROW.map<Cell>(number => { return { number, disabled: number == 12, clicked: false } }));
+    setGreenRow(GREEN_BLUE_ROW.map<Cell>(number => { return { number, disabled: number == 2, clicked: false } }));
+    setBlueRow(GREEN_BLUE_ROW.map<Cell>(number => { return { number, disabled: number == 2, clicked: false } }));
+
+    setRedScore(0);
+    setYellowScore(0);
+    setGreenScore(0);
+    setBlueScore(0);
+
+    setPenaltyScore(0);
+    setLastMoveText(null);
+
+    socket?.emit("leave_game", {
+      room: room?.room_id,
+      token: localStorage.getItem("token")
+    });
+  }
+
 
   const getClassName = (colorValue: Color, row: Cell): string => {
     let className = `${colorFromValue(colorValue).toLowerCase()}-btn`;
@@ -253,6 +348,15 @@ function App() {
 
   if (!connected) {
     return <>Loading...</>
+  }
+
+  if (hasEnded && endedTableData) {
+    return (
+      <>
+        <Table data={endedTableData} />
+        <button onClick={leaveGame} style={{ border: "0px", margin: "10px" }}>Leave game</button>
+      </>
+    )
   }
 
   if (room === null) {
@@ -286,11 +390,11 @@ function App() {
     <>
       {lastMoveText !== null ?
         <Notification radius={"sm"} withCloseButton={false}>
-          Last move was {lastMoveText}
+          {lastMoveText}
         </Notification> :
         null}
       <h3>
-        {room.room_code}
+        Code: {room.room_code}
       </h3>
       <div>
         {redRow.map((row, i) => {
@@ -339,6 +443,10 @@ function App() {
           <span className="blue-score"> {blueScore}</span> -
           <span className="penalty-score"> {penaltyScore}</span> = {redScore + yellowScore + greenScore + blueScore - penaltyScore}</h3>
       </div>
+      {localStorage.getItem("userId") === gameCreatorId ? <button onClick={endGame} style={{ border: "0px" }}>End game</button> : null
+      }
+      <button onClick={leaveGame} style={{ border: "0px", margin: "10px" }}>Leave game</button>
+
     </>
   )
 }

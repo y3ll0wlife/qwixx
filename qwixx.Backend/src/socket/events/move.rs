@@ -41,7 +41,12 @@ pub async fn handle_move(socket: SocketRef, data: Data<MoveIn>, store: State<Gam
         socket.id, data.color, data.number
     );
 
-    let (updated_cell, row) = store.update_user_board(&token_claims.id, &data).await;
+    let board = store.update_user_board(&token_claims.id, &data).await;
+    if board.is_none() {
+        return;
+    }
+
+    let (updated_cell, row) = board.unwrap();
 
     let response = MoveOut {
         user: token_claims,

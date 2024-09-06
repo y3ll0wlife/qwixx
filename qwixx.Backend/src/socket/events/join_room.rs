@@ -17,6 +17,7 @@ pub struct JoinRoomOut {
     pub room_code: String,
     pub token: String,
     pub user_id: Uuid,
+    pub room_creator_id: Uuid,
 }
 
 #[derive(Debug, Serialize, Clone)]
@@ -50,6 +51,7 @@ pub async fn handle_join_room(
                 room_id: room.id,
                 token: user.token,
                 user_id: user.id,
+                room_creator_id: room.creator_user_id,
             };
 
             let _ = socket.join(room.id.to_string());

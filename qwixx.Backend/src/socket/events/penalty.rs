@@ -33,10 +33,13 @@ pub async fn handle_penalty(socket: SocketRef, data: Data<PenaltyIn>, store: Sta
     );
 
     let penalty_count = store.update_user_penalty(&token_claims.id, &data).await;
+    if penalty_count.is_none() {
+        return;
+    }
 
     let response = PenaltyOut {
         user: token_claims,
-        points: score::get_penalty_score(&penalty_count),
+        points: score::get_penalty_score(&penalty_count.unwrap()),
     };
 
     let _ = socket
