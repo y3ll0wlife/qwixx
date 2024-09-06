@@ -5,6 +5,7 @@ use uuid::Uuid;
 #[derive(Debug, Serialize, Clone)]
 pub struct ClearTokenOut {}
 
+#[allow(dead_code)]
 pub async fn send_clear_token(socket: &SocketRef, room_id: &Uuid) {
     let _ = socket
         .within(room_id.to_string())

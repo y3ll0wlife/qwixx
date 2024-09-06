@@ -5,7 +5,7 @@ use crate::{
         game_board::GameBoard,
         game_end_result::{GameEndResult, Scoreboard},
     },
-    qwixx::score::{self, get_penalty_score, get_row_score},
+    qwixx::score::{get_penalty_score, get_row_score},
     socket::events::{penalty::PenaltyIn, r#move::MoveIn},
 };
 use socketioxide::extract::State;
