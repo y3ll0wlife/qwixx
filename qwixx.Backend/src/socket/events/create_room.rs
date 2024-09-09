@@ -31,6 +31,10 @@ pub async fn handle_create_room(
 
     let _ = socket.leave_all();
 
+    if data.username.len() > 15 {
+        return;
+    }
+
     let room_id = Uuid::new_v4();
     info!("Socket {} created room {}", socket.id, room_id);
 
