@@ -35,7 +35,11 @@ pub async fn handle_join_room(
 
     let _ = socket.leave_all();
 
-    match store.find_room_from_code(&data.code).await {
+    if data.username.len() > 15 {
+        return;
+    }
+
+    match store.find_room_from_code(&data.code.to_uppercase()).await {
         Some(room) => {
             info!(
                 "Socket {} joined game room with code {} (room id: {})",

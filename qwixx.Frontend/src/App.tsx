@@ -41,10 +41,11 @@ function App() {
 
   const username = useField({
     initialValue: "",
-    validate: (value) => (value.trim().length < 2 ? "Username is too short" : null),
+    validate: (value) => (value.trim().length < 2 ? "Username is too short (minimum 2 characters)" : null) || (value.trim().length >= 15 ? "Username is too long (max 15 characters)" : null),
   });
   const gameCode = useField({
     initialValue: "",
+    onValueChange: (value) => gameCode.setValue(value.toUpperCase()),
     validate: (value) => (value.trim().length != 5 ? "Code is not 5 characters long" : null),
   });
   const [room, setRoom] = useState<Room | null>(null);
@@ -309,7 +310,7 @@ function App() {
         <Grid.Col span={6}>
           <h3>Or join one?</h3>
           <div>
-            <TextInput {...gameCode.getInputProps()} placeholder="Enter the game code" mb="sm" />
+            <TextInput {...gameCode.getInputProps()} placeholder="Enter the game code" mb="sm" maxLength={5} />
             <Button onClick={() => joinGame()}>Join game</Button>
           </div>
         </Grid.Col>
