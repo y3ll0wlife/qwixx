@@ -7,12 +7,12 @@ export interface EndGameResult {
 }
 
 export interface EndGameScoreboard {
-  blue_points: number;
-  green_points: number;
+  username: string;
+  bluePoints: number;
+  greenPoints: number;
   penalties: number;
   placement: number;
-  red_points: number;
-  total_points: number;
-  username: string;
-  yellow_points: number;
+  redPoints: number;
+  totalPoints: number;
+  yellowPoints: number;
 }

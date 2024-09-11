@@ -6,21 +6,17 @@ import { Button, TextInput, Grid, Table } from "@mantine/core";
 import { useField } from "@mantine/form";
 import { Cell } from "./types/Cell";
 import { Room } from "./types/Room";
-import { Move } from "./types/actions/Move";
-import { Penalty } from "./types/actions/Penalty";
-import { CreateRoom } from "./types/actions/CreateRoom";
-import { JoinRoom, JoinRoomError } from "./types/actions/JoinRoom";
-import { RestoreBoard } from "./types/actions/RestoreBoard";
-import { EndGame } from "./types/actions/EndGame";
 import { Color } from "./types/Color";
 import { colorFromValue } from "./utils/Color";
 import { getClassName } from "./utils/ClassNames";
 import { GREEN_BLUE_ROW, RED_YELLOW_ROW, PENALTY_ROW } from "./constants";
+import { ClientToServerEvents } from "./types/sentEvents/ClientToServerEvents";
+import { ServerToClientEvents } from "./types/receivedEvents/ServerToClientEvents";
 
 
 function App() {
   const onceRef = useRef(false);
-  const [socket, setSocket] = useState<Socket | null>(null);
+  const [socket, setSocket] = useState<Socket<ServerToClientEvents, ClientToServerEvents> | null>(null);
   const [connected, setConnected] = useState(false);
 
   const [redRow, setRedRow] = useState<Cell[]>(RED_YELLOW_ROW.map<Cell>(number => { return { number, disabled: number == 12, clicked: false } }));
@@ -52,13 +48,14 @@ function App() {
   const [hasEnded, setHasEnded] = useState<boolean>(false);
   const [endedTableData, setEndedTableData] = useState<TableData | null>(null);
 
+
   useEffect(() => {
     if (onceRef.current) {
       return;
     }
     onceRef.current = true;
 
-    const socket = io(import.meta.env.VITE_GATEWAY_URL);
+    const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(import.meta.env.VITE_GATEWAY_URL);
     setSocket(socket);
 
     socket.onAnyOutgoing((eventName, ...args) => {
@@ -79,7 +76,7 @@ function App() {
       }
     });
 
-    socket.on("end_game", (msg: EndGame) => {
+    socket.on("end_game", (msg) => {
       setHasEnded(true);
 
       const body = msg.result.scoreboard.map((board) => {
@@ -88,7 +85,16 @@ function App() {
         else if (board.placement === 2) placementText = "🥈"
         else if (board.placement === 3) placementText = "🥉";
 
-        return [placementText, board.username, board.total_points, board.red_points, board.yellow_points, board.green_points, board.blue_points, board.penalties]
+        return [
+          placementText,
+          board.username,
+          board.totalPoints,
+          board.redPoints,
+          board.yellowPoints,
+          board.greenPoints,
+          board.bluePoints,
+          board.penalties
+        ]
       })
 
 
@@ -99,29 +105,29 @@ function App() {
     })
 
 
-    socket.on("move", (msg: Move) => {
+    socket.on("move", (msg) => {
       if (localStorage.getItem("userId") !== msg.user.id) {
-        setLastMoveText(`Last move was made by ${msg.user.username} color: ${msg.color}, number: ${msg.updated_cell.number} (total points in row ${msg.points})`)
+        setLastMoveText(`Last move was made by ${msg.user.username} color: ${msg.color}, number: ${msg.updatedCell.number} (total points in row ${msg.points})`)
         return;
       }
 
       if (msg.color === "Red") {
-        setRedRow(msg.game_row);
+        setRedRow(msg.gameRow);
         setRedScore(msg.points);
       } else if (msg.color === "Yellow") {
-        setYellowRow(msg.game_row);
+        setYellowRow(msg.gameRow);
         setYellowScore(msg.points);
       }
       else if (msg.color === "Green") {
-        setGreenRow(msg.game_row);
+        setGreenRow(msg.gameRow);
         setGreenScore(msg.points);
       } else if (msg.color === "Blue") {
-        setBlueRow(msg.game_row);
+        setBlueRow(msg.gameRow);
         setBlueScore(msg.points);
       }
     });
 
-    socket.on("penalty", (msg: Penalty) => {
+    socket.on("penalty", (msg) => {
       if (localStorage.getItem("userId") !== msg.user.id) {
         setLastMoveText(`Last move was a penalty by ${msg.user.username} (has lost ${msg.points} points in penaltities)`)
         return;
@@ -129,18 +135,18 @@ function App() {
       setPenaltyScore(msg.points);
     });
 
-    socket.on("create_room", (msg: CreateRoom) => {
+    socket.on("create_room", (msg) => {
       setRoom(msg);
       localStorage.setItem("token", msg.token);
-      localStorage.setItem("userId", msg.user_id);
-      setGameCreatorId(msg.room_creator_id);
+      localStorage.setItem("userId", msg.userId);
+      setGameCreatorId(msg.roomCreatorId);
     })
 
-    socket.on("join_room", (msg: JoinRoom) => {
+    socket.on("join_room", (msg) => {
       setRoom(msg);
       localStorage.setItem("token", msg.token);
-      localStorage.setItem("userId", msg.user_id);
-      setGameCreatorId(msg.room_creator_id);
+      localStorage.setItem("userId", msg.userId);
+      setGameCreatorId(msg.roomCreatorId);
     })
 
     socket.on("clear_token", () => {
@@ -164,29 +170,29 @@ function App() {
       setLastMoveText(null);
     })
 
-    socket.on("join_room_error", ({ message }: JoinRoomError) => {
+    socket.on("join_room_error", ({ message }) => {
       setError(message);
     })
 
-    socket.on("restore_board", (msg: RestoreBoard) => {
-      setGameCreatorId(msg.creator_user_id);
+    socket.on("restore_board", (msg) => {
+      setGameCreatorId(msg.creatorUserId);
       if (localStorage.getItem("userId") !== msg.user.id) {
         setLastMoveText(`${msg.user.username} has reconnected`)
         return;
       }
-      setPenaltyScore(msg.penalty_score);
+      setPenaltyScore(msg.penaltyScore);
 
-      setRedRow(msg.red_row);
-      setRedScore(msg.red_points);
+      setRedRow(msg.redRow);
+      setRedScore(msg.redPoints);
 
-      setYellowRow(msg.yellow_row);
-      setYellowScore(msg.yellow_points);
+      setYellowRow(msg.yellowRow);
+      setYellowScore(msg.yellowPoints);
 
-      setGreenRow(msg.green_row);
-      setGreenScore(msg.green_points);
+      setGreenRow(msg.greenRow);
+      setGreenScore(msg.greenPoints);
 
-      setBlueRow(msg.blue_row);
-      setBlueScore(msg.blue_points);
+      setBlueRow(msg.blueRow);
+      setBlueScore(msg.bluePoints);
     })
 
   }, []);
@@ -200,8 +206,8 @@ function App() {
     socket?.emit("move", {
       color: colorFromValue(colorValue),
       number,
-      room: room?.room_id,
-      token: localStorage.getItem("token")
+      roomId: room?.roomId,
+      token: localStorage.getItem("token")!
     });
   };
 
@@ -209,7 +215,7 @@ function App() {
     setError(null);
 
     socket?.emit("penalty", {
-      room: room?.room_id,
+      roomId: room?.roomId,
       removed: event.currentTarget.className.includes("clicked"),
       token: localStorage.getItem("token")
     });
@@ -245,7 +251,7 @@ function App() {
 
   const endGame = async () => {
     socket?.emit("end_game", {
-      room: room?.room_id,
+      roomId: room?.roomId,
       token: localStorage.getItem("token")
     });
   }
@@ -273,7 +279,7 @@ function App() {
     setLastMoveText(null);
 
     socket?.emit("leave_game", {
-      room: room?.room_id,
+      roomId: room?.roomId,
       token: localStorage.getItem("token")
     });
   }
@@ -326,7 +332,7 @@ function App() {
         </Notification> :
         null}
       <h3>
-        Code: {room.room_code}
+        Code: {room.roomCode}
       </h3>
       <div>
         {redRow.map((row, i) => {

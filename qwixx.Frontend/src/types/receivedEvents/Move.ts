@@ -4,7 +4,7 @@ import { User } from "../User";
 export interface Move {
   color: string;
   user: User;
-  game_row: Cell[];
+  gameRow: Cell[];
   points: number;
-  updated_cell: Cell;
+  updatedCell: Cell;
 }

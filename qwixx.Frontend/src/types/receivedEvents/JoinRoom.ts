@@ -1,9 +1,9 @@
 export interface JoinRoom {
-  room_id: string;
-  room_code: string;
+  roomId: string;
+  roomCode: string;
   token: string;
-  user_id: string;
-  room_creator_id: string;
+  userId: string;
+  roomCreatorId: string;
 }
 
 export interface JoinRoomError {

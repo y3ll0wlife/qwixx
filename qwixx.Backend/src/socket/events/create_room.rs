@@ -14,10 +14,18 @@ pub struct CreateRoomIn {
 
 #[derive(Debug, Serialize, Clone)]
 pub struct CreateRoomOut {
+    #[serde(rename(serialize = "roomId"))]
     pub room_id: Uuid,
+
+    #[serde(rename(serialize = "roomCode"))]
     pub room_code: String,
+
     pub token: String,
+
+    #[serde(rename(serialize = "userId"))]
     pub user_id: Uuid,
+
+    #[serde(rename(serialize = "roomCreatorId"))]
     pub room_creator_id: Uuid,
 }
 

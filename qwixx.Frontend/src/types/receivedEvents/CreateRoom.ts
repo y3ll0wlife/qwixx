@@ -1,4 +1,4 @@
-export interface Room {
+export interface CreateRoom {
   roomId: string;
   roomCode: string;
   token: string;
