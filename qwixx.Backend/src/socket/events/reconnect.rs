@@ -17,16 +17,36 @@ pub struct ReconnectIn {
 
 #[derive(Debug, Serialize, Clone)]
 pub struct ReconnectOutBoard {
+    #[serde(rename(serialize = "creatorUserId"))]
     pub creator_user_id: Uuid,
+
     pub user: JwtTokenClaims,
+
+    #[serde(rename(serialize = "redRow"))]
     pub red_row: Vec<Cell>,
+
+    #[serde(rename(serialize = "redPoints"))]
     pub red_points: usize,
+
+    #[serde(rename(serialize = "yellowRow"))]
     pub yellow_row: Vec<Cell>,
+
+    #[serde(rename(serialize = "yellowPoints"))]
     pub yellow_points: usize,
+
+    #[serde(rename(serialize = "greenRow"))]
     pub green_row: Vec<Cell>,
+
+    #[serde(rename(serialize = "greenPoints"))]
     pub green_points: usize,
+
+    #[serde(rename(serialize = "blueRow"))]
     pub blue_row: Vec<Cell>,
+
+    #[serde(rename(serialize = "bluePoints"))]
     pub blue_points: usize,
+
+    #[serde(rename(serialize = "penaltyScore"))]
     pub penalty_score: usize,
 }
 

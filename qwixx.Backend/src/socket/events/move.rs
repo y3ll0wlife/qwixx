@@ -11,18 +11,28 @@ use uuid::Uuid;
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct MoveIn {
-    pub room: Uuid,
+    #[serde(rename(deserialize = "roomId"))]
+    pub room_id: Uuid,
+
     pub color: String,
+
     pub number: usize,
+
     pub token: String,
 }
 
 #[derive(Debug, Serialize, Clone)]
 pub struct MoveOut {
     pub user: JwtTokenClaims,
+
     pub color: String,
+
+    #[serde(rename(serialize = "gameRow"))]
     pub game_row: Vec<Cell>,
+
     pub points: usize,
+
+    #[serde(rename(serialize = "updatedCell"))]
     pub updated_cell: Cell,
 }
 
@@ -56,5 +66,7 @@ pub async fn handle_move(socket: SocketRef, data: Data<MoveIn>, store: State<Gam
         updated_cell,
     };
 
-    let _ = socket.within(data.room.to_string()).emit("move", response);
+    let _ = socket
+        .within(data.room_id.to_string())
+        .emit("move", response);
 }

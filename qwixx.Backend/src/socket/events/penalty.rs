@@ -6,14 +6,18 @@ use uuid::Uuid;
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct PenaltyIn {
-    pub room: Uuid,
+    #[serde(rename(deserialize = "roomId"))]
+    pub room_id: Uuid,
+
     pub removed: bool,
+
     pub token: String,
 }
 
 #[derive(Debug, Serialize, Clone)]
 pub struct PenaltyOut {
     pub user: JwtTokenClaims,
+
     pub points: usize,
 }
 
@@ -43,6 +47,6 @@ pub async fn handle_penalty(socket: SocketRef, data: Data<PenaltyIn>, store: Sta
     };
 
     let _ = socket
-        .within(data.room.to_string())
+        .within(data.room_id.to_string())
         .emit("penalty", response);
 }

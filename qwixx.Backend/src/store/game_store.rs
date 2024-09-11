@@ -120,7 +120,7 @@ impl GameStore {
         data: &MoveIn,
     ) -> Option<(Cell, Vec<Cell>)> {
         let mut binding = self.rooms.write().await;
-        let game = binding.entry(data.room).or_default();
+        let game = binding.entry(data.room_id).or_default();
 
         if game.has_ended {
             return None;
@@ -189,7 +189,7 @@ impl GameStore {
 
     pub async fn update_user_penalty(&self, user_id: &Uuid, data: &PenaltyIn) -> Option<usize> {
         let mut binding = self.rooms.write().await;
-        let game = binding.entry(data.room).or_default();
+        let game = binding.entry(data.room_id).or_default();
 
         if game.has_ended {
             return None;

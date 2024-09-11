@@ -8,15 +8,24 @@ use crate::store::{game_store::GameStore, session_store::SessionStore};
 #[derive(Debug, Deserialize, Clone)]
 pub struct JoinRoomIn {
     pub code: String,
+
     pub username: String,
 }
 
 #[derive(Debug, Serialize, Clone)]
 pub struct JoinRoomOut {
+    #[serde(rename(serialize = "roomId"))]
     pub room_id: Uuid,
+
+    #[serde(rename(serialize = "roomCode"))]
     pub room_code: String,
+
     pub token: String,
+
+    #[serde(rename(serialize = "userId"))]
     pub user_id: Uuid,
+
+    #[serde(rename(serialize = "roomCreatorId"))]
     pub room_creator_id: Uuid,
 }
 

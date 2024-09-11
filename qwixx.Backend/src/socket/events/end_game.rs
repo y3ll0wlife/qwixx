@@ -10,7 +10,9 @@ use uuid::Uuid;
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct EndGameIn {
-    pub room: Uuid,
+    #[serde(rename(deserialize = "roomId"))]
+    pub room_id: Uuid,
+
     pub token: String,
 }
 
@@ -32,7 +34,7 @@ pub async fn handle_end_game(
     }
     let token_claims = validate_token.unwrap();
 
-    let room = store.find_room_from_id(&data.room).await;
+    let room = store.find_room_from_id(&data.room_id).await;
     if room.is_none() {
         return;
     }
@@ -46,15 +48,13 @@ pub async fn handle_end_game(
         return;
     }
 
-    let results = store.end_game(&data.room, &session_store).await;
-
-    println!("{:#?}", results);
+    let results = store.end_game(&data.room_id, &session_store).await;
 
     info!("Socket {} end game {}", socket.id, room.id);
 
     let response = EndGameOut { result: results };
 
     let _ = socket
-        .within(data.room.to_string())
+        .within(data.room_id.to_string())
         .emit("end_game", response);
 }
