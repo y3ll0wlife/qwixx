@@ -5,6 +5,7 @@ import { LeaveGame } from "./LeaveGame";
 import { Move } from "./Move";
 import { Penalty } from "./Penalty";
 import { Reconnect } from "./Reconnect";
+import { Rematch } from "./Rematch";
 
 export interface ClientToServerEvents {
   reconnect: (data: Reconnect) => void;
@@ -14,4 +15,5 @@ export interface ClientToServerEvents {
   create_room: (data: CreateRoom) => void;
   end_game: (data: EndGame) => void;
   leave_game: (data: LeaveGame) => void;
+  rematch: (data: Rematch) => void;
 }

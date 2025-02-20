@@ -76,8 +76,27 @@ function App() {
       }
     });
 
+    socket.on("rematch", () => {
+      setHasEnded(false);
+
+      setRedRow(RED_YELLOW_ROW.map<Cell>(number => { return { number, disabled: number == 12, clicked: false } }));
+      setYellowRow(RED_YELLOW_ROW.map<Cell>(number => { return { number, disabled: number == 12, clicked: false } }));
+      setGreenRow(GREEN_BLUE_ROW.map<Cell>(number => { return { number, disabled: number == 2, clicked: false } }));
+      setBlueRow(GREEN_BLUE_ROW.map<Cell>(number => { return { number, disabled: number == 2, clicked: false } }));
+
+      setRedScore(0);
+      setYellowScore(0);
+      setGreenScore(0);
+      setBlueScore(0);
+
+      setPenaltyScore(0);
+    })
+
     socket.on("end_game", (msg) => {
       setHasEnded(true);
+
+      notifications.cleanQueue()
+      notifications.clean()
 
       const body = msg.result.scoreboard.map((board) => {
         let placementText = board.placement.toString();
@@ -267,6 +286,13 @@ function App() {
     });
   }
 
+  const rematch = async () => {
+    socket?.emit("rematch", {
+      roomId: room?.roomId,
+      token: localStorage.getItem("token")
+    });
+  }
+
   const leaveGame = async () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
@@ -302,6 +328,7 @@ function App() {
     return (
       <>
         <Table data={endedTableData} mb={"xl"} />
+        {localStorage.getItem("userId") === gameCreatorId ? <button onClick={rematch} style={{ border: "0px", margin: "10px" }}>Rematch</button> : null}
         <button onClick={leaveGame} style={{ border: "0px", margin: "10px" }}>Leave game</button>
       </>
     )
