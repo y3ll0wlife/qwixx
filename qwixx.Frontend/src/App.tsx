@@ -6,12 +6,13 @@ import { Button, TextInput, Grid, Table } from "@mantine/core";
 import { useField } from "@mantine/form";
 import { Cell } from "./types/Cell";
 import { Room } from "./types/Room";
-import { Color } from "./types/Color";
 import { colorFromValue } from "./utils/Color";
 import { getClassName } from "./utils/ClassNames";
 import { GREEN_BLUE_ROW, RED_YELLOW_ROW, PENALTY_ROW } from "./constants";
 import { ClientToServerEvents } from "./types/sentEvents/ClientToServerEvents";
 import { ServerToClientEvents } from "./types/receivedEvents/ServerToClientEvents";
+import { Notifications, notifications } from "@mantine/notifications";
+import { Color } from "./types/Color";
 
 
 function App() {
@@ -30,7 +31,6 @@ function App() {
   const [blueScore, setBlueScore] = useState<number>(0);
 
   const [penaltyScore, setPenaltyScore] = useState<number>(0);
-  const [lastMoveText, setLastMoveText] = useState<string | null>(null);
 
   const [error, setError] = useState<string | null>(null);
   const [gameCreatorId, setGameCreatorId] = useState<string | null>(null);
@@ -106,8 +106,13 @@ function App() {
 
 
     socket.on("move", (msg) => {
-      if (localStorage.getItem("userId") !== msg.user.id) {
-        setLastMoveText(`Last move was made by ${msg.user.username} color: ${msg.color}, number: ${msg.updatedCell.number} (total points in row ${msg.points})`)
+      if (localStorage.getItem("userId") !== msg.user.id && msg.updatedCell.clicked) {
+        notifications.show({
+          title: msg.user.username,
+          message: `🔥 Picked number ${msg.updatedCell.number} and now has ${msg.points} points in that row`,
+          color: msg.color.toLowerCase(),
+          autoClose: 1500,
+        });
         return;
       }
 
@@ -129,7 +134,12 @@ function App() {
 
     socket.on("penalty", (msg) => {
       if (localStorage.getItem("userId") !== msg.user.id) {
-        setLastMoveText(`Last move was a penalty by ${msg.user.username} (has lost ${msg.points} points in penaltities)`)
+        notifications.show({
+          title: msg.user.username,
+          message: `⚠️ Took a penalty ${msg.points / 5}/4`,
+          color: "violet",
+          autoClose: 1500,
+        });
         return;
       }
       setPenaltyScore(msg.points);
@@ -167,7 +177,6 @@ function App() {
       setBlueScore(0);
 
       setPenaltyScore(0);
-      setLastMoveText(null);
     })
 
     socket.on("join_room_error", ({ message }) => {
@@ -177,7 +186,12 @@ function App() {
     socket.on("restore_board", (msg) => {
       setGameCreatorId(msg.creatorUserId);
       if (localStorage.getItem("userId") !== msg.user.id) {
-        setLastMoveText(`${msg.user.username} has reconnected`)
+        notifications.show({
+          title: msg.user.username,
+          message: `🎉 Has reconnected`,
+          color: "violet",
+          autoClose: 1500,
+        });
         return;
       }
       setPenaltyScore(msg.penaltyScore);
@@ -196,9 +210,6 @@ function App() {
     })
 
   }, []);
-
-
-
 
   const sendMove = (colorValue: Color, number: number) => {
     setError(null);
@@ -276,7 +287,6 @@ function App() {
     setBlueScore(0);
 
     setPenaltyScore(0);
-    setLastMoveText(null);
 
     socket?.emit("leave_game", {
       roomId: room?.roomId,
@@ -300,7 +310,7 @@ function App() {
   if (room === null) {
     return <>
       {error !== null ?
-        <Notification radius={"sm"} withCloseButton={false}>
+        <Notification radius={"sm"} withCloseButton={true}>
           {error}
         </Notification> :
         null}
@@ -326,11 +336,7 @@ function App() {
 
   return (
     <>
-      {lastMoveText !== null ?
-        <Notification radius={"sm"} withCloseButton={false}>
-          {lastMoveText}
-        </Notification> :
-        null}
+      <Notifications position="top-center" limit={1} />
       <h3>
         Code: {room.roomCode}
       </h3>
