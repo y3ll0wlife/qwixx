@@ -19,7 +19,8 @@ export function Qwixx() {
         sendMove,
         sendPenalty,
         endGame,
-        rematch
+        rematch,
+        winner
     } = useGameSocket();
 
     if (!connected) {
@@ -32,7 +33,9 @@ export function Qwixx() {
                 tableData={endedTableData}
                 onRematch={rematch}
                 onLeave={leaveGame}
+                isWinner={localStorage.getItem("username") === winner?.username}
                 isCreator={localStorage.getItem("userId") === gameCreatorId}
+
             />
         );
     }

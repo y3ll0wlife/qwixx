@@ -13,6 +13,7 @@ import QwixxSelect from "../assets/QwixxSelect.wav"
 import QwixxPenalty from "../assets/QwixxPenalty.wav"
 import QwixxLock from "../assets/QwixxLock.wav"
 import QwixxVictory from "../assets/QwixxVictory.wav"
+import { EndGameScoreboard } from '../types/receivedEvents/EndGame';
 
 interface UseGameSocket {
     connected: boolean;
@@ -22,6 +23,7 @@ interface UseGameSocket {
     hasEnded: boolean;
     endedTableData: TableData | null;
     gameState: GameState;
+    winner: EndGameScoreboard | undefined;
     createGame: (username: string) => void;
     joinGame: (username: string, code: string) => void;
     leaveGame: () => void;
@@ -42,6 +44,7 @@ export const useGameSocket = (): UseGameSocket => {
     const [hasEnded, setHasEnded] = useState(false);
     const [endedTableData, setEndedTableData] = useState<TableData | null>(null);
     const [gameState, setGameState] = useState<GameState>(INITIAL_GAME_STATE);
+    const [winner, setWinner] = useState<EndGameScoreboard | undefined>(undefined);
 
     const soundEffects = {
         select: new Audio(QwixxSelect),
@@ -75,6 +78,7 @@ export const useGameSocket = (): UseGameSocket => {
 
         socket.on("rematch", () => {
             setHasEnded(false);
+            setWinner(undefined)
             setGameState(INITIAL_GAME_STATE);
         });
 
@@ -87,6 +91,7 @@ export const useGameSocket = (): UseGameSocket => {
             if (localStorage.getItem("username") === winner?.username) {
                 soundEffects.victory.play();
             }
+            setWinner(winner)
 
             const body = msg.result.scoreboard.map((board) => {
                 let placementText = board.placement.toString();
@@ -277,6 +282,7 @@ export const useGameSocket = (): UseGameSocket => {
         sendMove,
         sendPenalty,
         endGame,
-        rematch
+        rematch,
+        winner
     };
 };
