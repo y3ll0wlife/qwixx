@@ -88,6 +88,7 @@ pub async fn handle_reconnect(
         room_id: room.id,
         token: user.token,
         user_id: user.id,
+        username: user.username,
         room_creator_id: room.creator_user_id,
     };
 

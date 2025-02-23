@@ -3,6 +3,7 @@ export interface JoinRoom {
   roomCode: string;
   token: string;
   userId: string;
+  username: string;
   roomCreatorId: string;
 }
 

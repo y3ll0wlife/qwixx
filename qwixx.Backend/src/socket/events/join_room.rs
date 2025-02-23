@@ -25,6 +25,8 @@ pub struct JoinRoomOut {
     #[serde(rename(serialize = "userId"))]
     pub user_id: Uuid,
 
+    pub username: String,
+
     #[serde(rename(serialize = "roomCreatorId"))]
     pub room_creator_id: Uuid,
 }
@@ -64,6 +66,7 @@ pub async fn handle_join_room(
                 room_id: room.id,
                 token: user.token,
                 user_id: user.id,
+                username: user.username,
                 room_creator_id: room.creator_user_id,
             };
 

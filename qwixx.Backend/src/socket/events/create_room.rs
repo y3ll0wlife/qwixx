@@ -25,6 +25,8 @@ pub struct CreateRoomOut {
     #[serde(rename(serialize = "userId"))]
     pub user_id: Uuid,
 
+    pub username: String,
+
     #[serde(rename(serialize = "roomCreatorId"))]
     pub room_creator_id: Uuid,
 }
@@ -55,6 +57,7 @@ pub async fn handle_create_room(
         room_code: code_generation::generate_game_code(),
         token: user.token,
         user_id: user.id,
+        username: user.username,
         room_creator_id: user.id,
     };
 

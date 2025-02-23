@@ -13,13 +13,15 @@ use tokio::main;
 use tower::ServiceBuilder;
 use tower_http::cors::CorsLayer;
 use tracing::info;
-use tracing_subscriber::FmtSubscriber;
 
 #[main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenv().ok();
 
-    tracing::subscriber::set_global_default(FmtSubscriber::default())?;
+    tracing_subscriber::fmt()
+        .with_max_level(tracing::Level::DEBUG)
+        .with_target(false)
+        .init();
 
     let (layer, io) = SocketIo::builder()
         .with_state(SessionStore::default())

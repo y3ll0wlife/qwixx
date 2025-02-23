@@ -9,7 +9,10 @@ import { Color } from '../types/Color';
 import { AUTOCLOSE_NOTIFICATION, INITIAL_GAME_STATE } from '../constants';
 import { colorFromValue } from '../utils/Color';
 import { GameState } from '../types/GameState';
-
+import QwixxSelect from "../assets/QwixxSelect.wav"
+import QwixxPenalty from "../assets/QwixxPenalty.wav"
+import QwixxLock from "../assets/QwixxLock.wav"
+import QwixxVictory from "../assets/QwixxVictory.wav"
 
 interface UseGameSocket {
     connected: boolean;
@@ -41,7 +44,10 @@ export const useGameSocket = (): UseGameSocket => {
     const [gameState, setGameState] = useState<GameState>(INITIAL_GAME_STATE);
 
     const soundEffects = {
-        select: new Audio("./assets/QwixxSelect.wav")
+        select: new Audio(QwixxSelect),
+        penalty: new Audio(QwixxPenalty),
+        lock: new Audio(QwixxLock),
+        victory: new Audio(QwixxVictory)
     }
 
     useEffect(() => {
@@ -77,11 +83,17 @@ export const useGameSocket = (): UseGameSocket => {
             notifications.cleanQueue();
             notifications.clean();
 
+            const winner = msg.result.scoreboard.find(board => board.placement === 1);
+            if (localStorage.getItem("username") === winner?.username) {
+                soundEffects.victory.play();
+            }
+
             const body = msg.result.scoreboard.map((board) => {
                 let placementText = board.placement.toString();
                 if (board.placement === 1) placementText = "🥇";
                 else if (board.placement === 2) placementText = "🥈";
                 else if (board.placement === 3) placementText = "🥉";
+                else if (board.placement === msg.result.scoreboard.length) placementText = "💩";
 
                 return [
                     placementText,
@@ -110,9 +122,10 @@ export const useGameSocket = (): UseGameSocket => {
                         color: msg.color.toLowerCase(),
                         autoClose: AUTOCLOSE_NOTIFICATION,
                     });
-                    soundEffects.select.play();
                 }
                 return;
+            } else {
+                soundEffects.select.play();
             }
 
             setGameState(prev => ({
@@ -131,7 +144,10 @@ export const useGameSocket = (): UseGameSocket => {
                     autoClose: AUTOCLOSE_NOTIFICATION,
                 });
                 return;
+            } else {
+                soundEffects.penalty.play();
             }
+
             setGameState(prev => ({ ...prev, penaltyScore: msg.points }));
         });
 
@@ -139,6 +155,7 @@ export const useGameSocket = (): UseGameSocket => {
             setRoom(msg);
             localStorage.setItem("token", msg.token);
             localStorage.setItem("userId", msg.userId);
+            localStorage.setItem("username", msg.username);
             setGameCreatorId(msg.roomCreatorId);
         });
 
@@ -146,12 +163,14 @@ export const useGameSocket = (): UseGameSocket => {
             setRoom(msg);
             localStorage.setItem("token", msg.token);
             localStorage.setItem("userId", msg.userId);
+            localStorage.setItem("username", msg.username);
             setGameCreatorId(msg.roomCreatorId);
         });
 
         socket.on("clear_token", () => {
             localStorage.removeItem("token");
             localStorage.removeItem("userId");
+            localStorage.removeItem("username");
             setGameCreatorId(null);
             setRoom(null);
             setGameState(INITIAL_GAME_STATE);

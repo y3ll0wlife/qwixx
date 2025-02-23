@@ -3,5 +3,6 @@ export interface CreateRoom {
   roomCode: string;
   token: string;
   userId: string;
+  username: string;
   roomCreatorId: string;
 }
