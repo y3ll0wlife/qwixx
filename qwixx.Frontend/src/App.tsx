@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import "./App.css"
 import { io, Socket } from "socket.io-client";
-import { Notification, TableData } from "@mantine/core";
+import { Checkbox, Notification, TableData } from "@mantine/core";
 import { Button, TextInput, Grid, Table } from "@mantine/core";
 import { useField } from "@mantine/form";
 import { Cell } from "./types/Cell";
@@ -48,6 +48,10 @@ function App() {
   const [room, setRoom] = useState<Room | null>(null);
   const [hasEnded, setHasEnded] = useState<boolean>(false);
   const [endedTableData, setEndedTableData] = useState<TableData | null>(null);
+  const [redDisabled, setRedDisabled] = useState(false);
+  const [yellowDisabled, setYellowDisabled] = useState(false);
+  const [greenDisabled, setGreenDisabled] = useState(false);
+  const [blueDisabled, setBlueDisabled] = useState(false);
 
 
   useEffect(() => {
@@ -104,6 +108,7 @@ function App() {
         if (board.placement === 1) placementText = "🥇"
         else if (board.placement === 2) placementText = "🥈"
         else if (board.placement === 3) placementText = "🥉";
+        else if (board.placement === msg.result.scoreboard.length) placementText = "💩";
 
         return [
           placementText,
@@ -323,6 +328,19 @@ function App() {
     });
   }
 
+  const isGameCreator = () => {
+    return localStorage.getItem("userId") === gameCreatorId;
+  }
+
+  const disableRow = (color: Color) => {
+    console.log(color)
+    switch (color) {
+      case Color.RED:
+
+        break
+    }
+  }
+
   if (!connected) {
     return <>Loading...</>
   }
@@ -331,7 +349,7 @@ function App() {
     return (
       <>
         <Table data={endedTableData} mb={"xl"} />
-        {localStorage.getItem("userId") === gameCreatorId ? <button onClick={rematch} style={{ border: "0px", margin: "10px" }}>Rematch</button> : null}
+        {isGameCreator() ? <button onClick={rematch} style={{ border: "0px", margin: "10px" }}>Rematch</button> : null}
         <button onClick={leaveGame} style={{ border: "0px", margin: "10px" }}>Leave game</button>
       </>
     )
@@ -376,6 +394,7 @@ function App() {
           const className = getClassName(Color.RED, row);
           return (<button disabled={className.includes("disable")} className={className} onClick={() => sendMove(Color.RED, row.number)} key={i}>{showText}</button>)
         })}
+        {isGameCreator() ? <button onClick={() => disableRow(Color.RED)} className="disableRow">Disable</button> : null}
       </div >
       <br />
       <div>
@@ -384,6 +403,7 @@ function App() {
           const className = getClassName(Color.YELLOW, row);
           return (<button disabled={className.includes("disable")} className={className} onClick={() => sendMove(Color.YELLOW, row.number)} key={i}>{showText}</button>)
         })}
+        {isGameCreator() ? <button onClick={() => disableRow(Color.YELLOW)} className="disableRow">Disable</button> : null}
       </div>
       <br />
       <div>
@@ -392,6 +412,8 @@ function App() {
           const className = getClassName(Color.GREEN, row);
           return (<button disabled={className.includes("disable")} className={className} onClick={() => sendMove(Color.GREEN, row.number)} key={i}>{showText}</button>)
         })}
+        {isGameCreator() ? <button onClick={() => disableRow(Color.GREEN)} className="disableRow">Disable</button> : null}
+
       </div>
       <br />
       <div>
@@ -400,7 +422,8 @@ function App() {
           const className = getClassName(Color.BLUE, row);
           return (<button disabled={className.includes("disable")} className={className} onClick={() => sendMove(Color.BLUE, row.number)} key={i}>{showText}</button>)
         })}
-      </div>
+        {isGameCreator() ? <button onClick={() => disableRow(Color.BLUE)} className="disableRow">Disable</button> : null}
+      </div >
       <br />
       <div>
         {PENALTY_ROW.map((penalty, i) => {
@@ -417,7 +440,7 @@ function App() {
           <span className="blue-score"> {blueScore}</span> -
           <span className="penalty-score"> {penaltyScore}</span> = {redScore + yellowScore + greenScore + blueScore - penaltyScore}</h3>
       </div>
-      {localStorage.getItem("userId") === gameCreatorId ? <button onClick={endGame} style={{ border: "0px" }}>End game</button> : null}
+      {isGameCreator() ? <button onClick={endGame} style={{ border: "0px" }}>End game</button> : null}
       <button onClick={leaveGame} style={{ border: "0px", margin: "10px" }}>Leave game</button>
 
     </>

@@ -10,7 +10,6 @@ import { createTheme, MantineProvider } from '@mantine/core';
 
 const theme = createTheme({
   fontFamily: "Inter, system-ui, Avenir, Helvetica, Arial, sans-serif",
-
 });
 
 createRoot(document.getElementById('root')!).render(

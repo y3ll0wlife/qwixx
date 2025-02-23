@@ -1,4 +1,5 @@
 pub mod create_room;
+pub mod disable_row;
 pub mod end_game;
 pub mod error;
 pub mod join_room;

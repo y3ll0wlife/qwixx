@@ -135,3 +135,9 @@ button:hover {
 .penalty-score {
   color: #ff000d;
 }
+
+.disableRow {
+  margin-left: 10px;
+  background-color: grey;
+  color: black;
+}
