@@ -6,7 +6,7 @@ use crate::{
 };
 use serde::{Deserialize, Serialize};
 use socketioxide::extract::{Data, SocketRef, State};
-use tracing::info;
+use tracing::debug;
 use uuid::Uuid;
 
 #[derive(Debug, Deserialize, Clone)]
@@ -46,7 +46,7 @@ pub async fn handle_move(socket: SocketRef, data: Data<MoveIn>, store: State<Gam
 
     let token_claims = validate_token.unwrap();
 
-    info!(
+    debug!(
         "Socket {} sent move: {} {}",
         socket.id, data.color, data.number
     );

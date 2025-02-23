@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use socketioxide::extract::{Data, SocketRef, State};
-use tracing::info;
+use tracing::debug;
 use uuid::Uuid;
 
 use crate::store::{game_store::GameStore, session_store::SessionStore};
@@ -50,7 +50,7 @@ pub async fn handle_join_room(
 
     match store.find_room_from_code(&data.code.to_uppercase()).await {
         Some(room) => {
-            info!(
+            debug!(
                 "Socket {} joined game room with code {} (room id: {})",
                 socket.id, data.code, room.id
             );
@@ -76,7 +76,7 @@ pub async fn handle_join_room(
             let _ = socket.emit("join_room", response);
         }
         None => {
-            info!(
+            debug!(
                 "Socket {} tried to join game room with code {} (invalid)",
                 socket.id, data.code
             );

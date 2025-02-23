@@ -43,6 +43,28 @@ impl GameStore {
         binding.get(id).cloned()
     }
 
+    pub async fn rematch(&self, room_id: &Uuid) -> Vec<Uuid> {
+        let mut binding = self.rooms.write().await;
+
+        let game = binding
+            .iter_mut()
+            .find(|(_id, room)| &room.id == room_id)
+            .map(|(_id, game)| game)
+            .expect("Failed to find game");
+
+        game.has_ended = false;
+
+        let user_ids = game.boards.clone().into_keys().collect::<Vec<Uuid>>();
+        game.boards.clear();
+
+        for id in &user_ids {
+            let board = GameBoard::default();
+            game.boards.insert(*id, board);
+        }
+
+        user_ids
+    }
+
     pub async fn end_game(
         &self,
         room_id: &Uuid,

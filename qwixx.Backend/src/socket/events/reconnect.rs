@@ -7,7 +7,7 @@ use crate::{
 };
 use serde::{Deserialize, Serialize};
 use socketioxide::extract::{Data, SocketRef, State};
-use tracing::info;
+use tracing::debug;
 use uuid::Uuid;
 
 #[derive(Debug, Deserialize, Clone)]
@@ -65,7 +65,7 @@ pub async fn handle_reconnect(
 
     let token_claims = validate_token.unwrap();
 
-    info!("Socket {} sent reconnect", socket.id);
+    debug!("Socket {} sent reconnect", socket.id);
 
     let user = session_store.get(&token_claims.id).await;
     if user.is_none() {

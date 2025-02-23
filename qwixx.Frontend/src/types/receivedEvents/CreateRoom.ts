@@ -5,4 +5,3 @@ export interface CreateRoom {
   userId: string;
   roomCreatorId: string;
 }
-//

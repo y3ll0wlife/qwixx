@@ -1,13 +1,14 @@
 use socketioxide::extract::SocketRef;
-use tracing::info;
+use tracing::debug;
 
 use crate::socket::events::{
     create_room::handle_create_room, end_game::handle_end_game, join_room::handle_join_room,
     penalty::handle_penalty, r#move::handle_move, reconnect::handle_reconnect,
+    rematch::handle_rematch,
 };
 
 pub async fn on_connect(socket: SocketRef) {
-    info!("Socket connected {}", socket.id);
+    debug!("Socket connected {}", socket.id);
 
     socket.on("join_room", handle_join_room);
 
@@ -20,4 +21,6 @@ pub async fn on_connect(socket: SocketRef) {
     socket.on("reconnect", handle_reconnect);
 
     socket.on("end_game", handle_end_game);
+
+    socket.on("rematch", handle_rematch);
 }

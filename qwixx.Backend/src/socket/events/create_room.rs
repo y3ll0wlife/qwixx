@@ -4,7 +4,7 @@ use crate::{
 };
 use serde::{Deserialize, Serialize};
 use socketioxide::extract::{Data, SocketRef, State};
-use tracing::info;
+use tracing::debug;
 use uuid::Uuid;
 
 #[derive(Debug, Deserialize, Clone)]
@@ -44,7 +44,7 @@ pub async fn handle_create_room(
     }
 
     let room_id = Uuid::new_v4();
-    info!("Socket {} created room {}", socket.id, room_id);
+    debug!("Socket {} created room {}", socket.id, room_id);
 
     let user = session_store
         .insert(&data.username, &socket.id, &room_id)

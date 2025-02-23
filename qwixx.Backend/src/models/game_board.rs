@@ -1,6 +1,6 @@
 use super::cell::Cell;
 use serde::Serialize;
-//
+
 #[derive(Serialize, Clone, Debug)]
 pub struct GameBoard {
     pub red_row: Vec<Cell>,

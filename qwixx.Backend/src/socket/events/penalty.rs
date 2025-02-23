@@ -1,7 +1,7 @@
 use crate::{models::jwt::JwtTokenClaims, qwixx::score, store::game_store::GameStore, utils::jwt};
 use serde::{Deserialize, Serialize};
 use socketioxide::extract::{Data, SocketRef, State};
-use tracing::info;
+use tracing::debug;
 use uuid::Uuid;
 
 #[derive(Debug, Deserialize, Clone)]
@@ -31,7 +31,7 @@ pub async fn handle_penalty(socket: SocketRef, data: Data<PenaltyIn>, store: Sta
 
     let token_claims = validate_token.unwrap();
 
-    info!(
+    debug!(
         "Socket {} sent penalty: removed {}",
         socket.id, data.removed
     );

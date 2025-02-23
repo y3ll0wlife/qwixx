@@ -15,4 +15,5 @@ export interface ServerToClientEvents {
   clear_token: () => void;
   join_room_error: (msg: JoinRoomError) => void;
   restore_board: (msg: RestoreBoard) => void;
+  rematch: () => void;
 }

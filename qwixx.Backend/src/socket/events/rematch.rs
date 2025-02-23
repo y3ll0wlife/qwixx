@@ -1,15 +1,11 @@
-use crate::{
-    models::game_end_result::GameEndResult,
-    store::{game_store::GameStore, session_store::SessionStore},
-    utils::jwt,
-};
+use crate::{store::game_store::GameStore, utils::jwt};
 use serde::{Deserialize, Serialize};
 use socketioxide::extract::{Data, SocketRef, State};
 use tracing::debug;
 use uuid::Uuid;
 
 #[derive(Debug, Deserialize, Clone)]
-pub struct EndGameIn {
+pub struct RemathIn {
     #[serde(rename(deserialize = "roomId"))]
     pub room_id: Uuid,
 
@@ -17,16 +13,9 @@ pub struct EndGameIn {
 }
 
 #[derive(Debug, Serialize, Clone)]
-pub struct EndGameOut {
-    pub result: GameEndResult,
-}
+pub struct RematchOut {}
 
-pub async fn handle_end_game(
-    socket: SocketRef,
-    data: Data<EndGameIn>,
-    store: State<GameStore>,
-    session_store: State<SessionStore>,
-) {
+pub async fn handle_rematch(socket: SocketRef, data: Data<RemathIn>, store: State<GameStore>) {
     let data = data.0;
     let validate_token = jwt::validate_token(&data.token);
     if validate_token.is_none() {
@@ -44,17 +33,22 @@ pub async fn handle_end_game(
         return;
     }
 
-    if room.has_ended {
+    if !room.has_ended {
         return;
     }
 
-    let results = store.end_game(&data.room_id, &session_store).await;
+    let users = store.rematch(&data.room_id).await;
 
-    debug!("Socket {} end game {}", socket.id, room.id);
+    debug!(
+        "Socket {} called for rematch in {} with {} users",
+        socket.id,
+        room.id,
+        users.len()
+    );
 
-    let response = EndGameOut { result: results };
+    let response = RematchOut {};
 
     let _ = socket
         .within(data.room_id.to_string())
-        .emit("end_game", response);
+        .emit("rematch", response);
 }
