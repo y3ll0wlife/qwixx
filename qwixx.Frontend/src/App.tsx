@@ -1,4 +1,3 @@
-import "./App.css"
 import { Qwixx } from './components/Qwixx';
 
 function App() {

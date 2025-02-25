@@ -58,7 +58,7 @@ button:hover {
 .green-btn-disable,
 .green-btn-clicked-disable {
   color: black;
-  margin-right: 2px;
+  margin: 2.5px;
 }
 
 .red-btn {
